@@ -11,8 +11,4 @@ class Category extends Model
 
     protected $primaryKey = 'c_id';
 
-    public function category(){
-        
-        return $this->belongsTo('App\Models\Users');
-    }
 }

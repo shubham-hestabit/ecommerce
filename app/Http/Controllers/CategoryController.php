@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Category;
+use Illuminate\Http\Request;
+
+// use App\Models\SubCategory;
 
 class CategoryController extends Controller
 {
-
+    /**
+     * @method for viewing all categories.
+     */
     public function index()
     {
         $cat = Category::all();
+
         return response()->json($cat);
     }
 
+    /**
+     * @method for insert new categories.
+     */
     public function insert(Request $request)
     {
         $request->validate([
@@ -22,30 +29,33 @@ class CategoryController extends Controller
         ]);
 
         $cat = new Category();
-
         $cat->c_name = $request->c_name;
         $cat->save();
 
         return response()->json($cat);
     }
 
+    /**
+     * @method for read a category.
+     */
     public function read($id)
     {
         $cat = Category::find($id);
-    
-        try{
-            if(is_null($cat)){
+
+        try {
+            if (is_null($cat)) {
                 throw new \Exception("Category not found.");
+            } else {
+                return response()->json($cat);
             }
-            else{
-                return Response()->json($cat);
-            }
-        }
-        catch(\Exception $e){
+        } catch (\Exception$e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }
 
+    /**
+     * @method for update a category.
+     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -54,25 +64,28 @@ class CategoryController extends Controller
 
         $cat = Category::find($id);
 
-        try{
-            if(is_null($cat)){
+        try {
+            if (is_null($cat)) {
                 throw new \Exception("Category not found for Updation.");
-            }
-            else{
+            } else {
                 $cat->c_name = $request->c_name;
                 $cat->save();
             }
+
             return response()->json($cat);
-        }
-        catch(\Exception $e){  
+        } catch (\Exception$e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }
 
+    /**
+     * @method for delete a category.
+     */
     public function delete($id)
     {
         $cat = Category::find($id);
         $cat->delete();
-        return json_encode(['message' => 'Item deleted successfully.']);    
+
+        return response()->json(['message' => 'Item deleted successfully.']);
     }
 }

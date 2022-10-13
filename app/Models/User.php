@@ -45,19 +45,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    public function category(){
+    // public function category(){
 
-        return $this->hasOne('App\Models\Category');
-    }
+    //     return $this->hasOne('App\Models\Category');
+    // }
 
-    public function subCategory(){
+    // public function subCategory(){
 
-        return $this->hasOneThrough('App\Models\SubCategory', 'App\Models\Category', 'u_id', 'c_id', 'sc_id', 'c_id');
-    }
+    //     return $this->hasOneThrough('App\Models\SubCategory', 'App\Models\Category', 'u_id', 'c_id', 'sc_id', 'c_id');
+    // }
 
-    public function product(){
+    // public function product(){
 
-        return $this->hasManyThrough('App\Models\Product', 'App\Models\SubCategory', 'c_id', 'sc_id', 'p_id', 'sc_id');
-    }
+    //     return $this->hasOneThrough('App\Models\Product', 'App\Models\SubCategory', 'c_id', 'sc_id', 'p_id', 'sc_id');
+    // }
 
 }
