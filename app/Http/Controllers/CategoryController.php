@@ -11,7 +11,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $cat = User::all();
+        $cat = Category::all();
         return response()->json($cat);
     }
 
@@ -35,7 +35,7 @@ class CategoryController extends Controller
     
         try{
             if(is_null($cat)){
-                throw new \Exception("User data not found.");
+                throw new \Exception("Category not found.");
             }
             else{
                 return Response()->json($cat);
@@ -56,7 +56,7 @@ class CategoryController extends Controller
 
         try{
             if(is_null($cat)){
-                throw new \Exception("User data not found for Updation.");
+                throw new \Exception("Category not found for Updation.");
             }
             else{
                 $cat->c_name = $request->c_name;
