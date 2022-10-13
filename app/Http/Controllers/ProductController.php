@@ -7,17 +7,24 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    /**
+     * @method for viewing all Sub categories.
+     */
     public function index()
     {
         $product = Product::all();
         return response()->json($product);
     }
 
+    /**
+     * @method for insert new product.
+     */
     public function insert(Request $request)
     {
         $request->validate([
-            'p_name' => 'required|alpha_num',
+            'p_name' => 'required|regex:/^[a-zA-ZÑñ\s]+$/',
             'p_price' => 'required|numeric',
+            'p_details' => 'required|regex:/^[a-zA-ZÑñ\s]+$/',
             'sc_id' => 'required|numeric',
         ]);
 
@@ -31,6 +38,9 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
+    /**
+     * @method for view a product.
+     */
     public function read($id)
     {
         $product = Product::find($id);
@@ -41,15 +51,19 @@ class ProductController extends Controller
             } else {
                 return Response()->json($product);
             }
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }
 
+    /**
+     * @method for update a product.
+     */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'p_name' => 'alpha_num',
+            'p_name' => 'regex:/^[a-zA-ZÑñ\s]+$/',
+            'p_details' => 'regex:/^[a-zA-ZÑñ\s]+$/',
             'p_price' => 'numeric',
             'sc_id' => 'numeric',
         ]);
@@ -67,11 +81,14 @@ class ProductController extends Controller
                 $product->save();
             }
             return response()->json($product);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }
 
+    /**
+     * @method for delete a product.
+     */
     public function delete($id)
     {
         $product = Product::find($id);
@@ -83,7 +100,7 @@ class ProductController extends Controller
                 $product->delete();
             }
             return response()->json(['message' => 'Product deleted successfully.']);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }

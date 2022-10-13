@@ -36,7 +36,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * @method for read a category.
+     * @method for view a category.
      */
     public function read($id)
     {
@@ -48,7 +48,7 @@ class CategoryController extends Controller
             } else {
                 return response()->json($cat);
             }
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }
@@ -73,7 +73,7 @@ class CategoryController extends Controller
             }
 
             return response()->json($cat);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }
@@ -92,7 +92,7 @@ class CategoryController extends Controller
                 $cat->delete();
             }
             return response()->json(['message' => 'Category deleted successfully.']);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }

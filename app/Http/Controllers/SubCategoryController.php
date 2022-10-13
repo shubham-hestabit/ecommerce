@@ -7,12 +7,18 @@ use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
 {
+    /**
+     * @method for viewing all Sub categories.
+     */
     public function index()
     {
         $sub_cat = SubCategory::all();
         return response()->json($sub_cat);
     }
 
+    /**
+     * @method for insert new sub categories.
+     */
     public function insert(Request $request)
     {
 
@@ -29,6 +35,9 @@ class SubCategoryController extends Controller
         return response()->json($sub_cat);
     }
 
+    /**
+     * @method for view a sub category.
+     */
     public function read($id)
     {
         $sub_cat = SubCategory::find($id);
@@ -39,11 +48,14 @@ class SubCategoryController extends Controller
             } else {
                 return Response()->json($sub_cat);
             }
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }
-
+    
+    /**
+     * @method for update a sub category.
+     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -62,11 +74,14 @@ class SubCategoryController extends Controller
                 $sub_cat->save();
             }
             return response()->json($sub_cat);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }
 
+    /**
+     * @method for delete a sub category.
+     */
     public function delete($id)
     {
         $sub_cat = SubCategory::find($id);
@@ -78,7 +93,7 @@ class SubCategoryController extends Controller
                 $sub_cat->delete();
             }
             return response()->json(['message' => 'Sub Category deleted successfully.']);
-        } catch (\Exception$e) {
+        } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }

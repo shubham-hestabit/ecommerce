@@ -9,8 +9,14 @@ class Category extends Model
 {
     use HasFactory;
 
+    /**
+     * define primary key of the category model
+     */
     protected $primaryKey = 'c_id';
 
+    /**
+     * @method for relationship between models
+     */
     public function subCategory(){
 
         return $this->hasOneThrough('App\Models\SubCategory', 'App\Models\Category', 'c_id', 'sc_id');
