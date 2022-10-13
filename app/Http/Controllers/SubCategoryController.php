@@ -78,7 +78,7 @@ class SubCategoryController extends Controller
                 $sub_cat->delete();
             }
             return response()->json(['message' => 'Sub Category deleted successfully.']);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }

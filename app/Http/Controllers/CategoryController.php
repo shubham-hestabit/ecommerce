@@ -85,16 +85,14 @@ class CategoryController extends Controller
     {
         $cat = Category::find($id);
 
-        try{
+        try {
             if (is_null($sub_cat)) {
                 throw new \Exception("Category not found for Deletion.");
-            }
-            else{
+            } else {
                 $cat->delete();
             }
             return response()->json(['message' => 'Category deleted successfully.']);
-        }
-        catch(\Exception $e){
+        } catch (\Exception$e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }

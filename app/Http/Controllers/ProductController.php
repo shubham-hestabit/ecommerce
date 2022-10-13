@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -48,7 +48,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'p_name' => 'alpha',
+            'p_name' => 'alpha_num',
             'p_price' => 'numeric',
             'sc_id' => 'numeric',
         ]);
@@ -81,7 +81,7 @@ class ProductController extends Controller
                 $product->delete();
             }
             return response()->json(['message' => 'Product deleted successfully.']);
-        } catch (\Exception $e) {
+        } catch (\Exception$e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
     }
