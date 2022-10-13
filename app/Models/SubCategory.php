@@ -13,7 +13,7 @@ class SubCategory extends Model
 
     protected $fillable = ['sc_name', 'c_id'];
 
-    public function sub_category(){
+    public function subCategory(){
         
         return $this->belongsTo('App\Models\Category');
     }

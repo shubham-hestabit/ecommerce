@@ -70,7 +70,18 @@ class SubCategoryController extends Controller
     public function delete($id)
     {
         $sub_cat = SubCategory::find($id);
-        $sub_cat->delete();
-        return json_encode(['message' => 'Item deleted successfully.']);
+
+        try{
+            if (is_null($sub_cat)) {
+                throw new \Exception("Sub Category not found for Deletion.");
+            }
+            else{
+                $sub_cat->delete();
+            }
+            return response()->json(['message' => 'Sub Category deleted successfully.']);
+        }
+        catch(\Exception $e) {
+            return response()->json(["Error" => $e->getMessage()]);       
+        }
     }
 }
