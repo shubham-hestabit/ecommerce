@@ -84,8 +84,18 @@ class CategoryController extends Controller
     public function delete($id)
     {
         $cat = Category::find($id);
-        $cat->delete();
 
-        return response()->json(['message' => 'Item deleted successfully.']);
+        try{
+            if (is_null($sub_cat)) {
+                throw new \Exception("Category not found for Deletion.");
+            }
+            else{
+                $cat->delete();
+            }
+            return response()->json(['message' => 'Category deleted successfully.']);
+        }
+        catch(\Exception $e){
+            return response()->json(["Error" => $e->getMessage()]);
+        }
     }
 }
