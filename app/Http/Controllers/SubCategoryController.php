@@ -19,7 +19,6 @@ class SubCategoryController extends Controller
         $request->validate([
             'sc_name' => 'required|alpha',
             'c_id' => 'required|numeric',
-
         ]);
 
         $sub_cat = new SubCategory();
@@ -36,7 +35,7 @@ class SubCategoryController extends Controller
 
         try {
             if (is_null($sub_cat)) {
-                throw new \Exception("Category not found.");
+                throw new \Exception("Sub Category not found.");
             } else {
                 return Response()->json($sub_cat);
             }
@@ -48,19 +47,21 @@ class SubCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'sc_name' => 'required|alpha',
+            'sc_name' => 'alpha',
+            'c_id' => 'numeric',
         ]);
 
-        $cat = SubCategory::find($id);
+        $sub_cat = SubCategory::find($id);
 
         try {
             if (is_null($sub_cat)) {
-                throw new \Exception("Category not found for Updation.");
+                throw new \Exception("Sub Category not found for Updation.");
             } else {
-                $sub_cat->sc_name = $request->sc_name;
+                $sub_cat->sc_name = $request->sc_name ?? $sub_cat->sc_name;
+                $sub_cat->c_id = $request->c_id ?? $sub_cat->c_id;
                 $sub_cat->save();
             }
-            return response()->json($cat);
+            return response()->json($sub_cat);
         } catch (\Exception$e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
