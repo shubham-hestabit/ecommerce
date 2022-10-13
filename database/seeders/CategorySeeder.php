@@ -62,7 +62,7 @@ class CategorySeeder extends Seeder
             'p_id' => '1',
             'p_name' => '100gm',
             'p_details' => 'red',
-            'p_price' => 'Rs 10',
+            'p_price' => '10',
             'sc_id' => '1',
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')
@@ -71,7 +71,7 @@ class CategorySeeder extends Seeder
             'p_id' => '2',
             'p_name' => '500gm',
             'p_details' => 'red',
-            'p_price' => 'Rs 50',
+            'p_price' => '50',
             'sc_id' => '1',
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')
@@ -80,7 +80,7 @@ class CategorySeeder extends Seeder
             'p_id' => '3',
             'p_name' => '1 Kg',
             'p_details' => 'red',
-            'p_price' => 'Rs 100',
+            'p_price' => '100',
             'sc_id' => '2',
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')

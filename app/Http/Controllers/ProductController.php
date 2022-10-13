@@ -22,9 +22,9 @@ class ProductController extends Controller
     public function insert(Request $request)
     {
         $request->validate([
-            'p_name' => 'required|regex:/^[a-zA-ZÑñ\s]+$/',
+            'p_name' => 'required|regex:/^[0-9a-zA-ZÑñ\s]+$/',
+            'p_details' => 'required|regex:/^[0-9a-zA-ZÑñ\s]+$/',
             'p_price' => 'required|numeric',
-            'p_details' => 'required|regex:/^[a-zA-ZÑñ\s]+$/',
             'sc_id' => 'required|numeric',
         ]);
 
@@ -62,8 +62,8 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'p_name' => 'regex:/^[a-zA-ZÑñ\s]+$/',
-            'p_details' => 'regex:/^[a-zA-ZÑñ\s]+$/',
+            'p_name' => 'regex:/^[0-9a-zA-ZÑñ\s]+$/',
+            'p_details' => 'regex:/^[0-9a-zA-ZÑñ\s]+$/',
             'p_price' => 'numeric',
             'sc_id' => 'numeric',
         ]);
