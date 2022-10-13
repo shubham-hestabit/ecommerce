@@ -23,6 +23,7 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->p_name = $request->p_name;
+        $product->p_details = $request->p_details;
         $product->p_price = $request->p_price;
         $product->sc_id = $request->sc_id;
         $product->save();
@@ -60,6 +61,7 @@ class ProductController extends Controller
                 throw new \Exception("Product not found for Updation.");
             } else {
                 $product->p_name = $request->p_name ?? $product->p_name;
+                $product->p_details = $request->p_details ?? $product->p_details;
                 $product->p_price = $request->p_price ?? $product->p_price;
                 $product->sc_id = $request->sc_id ?? $product->sc_id;
                 $product->save();

@@ -44,20 +44,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
-    // public function category(){
-
-    //     return $this->hasOne('App\Models\Category');
-    // }
-
-    // public function subCategory(){
-
-    //     return $this->hasOneThrough('App\Models\SubCategory', 'App\Models\Category', 'u_id', 'c_id', 'sc_id', 'c_id');
-    // }
-
-    // public function product(){
-
-    //     return $this->hasOneThrough('App\Models\Product', 'App\Models\SubCategory', 'c_id', 'sc_id', 'p_id', 'sc_id');
-    // }
 
 }
