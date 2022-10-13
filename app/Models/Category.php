@@ -11,8 +11,6 @@ class Category extends Model
 
     protected $primaryKey = 'c_id';
 
-    protected $fillable = 'c_name';
-
     public function category(){
         
         return $this->belongsTo('App\Models\Users');

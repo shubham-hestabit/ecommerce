@@ -11,8 +11,6 @@ class SubCategory extends Model
 
     protected $primaryKey = 'sc_id';
 
-    protected $fillable = 'sc_name';
-
     public function sub_category(){
         
         return $this->belongsTo('App\Models\Category');
