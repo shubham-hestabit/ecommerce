@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- {{--<div class="container-fluid">
+{{--<div class="container-fluid">
     <h1 class="text-black-50">You are logged in!</h1>
-</div>--}} -->
+</div>--}}
 
 <div class="small-box bg-info">
     <div class="inner">
@@ -11,34 +11,40 @@
         <p>Total Categories</p>
     </div>
     <div class="icon">
-        <i class="fas fa-shopping-cart"></i>
+        <i class="fas fa-store"></i>
     </div>
     @foreach ($cat_all as $category)
 
-    <p>Category ID: {{ $category->c_id }}</p>
-    <p>Category Name: {{ $category->c_name }}</p>
-    <hr>
+    <!-- <ul class="inner">
+        <li>
+            <p>Category ID: {{ $category->c_id }}</p>
+        </li>
+        <li>
+            <p>Category Name: {{ $category->c_name }}</p>
+        </li>
+    <ul> -->
+            <!-- <hr> -->
 
-    @endforeach
+            @endforeach
 
-    <a href="#" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i>
-    </a>
+            <a href="#" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
 </div>
 
 
-<div class="small-box bg-info">
+<div class="small-box bg-success">
     <div class="inner">
         <h3>{{ $sub_cat_count }}</h3>
         <p>Total Sub Categories</p>
     </div>
     <div class="icon">
-        <i class="fas fa-shopping-cart"></i>
+        <i class="fa fa-list-alt"></i>
     </div>
     @foreach ($sub_cat_all as $subcategory)
 
-    <p>Category ID: {{ $subcategory->sc_id }}</p>
+    <!-- <p>Category ID: {{ $subcategory->sc_id }}</p>
     <p>Category Name: {{ $subcategory->sc_name }}</p>
-    <hr>
+    <hr> -->
 
     @endforeach
 
@@ -47,7 +53,7 @@
 </div>
 
 
-<div class="small-box bg-info">
+<div class="small-box bg-danger">
     <div class="inner">
         <h3>{{ $product_count }}</h3>
         <p>Total Products</p>
@@ -56,32 +62,18 @@
         <i class="fas fa-shopping-cart"></i>
     </div>
     @foreach ($product_all as $product)
-
+    <!-- 
     <p>Product ID: {{ $product->p_id }}</p>
     <p>Product Name: {{ $product->p_name }}</p>
     <p>Product Details: {{ $product->p_details }}</p>
     <p>Product Price: {{ $product->p_price }}</p>
-    <hr>
+    <hr> -->
 
     @endforeach
 
     <a href="#" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i>
     </a>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @endsection
