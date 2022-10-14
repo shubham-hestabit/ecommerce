@@ -34,36 +34,38 @@ class CategoryController extends Controller
         $cat->c_name = $request->c_name;
         $cat->save();
 
-        return response()->json($cat);
+        return json_encode($cat);
     }
 
     /**
      * @method for view a category.
      */
-    public function read($id)
+    public function read(Request $request)
     {
+        $id = $request->id;
         $cat = Category::find($id);
 
         try {
             if (is_null($cat)) {
                 throw new \Exception("Category not found.");
             } else {
-                return response()->json($cat);
+                return json_encode($cat);
             }
         } catch (\Exception $e) {
-            return response()->json(["Error" => $e->getMessage()]);
+            return json_encode(["Error" => $e->getMessage()]);
         }
     }
 
     /**
      * @method for update a category.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $request->validate([
             'c_name' => 'required|alpha',
         ]);
 
+        $id = $request->id;
         $cat = Category::find($id);
 
         try {
@@ -74,28 +76,29 @@ class CategoryController extends Controller
                 $cat->save();
             }
 
-            return response()->json($cat);
+            return json_encode($cat);
         } catch (\Exception $e) {
-            return response()->json(["Error" => $e->getMessage()]);
+            return json_encode(["Error" => $e->getMessage()]);
         }
     }
 
     /**
      * @method for delete a category.
      */
-    public function delete($id)
+    public function delete(Request $request)
     {
+        $id = $request->id;
         $cat = Category::find($id);
 
         try {
-            if (is_null($sub_cat)) {
+            if (is_null($cat)) {
                 throw new \Exception("Category not found for Deletion.");
             } else {
                 $cat->delete();
             }
-            return response()->json(['message' => 'Category deleted successfully.']);
+            return json_encode(['message' => 'Category deleted successfully.']);
         } catch (\Exception $e) {
-            return response()->json(["Error" => $e->getMessage()]);
+            return json_encode(["Error" => $e->getMessage()]);
         }
     }
 }

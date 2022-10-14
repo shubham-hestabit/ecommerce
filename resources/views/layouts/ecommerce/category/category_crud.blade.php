@@ -19,12 +19,13 @@
         font-family: sans-serif;
     }
 
-    .container1{
-        margin: 0px 20px;
+    .container1 {
+        margin: 150px 300px;
     }
 
-    .container2{
-        margin: 10px 700px;
+    .container2 {
+        margin-left: 900px;
+        margin-top: -730px;
     }
 
     h2 {
@@ -66,30 +67,33 @@
     <div class="container1">
         <div class="container mt-5">
             <h2>Insert New Category</h2>
-            <form method="post" action="" novalidate>
+            <form method="post" action="/category-insert" novalidate>
                 @csrf
                 <div class="form-group mb-2">
                     <label>Enter Category Name</label>
-                    <input type="text" class="form-control" name="name" id="name">
+                    <input type="text" class="form-control" name="c_name">
                 </div>
 
                 <div class="d-grid mt-4">
-                    <input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">
+                    <input type="submit" value="Submit" class="btn btn-dark btn-block">
                 </div>
             </form>
         </div>
 
         <div class="container mt-5">
-            <h2>View a Category</h2>
-            <form method="get" action="" novalidate>
+            <h2>Update a Category</h2>
+            <form method="post" action="/category-update" novalidate>
                 @csrf
                 <div class="form-group mb-2">
-                    <label>Enter ID</label>
-                    <input type="text" class="form-control" name="name" id="name">
+                    <label>Enter Category ID</label>
+                    <input type="text" class="form-control" name="id">
+
+                    <label>Enter Category Name</label>
+                    <input type="text" class="form-control" name="c_name">
                 </div>
 
                 <div class="d-grid mt-3">
-                    <input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">
+                    <input type="submit" value="Submit" class="btn btn-dark btn-block">
                 </div>
             </form>
         </div>
@@ -97,34 +101,31 @@
 
     <div class="container2">
         <div class="container mb-5">
-            <h2>Update a Category</h2>
-            <form method="post" action="" novalidate>
+            <h2>View a Category</h2>
+            <form method="post" action="/category-read" novalidate>
                 @csrf
                 <div class="form-group mb-2">
                     <label>Enter Category ID</label>
-                    <input type="text" class="form-control" name="id" id="id">
-
-                    <label>Enter Category Name</label>
-                    <input type="text" class="form-control" name="name" id="name">
+                    <input type="number" class="form-control" name="id">
                 </div>
 
                 <div class="d-grid mt-3">
-                    <input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">
+                    <input type="submit" value="Submit" class="btn btn-dark btn-block">
                 </div>
             </form>
         </div>
 
         <div class="container mb-5">
             <h2>Delete a Category</h2>
-            <form method="post" action="" novalidate>
+            <form method="post" action="/category-delete" novalidate>
                 @csrf
                 <div class="form-group mb-2">
-                    <label>Enter ID</label>
-                    <input type="text" class="form-control" name="name" id="name">
+                    <label>Enter Category ID</label>
+                    <input type="text" class="form-control" name="id">
                 </div>
 
                 <div class="d-grid mt-3">
-                    <input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">
+                    <input type="submit" value="Submit" class="btn btn-dark btn-block">
                 </div>
             </form>
         </div>

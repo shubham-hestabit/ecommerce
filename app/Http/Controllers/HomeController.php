@@ -29,22 +29,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $blade_date = Auth::user()->created_at;
-        $date = date('d-m-Y', strtotime($blade_date));
+        $view_date = Auth::user()->created_at;
+        $date = date('d-m-Y', strtotime($view_date));
 
         $cat_count = Category::count();
-        // $cat_all = Category::all();
-        $cat_all = ((new CategoryController)->index());
+        $cat_all = Category::all();
 
-
-        
         $sub_cat_count = SubCategory::count();
         $sub_cat_all = SubCategory::all();
 
         $product_count = Product::count();
         $product_all = Product::all();
 
-        return view('home')->with(compact('date', 'cat_count', 'cat_all', 'sub_cat_count', 'sub_cat_all', 
-                  'product_count', 'product_all'));
+        return view('home')->with(compact('date', 'cat_count', 'cat_all', 
+        'sub_cat_count', 'sub_cat_all', 'product_count', 'product_all'));
     }
 }

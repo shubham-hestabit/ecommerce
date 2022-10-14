@@ -34,8 +34,22 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
+Route::get('/category', [App\Http\Controllers\HomeController::class, 'index'])->name('category');
+
+Auth::routes();
+
 
 Route::get('/category-index', [CategoryController::class, 'index'])->name('category-index');
 // Auth::routes();
 
-Route::view('insert', 'layouts.ecommerce.category.category_crud');
+Route::view('/category', 'layouts.ecommerce.category.category_crud');
+
+Route::post('/category-insert', [CategoryController::class, 'insert'])->name('category-insert');
+
+
+Route::post('/category-read', [CategoryController::class, 'read'])->name('category-read');
+
+
+Route::post('/category-update', [CategoryController::class, 'update'])->name('category-update');
+
+Route::post('/category-delete', [CategoryController::class, 'delete'])->name('category-delete');
