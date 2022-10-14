@@ -15,9 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
+
         $cat = Category::all();
         
-        return response()->json($cat);
+        return json_decode($cat);
     }
 
     /**

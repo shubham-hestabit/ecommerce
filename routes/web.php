@@ -35,7 +35,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 
-
 Route::get('/category-index', [CategoryController::class, 'index'])->name('category-index');
+// Auth::routes();
 
-Auth::routes();
+Route::view('insert', 'layouts.ecommerce.category.category_crud');

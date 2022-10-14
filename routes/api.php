@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  */
 
 // Route for viewing all categories.
-Route::get('/category-index', [CategoryController::class, 'index']);
+Route::get('/category-index', [CategoryController::class, 'indexa']);
 
 // Route for insert categories.
 Route::post('/category-insert', [CategoryController::class, 'insert']);
