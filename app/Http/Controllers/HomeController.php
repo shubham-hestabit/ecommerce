@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
 
 class HomeController extends Controller
 {
@@ -24,10 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $blade_date = Auth::user()->created_at;
-
-        $date = date('d-m-Y', strtotime($blade_date));
-
-        return view('home')->with(compact('date'));
+        return view('home');
     }
 }
