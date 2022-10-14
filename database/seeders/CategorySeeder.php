@@ -70,7 +70,7 @@ class CategorySeeder extends Seeder
         DB::table('products')->insert([
             'p_id' => '2',
             'p_name' => '500gm',
-            'p_details' => 'red',
+            'p_details' => 'yellow',
             'p_price' => '50',
             'sc_id' => '1',
             'created_at'=>date('Y-m-d H:i:s'),
@@ -79,7 +79,7 @@ class CategorySeeder extends Seeder
         DB::table('products')->insert([
             'p_id' => '3',
             'p_name' => '1 Kg',
-            'p_details' => 'red',
+            'p_details' => 'green',
             'p_price' => '100',
             'sc_id' => '2',
             'created_at'=>date('Y-m-d H:i:s'),
