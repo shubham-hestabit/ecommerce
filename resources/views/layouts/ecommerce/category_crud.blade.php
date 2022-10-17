@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{{ config('app.name') }}</title>
+    <title>Categories Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
@@ -20,12 +20,12 @@
     }
 
     .container1 {
-        margin: 150px 300px;
+        margin: 150px 350px;
     }
 
     .container2 {
-        margin-left: 900px;
-        margin-top: -730px;
+        margin-left: 1100px;
+        margin-top: -780px;
     }
 
     h2 {
@@ -86,7 +86,7 @@
                 @csrf
                 <div class="form-group mb-2">
                     <label>Enter Category ID</label>
-                    <input type="text" class="form-control" name="id">
+                    <input type="number" class="form-control" name="id">
 
                     <label>Enter Category Name</label>
                     <input type="text" class="form-control" name="c_name">
@@ -121,7 +121,7 @@
                 @csrf
                 <div class="form-group mb-2">
                     <label>Enter Category ID</label>
-                    <input type="text" class="form-control" name="id">
+                    <input type="number" class="form-control" name="id">
                 </div>
 
                 <div class="d-grid mt-3">
