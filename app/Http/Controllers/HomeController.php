@@ -46,7 +46,9 @@ class HomeController extends Controller
 
     public function category()
     {
-        return view('layouts.ecommerce.category_crud');
+        $view_date = Auth::user()->created_at;
+        $date = date('d-m-Y', strtotime($view_date));
+        return view('layouts.ecommerce.category_crud')->with(compact('date'));;
     }
 
     public function subCategory()
@@ -58,6 +60,8 @@ class HomeController extends Controller
 
     public function products()
     {
-        return view('layouts.ecommerce.product_crud');
+        $view_date = Auth::user()->created_at;
+        $date = date('d-m-Y', strtotime($view_date));
+        return view('layouts.ecommerce.product_crud')->with(compact('date'));;
     }
 }

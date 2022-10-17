@@ -98,7 +98,7 @@
         </div>
 
         <!-- Main Footer -->
-        <footer class="main-footer">
+        <footer class="main-footer fixed-bottom">
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 3.0.5
             </div>
