@@ -19,7 +19,7 @@
                         <label>Enter Product Price</label>
                         <input type="text" class="form-control" name="p_price">
 
-                        <label>Enter Product ID</label>
+                        <label>Enter Sub Category ID</label>
                         <input type="number" class="form-control" name="sc_id">
                     </div>
 

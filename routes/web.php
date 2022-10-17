@@ -86,3 +86,7 @@ Route::post('/product-update', [ProductController::class, 'update'])->name('prod
 
 // Route for delete a product.
 Route::post('/product-delete', [ProductController::class, 'delete'])->name('product-delete');
+
+
+///////////////////
+Route::view('/data', 'layouts.ecommerce.show_data');
