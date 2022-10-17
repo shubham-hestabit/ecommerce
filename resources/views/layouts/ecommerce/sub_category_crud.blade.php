@@ -74,7 +74,7 @@
                     <input type="text" class="form-control" name="sc_name">
 
                     <label>Enter Category ID</label>
-                    <input type="number" class="form-control" name="id">
+                    <input type="number" class="form-control" name="c_id">
                 </div>
 
                 <div class="d-grid mt-4">

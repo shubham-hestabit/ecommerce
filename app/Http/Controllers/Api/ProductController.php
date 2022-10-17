@@ -33,8 +33,9 @@ class ProductController extends Controller
     /**
      * @method for view a product.
      */
-    public function read($id)
+    public function read(Request $request)
     {
+        $id = $request->id;
         $product = Product::find($id);
 
         try {
@@ -51,7 +52,7 @@ class ProductController extends Controller
     /**
      * @method for update a product.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $request->validate([
             'p_name' => 'regex:/^[0-9a-zA-ZÑñ\s]+$/',
@@ -60,6 +61,7 @@ class ProductController extends Controller
             'sc_id' => 'numeric',
         ]);
 
+        $id = $request->id;
         $product = Product::find($id);
 
         try {
@@ -81,8 +83,9 @@ class ProductController extends Controller
     /**
      * @method for delete a product.
      */
-    public function delete($id)
+    public function delete(Request $request)
     {
+        $id = $request->id;
         $product = Product::find($id);
 
         try {

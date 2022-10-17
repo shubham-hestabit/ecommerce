@@ -31,8 +31,9 @@ class SubCategoryController extends Controller
     /**
      * @method for view a sub category.
      */
-    public function read($id)
+    public function read(Request $request)
     {
+        $id = $request->id;
         $sub_cat = SubCategory::find($id);
 
         try {
@@ -49,13 +50,14 @@ class SubCategoryController extends Controller
     /**
      * @method for update a sub category.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $request->validate([
             'sc_name' => 'alpha',
             'c_id' => 'numeric',
         ]);
 
+        $id = $request->id;
         $sub_cat = SubCategory::find($id);
 
         try {
@@ -75,8 +77,9 @@ class SubCategoryController extends Controller
     /**
      * @method for delete a sub category.
      */
-    public function delete($id)
+    public function delete(Request $request)
     {
+        $id = $request->id;
         $sub_cat = SubCategory::find($id);
 
         try {
