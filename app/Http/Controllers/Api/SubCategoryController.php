@@ -8,15 +8,7 @@ use App\Http\Controllers\Controller;
 
 class SubCategoryController extends Controller
 {
-    /**
-     * @method for viewing all Sub categories.
-     */
-    public function index()
-    {
-        $sub_cat = SubCategory::all();
-        return response()->json($sub_cat);
-    }
-
+    
     /**
      * @method for insert new sub categories.
      */

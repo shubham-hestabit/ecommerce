@@ -11,16 +11,6 @@ use App\Http\Controllers\Controller;
 class CategoryController extends Controller
 {
     /**
-     * @method for viewing all categories.
-     */
-    public function index()
-    {
-        $cat = Category::all();
-        
-        return json_decode($cat);
-    }
-
-    /**
      * @method for insert new categories.
      */
     public function insert(Request $request)

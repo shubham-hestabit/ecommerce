@@ -9,15 +9,6 @@ use App\Http\Controllers\Controller;
 class ProductController extends Controller
 {
     /**
-     * @method for viewing all Sub categories.
-     */
-    public function index()
-    {
-        $product = Product::all();
-        return response()->json($product);
-    }
-
-    /**
      * @method for insert new product.
      */
     public function insert(Request $request)
