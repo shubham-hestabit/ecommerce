@@ -12,12 +12,12 @@
         <p>Category</p>
     </a>
 
-    <a href="{{ route('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
+    <a href="{{ route('sub-categories') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
         <i class="nav-icon fa fa-list-alt"></i>
         <p>Sub Category</p>
     </a>
 
-    <a href="{{ route('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
+    <a href="{{ route('products') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
         <i class="nav-icon fa fa-product-hunt"></i>
         <p>Products</p>
     </a>

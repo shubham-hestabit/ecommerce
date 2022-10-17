@@ -29,7 +29,7 @@ Route::get('/categories', [App\Http\Controllers\HomeController::class, 'category
 Auth::routes();
 
 // Route for Sub Category Sidebar
-Route::get('/sub-categories', [App\Http\Controllers\HomeController::class, 'sub-category'])->name('sub-categories');
+Route::get('/sub-categories', [App\Http\Controllers\HomeController::class, 'subCategory'])->name('sub-categories');
 Auth::routes();
 
 // Route for Products Sidebar
