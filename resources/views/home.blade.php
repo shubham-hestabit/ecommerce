@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-{{--<div class="container-fluid">
+<!-- {{--<div class="container-fluid">
     <h1 class="text-black-50">You are logged in!</h1>
-</div>--}}
+</div>--}} -->
 
 <div class="small-box bg-info">
     <div class="inner">

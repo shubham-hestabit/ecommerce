@@ -7,7 +7,7 @@
         <p>Home</p>
     </a>
 
-    <a href="{{ route('category-index') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
+    <a href="{{ route('categories') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
         <i class="nav-icon fa fa-list"></i>
         <p>Category</p>
     </a>

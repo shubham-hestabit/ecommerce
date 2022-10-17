@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\SubCategoryController;
-use App\Http\Controllers\Api\Product;
+use App\Http\Controllers\Api\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,26 +20,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Home Page Route
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+// Route for Category Sidebar
+Route::get('/categories', [App\Http\Controllers\HomeController::class, 'category'])->name('categories');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+// Route for Sub Category Sidebar
+Route::get('/sub-categories', [App\Http\Controllers\HomeController::class, 'sub-category'])->name('sub-categories');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+// Route for Products Sidebar
+Route::get('/products', [App\Http\Controllers\HomeController::class, 'products'])->name('products');
 Auth::routes();
-
-Route::get('/category', [App\Http\Controllers\HomeController::class, 'index'])->name('category');
-
-Auth::routes();
-
 
 
 /**
@@ -57,11 +52,6 @@ Route::post('/category-update', [CategoryController::class, 'update'])->name('ca
 
 // Route for delete a sub category.
 Route::post('/category-delete', [CategoryController::class, 'delete'])->name('category-delete');
-
-Route::view('/category', 'layouts.ecommerce.category_crud');
-Route::get('/category-index', [CategoryController::class, 'index'])->name('category-index');//remove
-Route::view('/sub-category', 'layouts.ecommerce.sub_category_crud');
-Route::view('/product', 'layouts.ecommerce.product_crud');
 
 
 /**
@@ -85,17 +75,14 @@ Route::post('/sub-category-delete', [SubCategoryController::class, 'delete'])->n
  * CRUD Route for Products
  */ 
 
-// Route for viewing all products.
-Route::get('/product-index', [ProductController::class, 'index']);
-
 // Route for insert products.
-Route::post('/product-insert', [ProductController::class, 'insert']);
+Route::post('/product-insert', [ProductController::class, 'insert'])->name('product-insert');
 
 // Route for view a product.
-Route::get('/product-read/{id}', [ProductController::class, 'read']);
+Route::get('/product-read', [ProductController::class, 'read'])->name('product-read');
 
 // Route for update a product details.
-Route::put('/product-update/{id}', [ProductController::class, 'update']);
+Route::put('/product-update', [ProductController::class, 'update'])->name('product-update');
 
 // Route for delete a product.
-Route::delete('/product-delete/{id}', [ProductController::class, 'delete']);
+Route::delete('/product-delete', [ProductController::class, 'delete'])->name('product-delete');

@@ -43,4 +43,19 @@ class HomeController extends Controller
         return view('home')->with(compact('date', 'cat_count', 'cat_all', 
         'sub_cat_count', 'sub_cat_all', 'product_count', 'product_all'));
     }
+
+    public function category()
+    {
+        return view('layouts.ecommerce.category_crud');
+    }
+
+    public function subCategory()
+    {
+        return view('layouts.ecommerce.sub_category_crud');
+    }
+
+    public function products()
+    {
+        return view('layouts.ecommerce.products_crud');
+    }
 }
