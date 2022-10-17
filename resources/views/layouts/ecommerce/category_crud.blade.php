@@ -22,6 +22,7 @@
                 <a href="{{ route('categories') }}">
                     <i class="fa fa-edit fa-2x text-dark"></i>
                 </a>
+                
                 <a href="{{ route('categories') }}">
                     <i class="fa fa-trash fa-2x text-danger ml-4"></i>
                 </a>

@@ -2,86 +2,37 @@
 
 @section('content')
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm mt-5">
-            <div class="container mt-4">
-                <h2>Insert New Product</h2>
-                <form method="post" action="/product-insert" novalidate>
-                    @csrf
-                    <div class="form-group mt-4">
-                        <label>Enter Product Name</label>
-                        <input type="text" class="form-control" name="p_name">
+<table class="table table-sm-2 text-center">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Product Image</th>
+            <th>Product Details</th>
+            <th>Product Price</th>
+            <th>Product Editing</th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @foreach ($product_all as $products)
+        <tr>
+            <td>{{ $products->p_id }}</td>
+            <td>{{ $products->p_name }}</td>
+            <td>image</td>
+            <td>{{ $products->p_details }}</td>
+            <td>{{ $products->p_price }}</td>
+            <td>
+                <a href="{{ route('categories') }}">
+                    <i class="fa fa-edit fa-2x text-dark"></i>
+                </a>
 
-                        <label>Enter Product Details</label>
-                        <input type="text" class="form-control" name="p_details">
-
-                        <label>Enter Product Price</label>
-                        <input type="text" class="form-control" name="p_price">
-
-                        <label>Enter Sub Category ID</label>
-                        <input type="number" class="form-control" name="sc_id">
-                    </div>
-
-                    <div class="d-grid text-center">
-                        <input type="submit" value="Submit" class="btn btn-danger col-sm-5">
-                    </div>
-                </form>
-            </div>
-
-            <div class="container mt-5">
-                <h2>View a Product</h2>
-                <form method="post" action="/product-read" novalidate>
-                    @csrf
-                    <div class="form-group mt-4">
-                        <label>Enter Product ID</label>
-                        <input type="number" class="form-control" name="id">
-                    </div>
-
-                    <div class="d-grid text-center">
-                        <input type="submit" value="Submit" class="btn btn-danger col-sm-5">
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="col-sm mt-5">
-            <div class="container mt-5 ml-5">
-                <h2>Update a Product</h2>
-                <form method="post" action="/product-update" novalidate>
-                    @csrf
-                    <div class="form-group mt-4">
-                        <label>Enter Product ID</label>
-                        <input type="number" class="form-control" name="id">
-
-                        <label>Enter Product Name</label>
-                        <input type="text" class="form-control" name="p_name">
-
-                        <label>Enter Product Details</label>
-                        <input type="text" class="form-control" name="p_details">
-                    </div>
-
-                    <div class="d-grid text-center">
-                        <input type="submit" value="Submit" class="btn btn-danger col-sm-5">
-                    </div>
-                </form>
-            </div>
-
-            <div class="container mt-5 ml-5">
-                <h2>Delete a Product</h2>
-                <form method="post" action="/product-delete" novalidate>
-                    @csrf
-                    <div class="form-group mt-4">
-                        <label>Enter Product ID</label>
-                        <input type="number" class="form-control" name="id">
-                    </div>
-
-                    <div class="d-grid text-center">
-                        <input type="submit" value="Submit" class="btn btn-danger col-sm-5">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+                <a href="{{ route('categories') }}">
+                    <i class="fa fa-trash fa-2x text-danger ml-4"></i>
+                </a>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 
 @endsection
