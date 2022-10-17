@@ -2,7 +2,22 @@
 
 @section('content')
 
-<table class="table table-sm-2 text-center">
+<div class="col-sm-5 mt-2 ml-5">
+    <form method="post" action="/category-insert" novalidate>
+        @csrf
+        <label>Enter a Category</label>
+        <input type="text" class="form-control" id="c_name">
+
+        <!-- <label>Enter Category Image</label>
+        <input type="file" class="form-control"> -->
+
+        <div class="mt-4 text-center">
+            <input type="submit" value="Submit" class="btn btn-success col-sm-4">
+        </div>
+    </form>
+</div>
+
+<table class="table table-sm-2 text-center mt-5">
     <thead>
         <tr>
             <th>Category ID</th>
@@ -22,7 +37,7 @@
                 <a href="{{ route('categories') }}">
                     <i class="fa fa-edit fa-2x text-dark"></i>
                 </a>
-                
+
                 <a href="{{ route('categories') }}">
                     <i class="fa fa-trash fa-2x text-danger ml-4"></i>
                 </a>
