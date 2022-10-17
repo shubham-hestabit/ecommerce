@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <div class="col-sm mt-5">
             <div class="container mt-5">
@@ -73,6 +73,40 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<table class="table table-sm-2 text-center">
+    <thead>
+        <tr>
+            <th>Sub Category ID</th>
+            <th>Sub Category Name</th>
+            <th>Sub Category Image</th>
+            <th>Sub Category Editing</th>
+            <th>View Products</th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @foreach ($sub_cat_all as $sub_category)
+        <tr>
+            <td>{{ $category->sc_id }}</td>
+            <td>{{ $category->sc_name }}</td>
+            <td>image</td>
+            <td>
+                <a href="{{ route('categories') }}">
+                    <i class="fa fa-edit fa-2x text-dark"></i>
+                </a>
+                <a href="{{ route('categories') }}">
+                    <i class="fa fa-trash fa-2x text-danger ml-4"></i>
+                </a>
+            </td>
+            <td>
+                <a href="{{ route('categories') }}">
+                    <i class="fa fa-eye fa-2x text-info ml-4"></i>
+                </a>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 
 </ @endsection

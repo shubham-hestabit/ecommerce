@@ -32,36 +32,41 @@ class HomeController extends Controller
         $date = date('d-m-Y', strtotime($view_date));
 
         $cat_count = Category::count();
-        $cat_all = Category::all();
 
         $sub_cat_count = SubCategory::count();
-        $sub_cat_all = SubCategory::all();
-
+        
         $product_count = Product::count();
-        $product_all = Product::all();
-
-        return view('home')->with(compact('date', 'cat_count', 'cat_all', 
-        'sub_cat_count', 'sub_cat_all', 'product_count', 'product_all'));
+        
+        return view('home')->with(compact('date', 'cat_count', 'sub_cat_count', 'product_count'));
     }
 
     public function category()
     {
         $view_date = Auth::user()->created_at;
         $date = date('d-m-Y', strtotime($view_date));
-        return view('layouts.ecommerce.category_crud')->with(compact('date'));;
+        
+        $cat_all = Category::all();
+        
+        return view('layouts.ecommerce.category_crud')->with(compact('date', 'cat_all'));;
     }
-
+    
     public function subCategory()
     {
         $view_date = Auth::user()->created_at;
         $date = date('d-m-Y', strtotime($view_date));
-        return view('layouts.ecommerce.sub_category_crud')->with(compact('date'));
+        
+        $sub_cat_all = SubCategory::all();
+        
+        return view('layouts.ecommerce.sub_category_crud')->with(compact('date', 'sub_cat_all'));
     }
-
+    
     public function products()
     {
         $view_date = Auth::user()->created_at;
         $date = date('d-m-Y', strtotime($view_date));
-        return view('layouts.ecommerce.product_crud')->with(compact('date'));;
+
+        $product_all = Product::all();
+        
+        return view('layouts.ecommerce.product_crud')->with(compact('date', 'product_all'));;
     }
 }
