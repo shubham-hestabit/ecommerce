@@ -72,6 +72,9 @@
                 <div class="form-group mb-2">
                     <label>Enter Sub Category Name</label>
                     <input type="text" class="form-control" name="sc_name">
+
+                    <label>Enter Category ID</label>
+                    <input type="text" class="form-control" name="id">
                 </div>
 
                 <div class="d-grid mt-4">
