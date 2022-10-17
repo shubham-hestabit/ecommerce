@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +66,7 @@
     @stack('page_css')
 </head>
 
-<body>
+<body> -->
 
     <div class="container1">
         <div class="container mt-5">
@@ -134,6 +138,8 @@
         </div>
     </div>
 
-</body>
+<!-- </body>
 
-</html>
+</html> -->
+
+@endsection

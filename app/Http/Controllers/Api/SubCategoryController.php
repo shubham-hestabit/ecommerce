@@ -15,15 +15,12 @@ class SubCategoryController extends Controller
     public function insert(Request $request)
     {
 
-        $request->validate([
+        $validated = $request->validate([
             'sc_name' => 'required|alpha',
             'c_id' => 'required|numeric',
         ]);
 
-        $sub_cat = new SubCategory();
-        $sub_cat->sc_name = $request->sc_name;
-        $sub_cat->c_id = $request->c_id;
-        $sub_cat->save();
+        $sub_cat = SubCategory::create($validated);
 
         return response()->json($sub_cat);
     }

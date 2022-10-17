@@ -79,10 +79,10 @@ Route::post('/sub-category-delete', [SubCategoryController::class, 'delete'])->n
 Route::post('/product-insert', [ProductController::class, 'insert'])->name('product-insert');
 
 // Route for view a product.
-Route::get('/product-read', [ProductController::class, 'read'])->name('product-read');
+Route::post('/product-read', [ProductController::class, 'read'])->name('product-read');
 
 // Route for update a product details.
-Route::put('/product-update', [ProductController::class, 'update'])->name('product-update');
+Route::post('/product-update', [ProductController::class, 'update'])->name('product-update');
 
 // Route for delete a product.
-Route::delete('/product-delete', [ProductController::class, 'delete'])->name('product-delete');
+Route::post('/product-delete', [ProductController::class, 'delete'])->name('product-delete');

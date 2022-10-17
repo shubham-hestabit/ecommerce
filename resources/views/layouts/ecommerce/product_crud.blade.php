@@ -20,12 +20,12 @@
     }
 
     .container1 {
-        margin: 150px 350px;
+        margin: 100px 350px;
     }
 
     .container2 {
         margin-left: 1100px;
-        margin-top: -780px;
+        margin-top: -800px;
     }
 
     h2 {
@@ -72,6 +72,15 @@
                 <div class="form-group mb-2">
                     <label>Enter Product Name</label>
                     <input type="text" class="form-control" name="p_name">
+
+                    <label>Enter Product Details</label>
+                    <input type="text" class="form-control" name="p_details">
+
+                    <label>Enter Product Price</label>
+                    <input type="text" class="form-control" name="p_price">
+
+                    <label>Enter Sub Category ID</label>
+                    <input type="number" class="form-control" name="sc_id">
                 </div>
 
                 <div class="d-grid mt-4">
@@ -80,27 +89,7 @@
             </form>
         </div>
 
-        <div class="container mt-5">
-            <h2>Update a Product</h2>
-            <form method="post" action="/product-update" novalidate>
-                @csrf
-                <div class="form-group mb-2">
-                    <label>Enter Product ID</label>
-                    <input type="number" class="form-control" name="id">
-
-                    <label>Enter Product Name</label>
-                    <input type="text" class="form-control" name="p_name">
-                </div>
-
-                <div class="d-grid mt-3">
-                    <input type="submit" value="Submit" class="btn btn-danger btn-block">
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="container2">
-        <div class="container mb-5">
+        <div class="container mb-5 my-2">
             <h2>View a Product</h2>
             <form method="post" action="/product-read" novalidate>
                 @csrf
@@ -115,7 +104,32 @@
             </form>
         </div>
 
-        <div class="container mb-5">
+
+    </div>
+
+    <div class="container2">
+        <div class="container mt-5">
+            <h2>Update a Product</h2>
+            <form method="post" action="/product-update" novalidate>
+                @csrf
+                <div class="form-group mb-2">
+                    <label>Enter Product ID</label>
+                    <input type="number" class="form-control" name="id">
+
+                    <label>Enter Product Name</label>
+                    <input type="text" class="form-control" name="p_name">
+
+                    <label>Enter Product Details</label>
+                    <input type="text" class="form-control" name="p_details">
+                </div>
+
+                <div class="d-grid mt-3">
+                    <input type="submit" value="Submit" class="btn btn-danger btn-block">
+                </div>
+            </form>
+        </div>
+
+        <div class="container mb-5 my-5">
             <h2>Delete a Product</h2>
             <form method="post" action="/product-delete" novalidate>
                 @csrf

@@ -30,16 +30,16 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Home</a>
+                    <a href="{{ route('home') }}" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Category</a>
+                    <a href="{{ route('categories') }}" class="nav-link">Category</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Sub Category</a>
+                    <a href="{{ route('sub-categories') }}" class="nav-link">Sub Category</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Product</a>
+                    <a href="{{ route('products') }}" class="nav-link">Product</a>
                 </li>
             </ul>
             
