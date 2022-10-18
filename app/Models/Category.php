@@ -15,6 +15,11 @@ class Category extends Model
     protected $primaryKey = 'c_id';
 
     /**
+     * define fillable columns of the category model
+     */
+    protected $fillable = ['c_name', 'c_image'];
+
+    /**
      * @method for relationship between models
      */
     public function subCategory(){

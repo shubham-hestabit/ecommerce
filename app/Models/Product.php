@@ -17,7 +17,7 @@ class Product extends Model
     /**
      * define fillable columns of the product model
      */
-    protected $fillable = ['p_name', 'p_price'];
+    protected $fillable = ['p_name', 'p_price', 'p_image', 'p_details'];
 
     /**
      * @method for relationship between models

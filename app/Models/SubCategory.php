@@ -17,7 +17,7 @@ class SubCategory extends Model
     /**
      * define fillable columns of the sub category model
      */
-    protected $fillable = ['sc_name', 'c_id'];
+    protected $fillable = ['sc_name', 'sc_image', 'c_id'];
 
     /**
      * @method for relationship between models

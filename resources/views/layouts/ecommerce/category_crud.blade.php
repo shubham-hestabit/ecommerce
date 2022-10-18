@@ -2,17 +2,17 @@
 
 @section('content')
 
-<div class="col-sm-5 mt-2 ml-5">
+<div class="col-sm-4 mt-2 ml-5">
     <form method="post" action="/category-insert" novalidate>
         @csrf
         <label>Enter a Category</label>
-        <input type="text" class="form-control" id="c_name">
+        <input type="text" name="c_name" class="form-control">
 
-        <!-- <label>Enter Category Image</label>
-        <input type="file" class="form-control"> -->
+        <label>Enter Category Image</label>
+        <input type="file" name="c_image" class="form-control">
 
         <div class="mt-4 text-center">
-            <input type="submit" value="Submit" class="btn btn-success col-sm-4">
+            <input type="submit" value="Add" class="btn btn-success col-sm-3">
         </div>
     </form>
 </div>
