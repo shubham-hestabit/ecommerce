@@ -36,8 +36,11 @@ Auth::routes();
 Route::get('/products', [App\Http\Controllers\HomeController::class, 'products'])->name('products');
 Auth::routes();
 
-Route::get('/category-insert', [App\Http\Controllers\HomeController::class, 'categoryInsert'])->name('d');
-Auth::routes();
+////////
+Route::get('/category-insert', [App\Http\Controllers\HomeController::class, 'categoryInsert'])->name('category-insert');
+Route::get('/category-update', [App\Http\Controllers\HomeController::class, 'categoryUpdate'])->name('category-update');
+
+///////////////
 
 
 /**
