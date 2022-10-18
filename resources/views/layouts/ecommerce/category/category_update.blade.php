@@ -6,7 +6,7 @@
     <div class="row d-flex py-5 mt-5 justify-content-center align-items-center h-100">
         <div class="card bg-info text-white" style="border-radius: 1rem;">
             <div class="card-body p-5 text-center">
-                <form method="post" action="/category-insert" enctype="multipart/form-data">
+                <form method="post" action="/category-update" enctype="multipart/form-data">
 
                     <div class="form-outline form-white mb-4">
                         <label class="text-lg">Enter a Category</label>
