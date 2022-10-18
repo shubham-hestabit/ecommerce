@@ -35,7 +35,8 @@ Auth::routes();
 // Route for Products Sidebar
 Route::get('/products', [App\Http\Controllers\HomeController::class, 'products'])->name('products');
 Auth::routes();
-Route::get('/d', [App\Http\Controllers\HomeController::class, 'd'])->name('d');
+
+Route::get('/category-insert', [App\Http\Controllers\HomeController::class, 'categoryInsert'])->name('d');
 Auth::routes();
 
 

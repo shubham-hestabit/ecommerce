@@ -23,9 +23,10 @@ class CategoryController extends Controller
         $cat = new Category();
         $cat->c_name = $request->c_name;
         $file = $request->file('c_image');
-        $extension = $file->getClientOriginalExtension();
+        $extension = $file->extension();
         $fileName = $cat->c_name . '.' . $extension;
-        $cat->c_image = $file->storeAs('category-images', $fileName);
+        $file->storeAs('/public/category-images', $fileName);
+        $cat->c_image = $fileName;
         $cat->save();
 
         return json_encode($cat);
@@ -67,15 +68,17 @@ class CategoryController extends Controller
             if (is_null($cat)) {
                 throw new \Exception("Category not found for Updation.");
             } else {
-                $cat->c_name = $request->c_name;
-                $file = $request->file('c_image');
-                $extension = $file->getClientOriginalExtension();
+                $cat->c_name = $request->c_name ?? $cat->c_name;
+                $file = $request->file('c_image') ?? $cat->c_image;
+                $extension = $file->extension();
                 $fileName = $cat->c_name . '.' . $extension;
-                $cat->c_image = $file->storeAs('public/category-images', $fileName);
+                $file->storeAs('/public/category-images', $fileName);
+                $cat->c_image = $fileName;
                 $cat->save();
             }
 
             return json_encode($cat);
+
         } catch (\Exception $e) {
             return json_encode(["Error" => $e->getMessage()]);
         }

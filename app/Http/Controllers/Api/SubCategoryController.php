@@ -17,6 +17,7 @@ class SubCategoryController extends Controller
 
         $validated = $request->validate([
             'sc_name' => 'required|alpha',
+            'sc_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'c_id' => 'required|numeric',
         ]);
 
@@ -51,6 +52,7 @@ class SubCategoryController extends Controller
     {
         $request->validate([
             'sc_name' => 'alpha',
+            'sc_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'c_id' => 'numeric',
         ]);
 
@@ -62,6 +64,11 @@ class SubCategoryController extends Controller
                 throw new \Exception("Sub Category not found for Updation.");
             } else {
                 $sub_cat->sc_name = $request->sc_name ?? $sub_cat->sc_name;
+                $file = $request->file('sc_image') ?? $sub_cat->sc_image;
+                $extension = $file->extension();
+                $fileName = $cat->c_name . '.' . $extension;
+                $file->storeAs('/public/sub-category-images', $fileName);
+                $cat->sc_image = $fileName;
                 $sub_cat->c_id = $request->c_id ?? $sub_cat->c_id;
                 $sub_cat->save();
             }

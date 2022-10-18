@@ -70,9 +70,11 @@ class HomeController extends Controller
         return view('layouts.ecommerce.product_crud')->with(compact('date', 'product_all'));
     }
 
-    public function d(){
+    public function categoryInsert()
+    {
         $view_date = Auth::user()->created_at;
         $date = date('d-m-Y', strtotime($view_date));
-        return view('layouts.ecommerce.show_data')->with(compact('date'));
+
+        return view('layouts.ecommerce.category_insert')->with(compact('date'));
     }
 }
