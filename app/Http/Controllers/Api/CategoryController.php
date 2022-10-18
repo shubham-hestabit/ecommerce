@@ -19,11 +19,10 @@ class CategoryController extends Controller
             'c_name' => 'required|alpha',
             'c_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+        
         $cat = new Category();
         $cat->c_name = $request->c_name;
-        $imageName = date('YmdHis') . "-" . $image->getClientOriginalExtension();
-        $cat->c_image = $request->file('c_image')->storeAs('storage/images', $imageName);
+        $cat->c_image = $request->file('c_image')->store('storage/images');
         $cat->save();
 
         return json_encode($cat);
@@ -55,6 +54,7 @@ class CategoryController extends Controller
     {
         $request->validate([
             'c_name' => 'required|alpha',
+            'c_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $id = $request->id;

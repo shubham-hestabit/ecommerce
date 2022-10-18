@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="col-sm-4 mt-2 ml-5">
-    <form method="post" action="/category-insert" novalidate>
+    <form method="post" action="/category-insert" enctype= multipart/form-data>
         @csrf
         <label>Enter a Category</label>
         <input type="text" name="c_name" class="form-control">
