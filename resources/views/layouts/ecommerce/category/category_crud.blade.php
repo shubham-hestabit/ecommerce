@@ -32,7 +32,7 @@
                 <img src="{{ '/storage/category-images/' . $category->c_image }}" alt="category-image" height="70">
             </td>
             <td>
-                <a href="{{ route('categories') }}">
+                <a href="{{ route('category-update') }}">
                     <i class="fa fa-edit fa-2x text-dark ml-1"></i>
                 </a>
             </td>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\SubCategoryController;
 use App\Http\Controllers\Api\ProductController;
@@ -21,25 +22,30 @@ Route::get('/', function () {
 });
 
 // Home Page Route
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Auth::routes();
 
 // Route for Category Sidebar
-Route::get('/categories', [App\Http\Controllers\HomeController::class, 'category'])->name('categories');
+Route::get('/categories', [HomeController::class, 'category'])->name('categories');
 Auth::routes();
 
 // Route for Sub Category Sidebar
-Route::get('/sub-categories', [App\Http\Controllers\HomeController::class, 'subCategory'])->name('sub-categories');
+Route::get('/sub-categories', [HomeController::class, 'subCategory'])->name('sub-categories');
 Auth::routes();
 
 // Route for Products Sidebar
-Route::get('/products', [App\Http\Controllers\HomeController::class, 'products'])->name('products');
+Route::get('/products', [HomeController::class, 'products'])->name('products');
 Auth::routes();
 
 ////////
-Route::get('/category-insert', [App\Http\Controllers\HomeController::class, 'categoryInsert'])->name('category-insert');
-Route::get('/category-update', [App\Http\Controllers\HomeController::class, 'categoryUpdate'])->name('category-update');
+Route::get('/category-insert', [HomeController::class, 'categoryInsert'])->name('category-insert');
+Route::get('/category-update', [HomeController::class, 'categoryUpdate'])->name('category-update');
 
+Route::get('/sub-category-insert', [HomeController::class, 'subCategoryInsert'])->name('sub-category-insert');
+Route::get('/sub-category-update', [HomeController::class, 'subCategoryUpdate'])->name('sub-category-update');
+
+Route::get('/product-insert', [HomeController::class, 'productInsert'])->name('product-insert');
+Route::get('/product-update', [HomeController::class, 'productUpdate'])->name('product-update');
 ///////////////
 
 
@@ -48,16 +54,16 @@ Route::get('/category-update', [App\Http\Controllers\HomeController::class, 'cat
  */ 
 
 // Route for insert sub category.
-Route::post('/category-insert', [CategoryController::class, 'insert'])->name('category-insert');
+Route::post('/c-insert', [CategoryController::class, 'insert'])->name('c-insert');
 
 // Route for view a sub category.
-Route::post('/category-read', [CategoryController::class, 'read'])->name('category-read');
+Route::post('/c-read', [CategoryController::class, 'read'])->name('c-read');
 
 // Route for update a sub category details.
-Route::post('/category-update', [CategoryController::class, 'update'])->name('category-update');
+Route::post('/c-update', [CategoryController::class, 'update'])->name('c-update');
 
 // Route for delete a sub category.
-Route::post('/category-delete', [CategoryController::class, 'delete'])->name('category-delete');
+Route::post('/c-delete', [CategoryController::class, 'delete'])->name('c-delete');
 
 
 /**
@@ -65,16 +71,16 @@ Route::post('/category-delete', [CategoryController::class, 'delete'])->name('ca
  */ 
 
 // Route for insert sub category.
-Route::post('/sub-category-insert', [SubCategoryController::class, 'insert'])->name('sub-category-insert');
+Route::post('/sc-insert', [SubCategoryController::class, 'insert'])->name('sc-inserct');
 
 // Route for view a sub category.
-Route::post('/sub-category-read', [SubCategoryController::class, 'read'])->name('sub-category-read');
+Route::post('/sc-read', [SubCategoryController::class, 'read'])->name('sc-read');
 
 // Route for update a sub category details.
-Route::post('/sub-category-update', [SubCategoryController::class, 'update'])->name('sub-category-update');
+Route::post('/sc-update', [SubCategoryController::class, 'update'])->name('sc-update');
 
 // Route for delete a sub category.
-Route::post('/sub-category-delete', [SubCategoryController::class, 'delete'])->name('sub-category-delete');
+Route::post('/sc-delete', [SubCategoryController::class, 'delete'])->name('sc-delete');
 
 
 /**
@@ -82,16 +88,16 @@ Route::post('/sub-category-delete', [SubCategoryController::class, 'delete'])->n
  */ 
 
 // Route for insert products.
-Route::post('/product-insert', [ProductController::class, 'insert'])->name('product-insert');
+Route::post('/p-insert', [ProductController::class, 'insert'])->name('p-insert');
 
 // Route for view a product.
-Route::post('/product-read', [ProductController::class, 'read'])->name('product-read');
+Route::post('/p-read', [ProductController::class, 'read'])->name('p-read');
 
 // Route for update a product details.
-Route::post('/product-update', [ProductController::class, 'update'])->name('product-update');
+Route::post('/p-update', [ProductController::class, 'update'])->name('p-update');
 
 // Route for delete a product.
-Route::post('/product-delete', [ProductController::class, 'delete'])->name('product-delete');
+Route::post('/p-delete', [ProductController::class, 'delete'])->name('p-delete');
 
 
 ///////////////////

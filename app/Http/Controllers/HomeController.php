@@ -85,4 +85,36 @@ class HomeController extends Controller
 
         return view('layouts.ecommerce.category.category_update')->with(compact('date'));
     }
+
+    public function subCategoryInsert()
+    {
+        $view_date = Auth::user()->created_at;
+        $date = date('d-m-Y', strtotime($view_date));
+
+        return view('layouts.ecommerce.sub-category.sub_category_insert')->with(compact('date'));
+    }
+
+    public function subCategoryUpdate()
+    {
+        $view_date = Auth::user()->created_at;
+        $date = date('d-m-Y', strtotime($view_date));
+
+        return view('layouts.ecommerce.sub-category.sub_category_update')->with(compact('date'));
+    }
+
+    public function productInsert()
+    {
+        $view_date = Auth::user()->created_at;
+        $date = date('d-m-Y', strtotime($view_date));
+
+        return view('layouts.ecommerce.product.product_insert')->with(compact('date'));
+    }
+
+    public function productUpdate()
+    {
+        $view_date = Auth::user()->created_at;
+        $date = date('d-m-Y', strtotime($view_date));
+
+        return view('layouts.ecommerce.product.product_update')->with(compact('date'));
+    }
 }

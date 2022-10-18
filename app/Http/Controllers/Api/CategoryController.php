@@ -57,8 +57,8 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'c_name' => 'required|alpha',
-            'c_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'c_name' => 'alpha',
+            'c_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $id = $request->id;

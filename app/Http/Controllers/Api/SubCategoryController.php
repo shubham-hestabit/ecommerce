@@ -52,7 +52,7 @@ class SubCategoryController extends Controller
     {
         $request->validate([
             'sc_name' => 'alpha',
-            'sc_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'sc_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'c_id' => 'numeric',
         ]);
 
