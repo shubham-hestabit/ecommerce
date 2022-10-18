@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="col-sm-4 mt-2 ml-5">
-    <form method="post" action="/category-insert" enctype= multipart/form-data>
+<!-- <div class="col-sm-4 mt-2 ml-5">
+    <form method="post" action="/category-insert" enctype=multipart/form-data>
         @csrf
         <label>Enter a Category</label>
         <input type="text" name="c_name" class="form-control">
@@ -15,7 +15,7 @@
             <input type="submit" value="Add" class="btn btn-success col-sm-3">
         </div>
     </form>
-</div>
+</div> -->
 
 <table class="table table-sm-2 text-center mt-5">
     <thead>
@@ -23,7 +23,7 @@
             <th>Category ID</th>
             <th>Category Name</th>
             <th>Category Image</th>
-            <th>Category Editing</th>
+            <th>Add Category</th>
             <th>View Sub Category</th>
         </tr>
     </thead>
@@ -32,10 +32,15 @@
         <tr>
             <td>{{ $category->c_id }}</td>
             <td>{{ $category->c_name }}</td>
-            <td>image</td>
+            <td>{{ $category->c_image }}</td>
             <td>
+                <img src="storage/.{{ $category->c_image }}" alt="category-image" height="70">
+            </td>
+            <td>
+                <a href="{{ route('d') }}"><span class="btn btn-danger mb-1 col-sm-3">Add</span></a>
+
                 <a href="{{ route('categories') }}">
-                    <i class="fa fa-edit fa-2x text-dark"></i>
+                    <i class="fa fa-edit fa-2x text-dark ml-4"></i>
                 </a>
 
                 <a href="{{ route('categories') }}">

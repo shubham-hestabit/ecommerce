@@ -47,7 +47,7 @@ class HomeController extends Controller
         
         $cat_all = Category::all();
         
-        return view('layouts.ecommerce.category_crud')->with(compact('date', 'cat_all'));;
+        return view('layouts.ecommerce.category_crud')->with(compact('date', 'cat_all'));
     }
     
     public function subCategory()
@@ -67,6 +67,12 @@ class HomeController extends Controller
 
         $product_all = Product::all();
         
-        return view('layouts.ecommerce.product_crud')->with(compact('date', 'product_all'));;
+        return view('layouts.ecommerce.product_crud')->with(compact('date', 'product_all'));
+    }
+
+    public function d(){
+        $view_date = Auth::user()->created_at;
+        $date = date('d-m-Y', strtotime($view_date));
+        return view('layouts.ecommerce.show_data')->with(compact('date'));
     }
 }
