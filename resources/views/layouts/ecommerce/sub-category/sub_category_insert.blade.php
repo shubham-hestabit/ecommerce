@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="d-flex justify-content-center py-5">Add New Sub Category</h1>
+<h1 class="d-flex justify-content-center py-5 font-weight-bolder">Add New Sub Category</h1>
 <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="card bg-danger text-white" style="border-radius: 1rem;">
@@ -14,7 +14,7 @@
                         <input type="text" name="sc_name" class="form-control form-control-lg text-dark">
                     </div>
                     
-                    <input type="text" name="c_id" value="{{$id}}">
+                    <input type="hidden" name="c_id" value="{{$id}}">
 
                     <div class="form-outline form-white mb-5">
                         <label class="text-lg">Enter Sub Category Image</label>

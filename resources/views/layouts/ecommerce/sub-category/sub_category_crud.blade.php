@@ -36,12 +36,12 @@
                     height="70">
             </td>
             <td>
-                <a href="{{ url('/sub-category/'. $sub_category->sc_id .'/edit') }}">
+                <a href="{{ url('/sub-category-edit/'. $sub_category->sc_id) }}">
                     <i class="fa fa-edit fa-2x text-dark ml-1"></i>
                 </a>
             </td>
             <td>
-                <form method="post" action="/sub-category/{{$sub_category->sc_id}}">
+                <form method="post" action="{{ url('/sub-category-delete/'. $sub_category->sc_id) }}">
                     @csrf
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" style="border:none; background:transparent;">
@@ -50,7 +50,7 @@
                 </form>
             </td>
             <td>
-                <a href="{{ url('/category') }}">
+                <a href="{{ url('/product/'. $sub_category->sc_id) }}">
                     <i class="fa fa-eye fa-2x text-primary ml-2"></i>
                 </a>
             </td>

@@ -56,9 +56,36 @@ Route::post('/sub-category-insert', [SubCategoryController::class, 'store'])->na
 
 Route::get('/sub-category-read/{id}', [SubCategoryController::class, 'show'])->name('sc-read');
 
+Route::get('/sub-category-edit/{id}', [SubCategoryController::class, 'edit'])->name('sc-edit');
+
 Route::put('/sub-category-update/{id}', [SubCategoryController::class, 'update'])->name('sc-update');
 
 Route::delete('/sub-category-delete/{id}', [SubCategoryController::class, 'destroy'])->name('sc-delete');
+
+
+////////////////////////
+
+Route::get('/product/{sub_cat_id}', [ProductController::class, 'index'])->name('p-list');
+
+Route::get('/product/create/{id}', [ProductController::class, 'create'])->name('p-create');
+
+Route::post('/product-insert', [ProductController::class, 'store'])->name('p-insert');
+
+Route::get('/product-read/{id}', [ProductController::class, 'show'])->name('p-read');
+
+Route::get('/product-edit/{id}', [ProductController::class, 'edit'])->name('p-edit');
+
+Route::put('/product-update/{id}', [ProductController::class, 'update'])->name('p-update');
+
+Route::delete('/product-delete/{id}', [ProductController::class, 'destroy'])->name('p-delete');
+
+
+
+
+
+
+
+
 
 /**
  * CRUD Route for Products Resource

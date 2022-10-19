@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="d-flex justify-content-center py-5">Update a Category</h1>
+<h1 class="d-flex justify-content-center py-5 font-weight-bolder">Update a Category</h1>
 <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="card bg-primary text-white" style="border-radius: 1rem;">
