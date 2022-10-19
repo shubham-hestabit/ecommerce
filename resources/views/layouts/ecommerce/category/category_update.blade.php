@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('content') 
+@section('content')
 
-{{$id}}
 <h1 class="d-flex justify-content-center py-5">Update a Category</h1>
 <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="card bg-primary text-white" style="border-radius: 1rem;">
             <div class="card-body p-5 text-center">
-                <form method="post" action="/c-update" enctype="multipart/form-data">
+                <form method="post" action="/category/{{$id}}" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="_method" value="PUT">
                     <div class="form-outline form-white mb-4">
                         <label class="text-lg">Enter a Category</label>
                         <input type="text" name="c_name" class="form-control form-control-lg text-dark">

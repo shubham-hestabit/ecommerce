@@ -1,27 +1,41 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Models\SubCategory;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\SubCategory;
 
 class SubCategoryController extends Controller
 {
     /**
-     * @method for view all categories.
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $sub_cat_all = SubCategory::all();
-
-        return response()->json($sub_cat_all);
+        
+        return view('layouts.ecommerce.sub_category_crud')->with(compact('sub_cat_all'));
     }
-    
+
     /**
-     * @method for insert new sub categories.
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
+    {
+        return view('layouts.ecommerce.sub-category.sub_category_insert');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'sc_name' => 'required|alpha',
@@ -35,11 +49,13 @@ class SubCategoryController extends Controller
     }
 
     /**
-     * @method for view a sub category.
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
-        $id = $request->id;
         $sub_cat = SubCategory::find($id);
 
         try {
@@ -52,11 +68,26 @@ class SubCategoryController extends Controller
             return response()->json(["Error" => $e->getMessage()]);
         }
     }
-    
+
     /**
-     * @method for update a sub category.
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function edit($id)
+    {
+        return view('layouts.ecommerce.sub-category.sub_category_update')->with(compact('id'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
         $request->validate([
             'sc_name' => 'alpha',
@@ -64,7 +95,6 @@ class SubCategoryController extends Controller
             'c_id' => 'numeric',
         ]);
 
-        $id = $request->id;
         $sub_cat = SubCategory::find($id);
 
         try {
@@ -87,11 +117,13 @@ class SubCategoryController extends Controller
     }
 
     /**
-     * @method for delete a sub category.
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $id = $request->id;
         $sub_cat = SubCategory::find($id);
 
         try {

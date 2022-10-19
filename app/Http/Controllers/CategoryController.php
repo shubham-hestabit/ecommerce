@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -15,7 +16,7 @@ class CategoryController extends Controller
     {
         $cat_all = Category::all();
         
-        return view('layouts.ecommerce.category.category_crud')->with(compact('cat_all'));
+        return view('layouts.ecommerce.category.category_crud')->with('cat_all');
     }
 
     /**
@@ -25,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        
+        return view('layouts.ecommerce.category.category_insert');   
     }
 
     /**
@@ -82,7 +83,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('layouts.ecommerce.category.category_update')->with(compact('id'));
     }
 
     /**
@@ -99,7 +100,6 @@ class CategoryController extends Controller
             'c_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // $id = $request->id;
         $cat = Category::find($id);
 
         try {

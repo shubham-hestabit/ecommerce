@@ -61,26 +61,6 @@ class HomeController extends Controller
         return view('layouts.ecommerce.product_crud')->with(compact('product_all'));
     }
 
-    public function categoryInsert()
-    {
-        return view('layouts.ecommerce.category.category_insert');
-    }
-
-    public function categoryUpdate($id)
-    {
-        return view('layouts.ecommerce.category.category_update')->with(compact('id'));
-    }
-
-    public function subCategoryInsert()
-    {
-        return view('layouts.ecommerce.sub-category.sub_category_insert');
-    }
-
-    public function subCategoryUpdate()
-    {
-        return view('layouts.ecommerce.sub-category.sub_category_update');
-    }
-
     public function productInsert()
     {
         return view('layouts.ecommerce.product.product_insert');
