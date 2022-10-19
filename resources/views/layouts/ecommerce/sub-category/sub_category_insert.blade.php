@@ -14,7 +14,7 @@
                         <input type="text" name="sc_name" class="form-control form-control-lg text-dark">
                     </div>
                     
-                    <input type="hidden" name="c_id" value="{{$id}}">
+                    <input type="hidden" name="c_id" value="{{ $id }}">
 
                     <div class="form-outline form-white mb-5">
                         <label class="text-lg">Enter Sub Category Image</label>

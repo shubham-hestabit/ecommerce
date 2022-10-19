@@ -14,7 +14,6 @@
     </div>
 </div>
 
-
 <table class="table table-sm-2 text-center mt-3">
     <thead>
         <tr>
@@ -27,7 +26,7 @@
         </tr>
     </thead>
     <tbody class="text-center">
-        @foreach ($sub_categories as $sub_category)
+        @foreach ($sub_category as $sub_category)
         <tr>
             <td>{{ $sub_category->sc_id }}</td>
             <td>{{ $sub_category->sc_name }}</td>

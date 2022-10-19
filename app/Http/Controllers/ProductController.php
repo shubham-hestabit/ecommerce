@@ -14,9 +14,9 @@ class ProductController extends Controller
      */
     public function index($product_id)
     {
-        $product_all = Product::all();
+        $product_all = Product::where('sc_id', $product_id)->get();
 
-        return view('layouts.ecommerce.product.product_crud', compact('product_all','product_id'));
+        return view('layouts.ecommerce.product.product_crud', compact('product_all', 'product_id'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ProductController extends Controller
      */
     public function create($id)
     {
-        return view('layouts.ecommerce.products.product_insert', compact('id'));
+        return view('layouts.ecommerce.product.product_insert', compact('id'));
     }
 
     /**
@@ -77,6 +77,7 @@ class ProductController extends Controller
             if (is_null($product)) {
                 throw new \Exception("Product not found.");
             } else {
+                // return view('layouts.ecommerce.product.product_crud', compact('product'));
                 return Response()->json($product);
             }
         } catch (\Exception $e) {
