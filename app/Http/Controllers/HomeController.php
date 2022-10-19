@@ -51,7 +51,7 @@ class HomeController extends Controller
         
         $sub_cat_all = SubCategory::all();
         
-        return view('layouts.ecommerce.sub_category_crud')->with(compact('sub_cat_all'));
+        return view('layouts.ecommerce.sub-category.sub_category_crud')->with(compact('sub_cat_all'));
     }
     
     public function products()

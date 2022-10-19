@@ -4,7 +4,7 @@
 
 <div class="d-flex justify-content-center">
     <div class="btn btn-danger col-sm-3 mt-2 mr-5">
-        <a href="category/create "><i class="fa fa-plus fa-2x text-light">&ensp;Add a Category</i></a>
+        <a href="category/create"><i class="fa fa-plus fa-2x text-light">&ensp;Add a Category</i></a>
     </div>
 
     <div class="btn btn-info col-sm-3 mt-2 ml-5">
@@ -47,7 +47,7 @@
                 </form>
             </td>
             <td>
-                <a href="/sub-category">
+                <a href="/sub-category/create">
                     <i class="fa fa-plus fa-2x text-success ml-4"></i>
                 </a>
             </td>

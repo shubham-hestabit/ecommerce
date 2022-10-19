@@ -51,4 +51,4 @@ Route::resource('sub-category', SubCategoryController::class);
 /**
  * CRUD Route for Products Resource
  */ 
-Route::resource('sub-category', ProductController::class);
+// Route::resource('products', ProductController::class);

@@ -8,11 +8,11 @@
     </div>
 
     <div class="btn btn-danger col-sm-3 mt-2">
-        <a href="{{route('category-insert')}}"><i class="fa fa-plus fa-2x text-light">&ensp;Add a Sub Category</i></a>
+        <a href="/sub-category/create"><i class="fa fa-plus fa-2x text-light">&ensp;Add a Sub Category</i></a>
     </div>
 
     <div class="btn btn-info col-sm-3 mt-2 ml-5">
-        <a href="{{route('products')}}"><i class="fa fa-eye fa-2x text-light">&ensp;View Products</i></a>
+        <a href="{{route('categories')}}"><i class="fa fa-eye fa-2x text-light">&ensp;View Products</i></a>
     </div>
 </div>
 
@@ -37,7 +37,7 @@
                     height="70">
             </td>
             <td>
-                <a href="{{ route('categories') }}">
+                <a href="/sub-category/{{$sub_category->sc_id}}/edit">
                     <i class="fa fa-edit fa-2x text-dark"></i>
                 </a>
             </td>
