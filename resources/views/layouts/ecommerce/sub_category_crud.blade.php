@@ -22,7 +22,7 @@
             <th>Sub Category ID</th>
             <th>Sub Category Name</th>
             <th>Sub Category Image</th>
-            <th>Edit</th>
+            <th>Update</th>
             <th>Delete</th>
             <th>Add Products</th>
         </tr>

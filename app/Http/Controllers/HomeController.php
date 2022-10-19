@@ -18,6 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+
         $this->middleware('auth');
     }
 
@@ -28,93 +29,65 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $view_date = Auth::user()->created_at;
-        $date = date('d-m-Y', strtotime($view_date));
-
         $cat_count = Category::count();
 
         $sub_cat_count = SubCategory::count();
         
         $product_count = Product::count();
         
-        return view('home')->with(compact('date', 'cat_count', 'sub_cat_count', 'product_count'));
+        return view('home')->with(compact('cat_count', 'sub_cat_count', 'product_count'));
     }
 
     public function category()
     {
-        $view_date = Auth::user()->created_at;
-        $date = date('d-m-Y', strtotime($view_date));
-        
+       
         $cat_all = Category::all();
         
-        return view('layouts.ecommerce.category.category_crud')->with(compact('date', 'cat_all'));
+        return view('layouts.ecommerce.category.category_crud')->with(compact('cat_all'));
     }
     
     public function subCategory()
     {
-        $view_date = Auth::user()->created_at;
-        $date = date('d-m-Y', strtotime($view_date));
         
         $sub_cat_all = SubCategory::all();
         
-        return view('layouts.ecommerce.sub_category_crud')->with(compact('date', 'sub_cat_all'));
+        return view('layouts.ecommerce.sub_category_crud')->with(compact('sub_cat_all'));
     }
     
     public function products()
     {
-        $view_date = Auth::user()->created_at;
-        $date = date('d-m-Y', strtotime($view_date));
-
         $product_all = Product::all();
         
-        return view('layouts.ecommerce.product_crud')->with(compact('date', 'product_all'));
+        return view('layouts.ecommerce.product_crud')->with(compact('product_all'));
     }
 
     public function categoryInsert()
     {
-        $view_date = Auth::user()->created_at;
-        $date = date('d-m-Y', strtotime($view_date));
-
-        return view('layouts.ecommerce.category.category_insert')->with(compact('date'));
+        return view('layouts.ecommerce.category.category_insert');
     }
 
-    public function categoryUpdate()
+    public function categoryUpdate($id)
     {
-        $view_date = Auth::user()->created_at;
-        $date = date('d-m-Y', strtotime($view_date));
-
-        return view('layouts.ecommerce.category.category_update')->with(compact('date'));
+        return view('layouts.ecommerce.category.category_update')->with(compact('id'));
     }
 
     public function subCategoryInsert()
     {
-        $view_date = Auth::user()->created_at;
-        $date = date('d-m-Y', strtotime($view_date));
-
-        return view('layouts.ecommerce.sub-category.sub_category_insert')->with(compact('date'));
+        return view('layouts.ecommerce.sub-category.sub_category_insert');
     }
 
     public function subCategoryUpdate()
     {
-        $view_date = Auth::user()->created_at;
-        $date = date('d-m-Y', strtotime($view_date));
-
-        return view('layouts.ecommerce.sub-category.sub_category_update')->with(compact('date'));
+        return view('layouts.ecommerce.sub-category.sub_category_update');
     }
 
     public function productInsert()
     {
-        $view_date = Auth::user()->created_at;
-        $date = date('d-m-Y', strtotime($view_date));
-
-        return view('layouts.ecommerce.product.product_insert')->with(compact('date'));
+        return view('layouts.ecommerce.product.product_insert');
     }
 
     public function productUpdate()
     {
-        $view_date = Auth::user()->created_at;
-        $date = date('d-m-Y', strtotime($view_date));
-
-        return view('layouts.ecommerce.product.product_update')->with(compact('date'));
+        return view('layouts.ecommerce.product.product_update');
     }
 }

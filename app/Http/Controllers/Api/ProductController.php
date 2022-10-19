@@ -9,9 +9,19 @@ use App\Http\Controllers\Controller;
 class ProductController extends Controller
 {
     /**
+     * @method for view all categories.
+     */
+    public function index()
+    {
+        $product_all = Product::all();
+
+        return response()->json($product_all);
+    }
+
+    /**
      * @method for insert new product.
      */
-    public function insert(Request $request)
+    public function create(Request $request)
     {
         $request->validate([
             'p_name' => 'required|regex:/^[0-9a-zA-ZÑñ\s]+$/',
@@ -33,7 +43,7 @@ class ProductController extends Controller
     /**
      * @method for view a product.
      */
-    public function read(Request $request)
+    public function show(Request $request)
     {
         $id = $request->id;
         $product = Product::find($id);
@@ -83,7 +93,7 @@ class ProductController extends Controller
     /**
      * @method for delete a product.
      */
-    public function delete(Request $request)
+    public function destroy(Request $request)
     {
         $id = $request->id;
         $product = Product::find($id);

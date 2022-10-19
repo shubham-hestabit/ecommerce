@@ -42,7 +42,7 @@
                     <a href="{{ route('products') }}" class="nav-link">Product</a>
                 </li>
             </ul>
-            
+
             <!-- SEARCH FORM -->
             <form class="form-inline ml-3">
                 <div class="input-group input-group-sm">
@@ -70,6 +70,10 @@
                                 class="img-circle elevation-2" alt="User Image">
                             <p>
                                 {{ Auth::user()->name }}
+                                @php
+                                $view_date = Auth::user()->created_at;
+                                $date = date('d-m-Y', strtotime($view_date));
+                                @endphp
                                 <small>Member since {{ $date }}</small>
                             </p>
                         </li>

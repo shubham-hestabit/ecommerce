@@ -18,13 +18,14 @@
             <th>Category ID</th>
             <th>Category Name</th>
             <th>Category Image</th>
-            <th>Edit</th>
+            <th>Update</th>
             <th>Delete</th>
             <th>Add Sub Category</th>
         </tr>
     </thead>
     <tbody class="text-center">
         @foreach ($cat_all as $category)
+
         <tr>
             <td>{{ $category->c_id }}</td>
             <td>{{ $category->c_name }}</td>
@@ -32,11 +33,14 @@
                 <img src="{{ '/storage/category-images/' . $category->c_image }}" alt="category-image" height="70">
             </td>
             <td>
-                <a href="{{ route('category-update') }}">
-                    <i class="fa fa-edit fa-2x text-dark ml-1"></i>
-                </a>
+                <form method="post" action="/c-update/{{$category->c_id}}">
+                    <a href="{{ route('category-update' ) }}">
+                        <i class="fa fa-edit fa-2x text-dark ml-1"></i>
+                    </a>
+                </form>
             </td>
             <td>
+                <!-- <input type="hidden" id="c_id" name="c_id" value="2"> -->
                 <a href="{{ route('categories') }}">
                     <i class="fa fa-trash fa-2x text-danger ml-1"></i>
                 </a>

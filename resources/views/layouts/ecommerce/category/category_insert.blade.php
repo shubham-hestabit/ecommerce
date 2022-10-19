@@ -7,7 +7,7 @@
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="card bg-info text-white" style="border-radius: 1rem;">
             <div class="card-body p-5 text-center">
-                <form method="post" action="/c-insert" enctype="multipart/form-data">
+                <form method="put" action="/cat/create" enctype="multipart/form-data">
                     @csrf
                     <div class="form-outline form-white mb-4">
                         <label class="text-lg">Enter a Category</label>

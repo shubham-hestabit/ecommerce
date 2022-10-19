@@ -8,11 +8,20 @@ use App\Http\Controllers\Controller;
 
 class SubCategoryController extends Controller
 {
+    /**
+     * @method for view all categories.
+     */
+    public function index()
+    {
+        $sub_cat_all = SubCategory::all();
+
+        return response()->json($sub_cat_all);
+    }
     
     /**
      * @method for insert new sub categories.
      */
-    public function insert(Request $request)
+    public function create(Request $request)
     {
 
         $validated = $request->validate([
@@ -29,7 +38,7 @@ class SubCategoryController extends Controller
     /**
      * @method for view a sub category.
      */
-    public function read(Request $request)
+    public function show(Request $request)
     {
         $id = $request->id;
         $sub_cat = SubCategory::find($id);
@@ -81,7 +90,7 @@ class SubCategoryController extends Controller
     /**
      * @method for delete a sub category.
      */
-    public function delete(Request $request)
+    public function destroy(Request $request)
     {
         $id = $request->id;
         $sub_cat = SubCategory::find($id);

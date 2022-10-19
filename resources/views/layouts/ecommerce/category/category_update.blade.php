@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
-@section('content')
+@section('content') 
 
+{{$id}}
 <h1 class="d-flex justify-content-center py-5">Update a Category</h1>
 <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -18,8 +19,6 @@
                         <label class="text-lg">Enter Category Image</label>
                         <input type="file" name="c_image" class="form-control form-control-lg text-dark">
                     </div>
-
-                    <input type="hidden" id="c_id" name="c_id" value="2">
 
                     <button class="btn btn-outline-light btn-lg px-5" type="submit">Update</button>
 

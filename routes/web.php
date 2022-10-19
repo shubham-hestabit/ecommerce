@@ -52,18 +52,19 @@ Route::get('/product-update', [HomeController::class, 'productUpdate'])->name('p
 /**
  * CRUD Route for Category
  */ 
+Route::resource('cat', CategoryController::class);
 
 // Route for insert sub category.
-Route::post('/c-insert', [CategoryController::class, 'insert'])->name('c-insert');
+// Route::post('/c-insert', [CategoryController::class, 'create'])->name('c-insert');
 
 // Route for view a sub category.
-Route::post('/c-read', [CategoryController::class, 'read'])->name('c-read');
+Route::post('/c-read', [CategoryController::class, 'show'])->name('c-read');
 
 // Route for update a sub category details.
-Route::post('/c-update', [CategoryController::class, 'update'])->name('c-update');
+Route::post('/c-update/{id}', [CategoryController::class, 'update'])->name('c-update');
 
 // Route for delete a sub category.
-Route::post('/c-delete', [CategoryController::class, 'delete'])->name('c-delete');
+Route::post('/c-delete', [CategoryController::class, 'destroy'])->name('c-delete');
 
 
 /**
@@ -71,16 +72,16 @@ Route::post('/c-delete', [CategoryController::class, 'delete'])->name('c-delete'
  */ 
 
 // Route for insert sub category.
-Route::post('/sc-insert', [SubCategoryController::class, 'insert'])->name('sc-inserct');
+Route::post('/sc-insert', [SubCategoryController::class, 'create'])->name('sc-inserct');
 
 // Route for view a sub category.
-Route::post('/sc-read', [SubCategoryController::class, 'read'])->name('sc-read');
+Route::post('/sc-read', [SubCategoryController::class, 'show'])->name('sc-read');
 
 // Route for update a sub category details.
 Route::post('/sc-update', [SubCategoryController::class, 'update'])->name('sc-update');
 
 // Route for delete a sub category.
-Route::post('/sc-delete', [SubCategoryController::class, 'delete'])->name('sc-delete');
+Route::post('/sc-delete', [SubCategoryController::class, 'destroy'])->name('sc-delete');
 
 
 /**
@@ -88,16 +89,16 @@ Route::post('/sc-delete', [SubCategoryController::class, 'delete'])->name('sc-de
  */ 
 
 // Route for insert products.
-Route::post('/p-insert', [ProductController::class, 'insert'])->name('p-insert');
+Route::post('/p-insert', [ProductController::class, 'create'])->name('p-insert');
 
 // Route for view a product.
-Route::post('/p-read', [ProductController::class, 'read'])->name('p-read');
+Route::post('/p-read', [ProductController::class, 'show'])->name('p-read');
 
 // Route for update a product details.
 Route::post('/p-update', [ProductController::class, 'update'])->name('p-update');
 
 // Route for delete a product.
-Route::post('/p-delete', [ProductController::class, 'delete'])->name('p-delete');
+Route::post('/p-delete', [ProductController::class, 'destroy'])->name('p-delete');
 
 
 ///////////////////
