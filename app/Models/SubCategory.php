@@ -22,7 +22,7 @@ class SubCategory extends Model
     /**
      * @method for relationship between models
      */
-    public function subCategory(){
+    public function category(){
         
         return $this->belongsTo('App\Models\Category');
     }

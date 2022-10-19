@@ -23,8 +23,7 @@ class Category extends Model
      * @method for relationship between models
      */
     public function subCategory(){
-
-        return $this->hasOneThrough('App\Models\SubCategory', 'App\Models\Category', 'c_id', 'sc_id');
+        return $this->hasMany('App\Models\SubCategory');
     }
 
 }

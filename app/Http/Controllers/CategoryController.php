@@ -14,9 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $cat_all = Category::all();
+        $category_all = Category::all();
         
-        return view('layouts.ecommerce.category.category_crud')->with('cat_all');
+        return view('layouts.ecommerce.category.category_crud', compact('category_all'));
     }
 
     /**
@@ -83,7 +83,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('layouts.ecommerce.category.category_update')->with(compact('id'));
+        return view('layouts.ecommerce.category.category_update', compact('id'));
     }
 
     /**

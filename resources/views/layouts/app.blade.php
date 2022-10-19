@@ -33,13 +33,7 @@
                     <a href="{{ route('home') }}" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('categories') }}" class="nav-link">Category</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('sub-categories') }}" class="nav-link">Sub Category</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('products') }}" class="nav-link">Product</a>
+                    <a href="{{ url('/category') }}" class="nav-link">Category</a>
                 </li>
             </ul>
 

@@ -18,7 +18,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-
         $this->middleware('auth');
     }
 
@@ -36,38 +35,5 @@ class HomeController extends Controller
         $product_count = Product::count();
         
         return view('home')->with(compact('cat_count', 'sub_cat_count', 'product_count'));
-    }
-
-    public function category()
-    {
-       
-        $cat_all = Category::all();
-        
-        return view('layouts.ecommerce.category.category_crud')->with(compact('cat_all'));
-    }
-    
-    public function subCategory()
-    {
-        
-        $sub_cat_all = SubCategory::all();
-        
-        return view('layouts.ecommerce.sub-category.sub_category_crud')->with(compact('sub_cat_all'));
-    }
-    
-    public function products()
-    {
-        $product_all = Product::all();
-        
-        return view('layouts.ecommerce.product_crud')->with(compact('product_all'));
-    }
-
-    public function productInsert()
-    {
-        return view('layouts.ecommerce.product.product_insert');
-    }
-
-    public function productUpdate()
-    {
-        return view('layouts.ecommerce.product.product_update');
     }
 }

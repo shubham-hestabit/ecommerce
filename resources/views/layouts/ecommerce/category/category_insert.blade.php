@@ -21,7 +21,7 @@
 
                     <button class="btn btn-outline-light btn-lg px-5" type="submit">Add</button>
                     
-                    <a class="btn btn-outline-light btn-lg px-3 ml-5" href="/categories">
+                    <a class="btn btn-outline-light btn-lg px-3 ml-5" href="{{ url('/category') }}">
                         <i class="fa fa-chevron-circle-left">&ensp;Go Back</i></a>
                 </form>
             </div>

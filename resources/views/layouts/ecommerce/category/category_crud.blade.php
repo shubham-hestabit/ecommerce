@@ -3,12 +3,10 @@
 @section('content')
 
 <div class="d-flex justify-content-center">
-    <div class="btn btn-danger col-sm-3 mt-2 mr-5">
-        <a href="category/create"><i class="fa fa-plus fa-2x text-light">&ensp;Add a Category</i></a>
-    </div>
+    <h1 class="font-weight-bolder">Categories</h1>
 
-    <div class="btn btn-info col-sm-3 mt-2 ml-5">
-        <a href="{{ route('sub-categories') }}"><i class="fa fa-eye fa-2x text-light">&ensp;View Sub Categories</i></a>
+    <div class="btn btn-success mt-2 ml-5">
+        <a href="category/create"><i class="fa fa-plus fa-2x text-light">&nbsp;Add</i></a>
     </div>
 </div>
 
@@ -20,11 +18,11 @@
             <th>Category Image</th>
             <th>Update</th>
             <th>Delete</th>
-            <th>Add Sub Category</th>
+            <th>View Sub Category</th>
         </tr>
     </thead>
     <tbody class="text-center">
-        @foreach ($cat_all as $category)
+        @foreach ($category_all as $category)
 
         <tr>
             <td>{{ $category->c_id }}</td>
@@ -33,7 +31,7 @@
                 <img src="{{ '/storage/category-images/' . $category->c_image }}" alt="category-image" height="70">
             </td>
             <td>
-                <a href="/category/{{$category->c_id}}/edit">
+                <a href="{{ url('/category/. $category->c_id. /edit') }}">
                     <i class="fa fa-edit fa-2x text-dark ml-1"></i>
                 </a>
             </td>
@@ -41,14 +39,14 @@
                 <form method="post" action="/category/{{$category->c_id}}">
                     @csrf
                     <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" style="border:none">
+                    <button type="submit" style="border:none; background:transparent;">
                         <i class="fa fa-trash fa-2x text-danger ml-1"></i>
                     </button>
                 </form>
             </td>
             <td>
-                <a href="/sub-category/create">
-                    <i class="fa fa-plus fa-2x text-success ml-4"></i>
+                <a href="{{ url('/sub-category-list/'.$category->c_id) }}">
+                    <i class="fa fa-eye fa-2x text-primary"></i>
                 </a>
             </td>
         </tr>
