@@ -4,7 +4,7 @@
 
 <div class="d-flex justify-content-around">
     <div class="btn btn-dark mt-2 ml-5">
-        <a href="{{ url('/category') }}"><i class="fa fa-arrow-left fa-2x text-light">&nbsp;Back</i></a>
+        <a href="{{ url()->previous() }}"><i class="fa fa-arrow-left fa-2x text-light">&nbsp;Back</i></a>
     </div>
 
     <h1 class="font-weight-bolder">Sub Categories</h1>
