@@ -45,9 +45,9 @@
 
                     <button class="btn btn-outline-dark btn-lg px-5 mt-3" type="submit">Add</button>
 
-                    <a class="btn btn-outline-dark btn-lg px-3 mt-3 ml-5"
-                        href="{{ url('/sub-category-list/{cat_id}') }}">
-                        <i class="fa fa-chevron-circle-left">&ensp;Go Back</i></a>
+                    <a class="btn btn-outline-dark btn-lg px-3 mt-3 ml-5" href="{{ url()->previous() }}">
+                        <i class="fa fa-chevron-circle-left">&ensp;Go Back</i>
+                    </a>
                 </form>
             </div>
         </div>

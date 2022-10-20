@@ -27,9 +27,9 @@
                         @enderror
                     </div>
 
-                    <button class="btn btn-outline-warning btn-lg px-5" type="submit">Add</button>
+                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Add</button>
                     
-                    <a class="btn btn-outline-warning btn-lg px-3 ml-5" href="{{ url('/category') }}">
+                    <a class="btn btn-outline-light btn-lg px-3 ml-5" href="{{ url('/sub-category/'. $id) }}">
                         <i class="fa fa-chevron-circle-left">&ensp;Go Back</i></a>
                 </form>
             </div>
