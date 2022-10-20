@@ -26,21 +26,21 @@
         </tr>
     </thead>
     <tbody class="text-center">
-        @foreach ($sub_category as $sub_category)
+        @foreach ($sub_category as $sub_cat)
         <tr>
-            <td>{{ $sub_category->sc_id }}</td>
-            <td>{{ $sub_category->sc_name }}</td>
+            <td>{{ $sub_cat->sc_id }}</td>
+            <td>{{ $sub_cat->sc_name }}</td>
             <td>
-                <img src="{{ '/storage/sub-category-images/' . $sub_category->sc_image }}" alt="SubCategory-image"
+                <img src="{{ '/storage/sub-category-images/' . $sub_cat->sc_image }}" alt="SubCategory-image"
                     height="70">
             </td>
             <td>
-                <a href="{{ url('/sub-category/'. $sub_category->sc_id .'/edit') }}">
+                <a href="{{ url('/sub-category/'. $sub_cat->sc_id .'/edit') }}">
                     <i class="fa fa-edit fa-2x text-dark ml-1"></i>
                 </a>
             </td>
             <td>
-                <form method="post" action="{{ url('/sub-category/'. $sub_category->sc_id) }}">
+                <form method="post" action="{{ url('/sub-category/'. $sub_cat->sc_id) }}">
                     @csrf
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" style="border:none; background:transparent;">
@@ -49,7 +49,7 @@
                 </form>
             </td>
             <td>
-                <a href="{{ url('/product/'. $sub_category->sc_id) }}">
+                <a href="{{ url('/product/'. $sub_cat->sc_id) }}">
                     <i class="fa fa-eye fa-2x text-primary ml-2"></i>
                 </a>
             </td>
