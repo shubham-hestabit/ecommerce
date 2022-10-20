@@ -11,7 +11,7 @@
                     @csrf
                     <div class="form-outline form-white mb-4">
                         <label class="text-lg">Enter a Sub Category</label>
-                        <input type="text" name="sc_name" class="form-control form-control-lg text-dark">
+                        <input type="text" name="sc_name" class="form-control form-control-lg text-dark" value="{{old ('sc_name') }}">
                         @error('sc_name')
                         <span class="text-light">{{ $message }}</span>
                         @enderror

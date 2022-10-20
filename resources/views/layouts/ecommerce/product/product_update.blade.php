@@ -13,7 +13,8 @@
 
                     <div class="form-outline form-white mb-4">
                         <label class="text-lg">Enter Product Name</label>
-                        <input type="text" name="p_name" class="form-control form-control-lg text-dark">
+                        <input type="text" name="p_name" class="form-control form-control-lg text-dark"
+                            value="{{old ('p_name') }}">
                         @error('p_name')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -29,7 +30,8 @@
 
                     <div class="form-outline form-white mb-4">
                         <label class="text-lg">Enter Product Details</label>
-                        <input type="text" name="p_details" class="form-control form-control-lg text-dark">
+                        <input type="text" name="p_details" class="form-control form-control-lg text-dark"
+                            value="{{old ('p_details') }}">
                         @error('p_details')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -37,7 +39,8 @@
 
                     <div class="form-outline form-white mb-4">
                         <label class="text-lg">Enter Product Price</label>
-                        <input type="text" name="p_price" class="form-control form-control-lg text-dark">
+                        <input type="text" name="p_price" class="form-control form-control-lg text-dark"
+                            value="{{old ('p_price') }}">
                         @error('p_price')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
