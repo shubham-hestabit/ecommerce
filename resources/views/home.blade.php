@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-body {
-    background: #f4f6f9;
-}
-</style>
 
 <div class="container-fluid py-2">
     <div class="small-box bg-info col-sm-4">
