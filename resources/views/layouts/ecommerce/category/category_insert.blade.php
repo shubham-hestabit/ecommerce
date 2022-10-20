@@ -12,11 +12,17 @@
                     <div class="form-outline form-white mb-4">
                         <label class="text-lg">Enter a Category</label>
                         <input type="text" name="c_name" class="form-control form-control-lg text-primary">
+                        @error('c_name')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-outline form-white mb-5">
                         <label class="text-lg">Enter Category Image</label>
                         <input type="file" name="c_image" class="form-control form-control-lg text-primary">
+                        @error('c_image')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <button class="btn btn-outline-light btn-lg px-5" type="submit">Add</button>

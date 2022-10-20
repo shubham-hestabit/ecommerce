@@ -22,21 +22,21 @@
         </tr>
     </thead>
     <tbody class="text-center">
-        @foreach ($category_all as $category)
+        @foreach ($category as $cat)
 
         <tr>
-            <td>{{ $category->c_id }}</td>
-            <td>{{ $category->c_name }}</td>
+            <td>{{ $cat->c_id }}</td>
+            <td>{{ $cat->c_name }}</td>
             <td>
-                <img src="{{ '/storage/category-images/' . $category->c_image }}" alt="category-image" height="70">
+                <img src="{{ '/storage/category-images/' . $cat->c_image }}" alt="category-image" height="70">
             </td>
             <td>
-                <a href="{{ url('/category/. $category->c_id. /edit') }}">
+                <a href="{{ url('/category/'. $cat->c_id. '/edit') }}">
                     <i class="fa fa-edit fa-2x text-dark ml-1"></i>
                 </a>
             </td>
             <td>
-                <form method="post" action="/category/{{$category->c_id}}">
+                <form method="post" action="{{ url('/category/'. $cat->c_id) }}">
                     @csrf
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" style="border:none; background:transparent;">
@@ -45,7 +45,7 @@
                 </form>
             </td>
             <td>
-                <a href="{{ url('/sub-category-list/'.$category->c_id) }}">
+                <a href="{{ url('/sub-category/'.$cat->c_id) }}">
                     <i class="fa fa-eye fa-2x text-primary"></i>
                 </a>
             </td>

@@ -14,9 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category_all = Category::all();
+        $category = Category::all();
         
-        return view('layouts.ecommerce.category.category_crud', compact('category_all'));
+        return view('layouts.ecommerce.category.category_crud', compact('category'));
     }
 
     /**
@@ -42,16 +42,22 @@ class CategoryController extends Controller
             'c_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         
-        $cat = new Category();
-        $cat->c_name = $request->c_name;
+        $category = new Category();
+        $category->c_name = $request->c_name;
         $file = $request->file('c_image');
-        $extension = $file->extension();
-        $fileName = $cat->c_name . '.' . $extension;
-        $file->storeAs('/public/category-images', $fileName);
-        $cat->c_image = $fileName;
-        $cat->save();
 
-        return json_encode($cat);
+        if ($request->hasFile('c_image')) {
+            $extension = $file->extension();
+            $fileName = $category->c_name . '.' . $extension;
+            $file->storeAs('/public/category-images', $fileName);
+            $category->c_image = $fileName;
+        } else {
+            $category->c_image = "Image Not Inserted";
+        }
+
+        $category->save();
+
+        return redirect('/category');
     }
 
     /**
@@ -62,13 +68,13 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $cat = Category::find($id);
+        $category = Category::find($id);
 
         try {
-            if (is_null($cat)) {
+            if (is_null($category)) {
                 throw new \Exception("Category not found.");
             } else {
-                return json_encode($cat);
+                return json_encode($category);
             }
         } catch (\Exception $e) {
             return json_encode(["Error" => $e->getMessage()]);
@@ -100,22 +106,28 @@ class CategoryController extends Controller
             'c_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $cat = Category::find($id);
+        $category = Category::find($id);
 
         try {
-            if (is_null($cat)) {
+            if (is_null($category)) {
                 throw new \Exception("Category not found for Updation.");
             } else {
-                $cat->c_name = $request->c_name ?? $cat->c_name;
-                $file = $request->file('c_image') ?? $cat->c_image;
-                $extension = $file->extension();
-                $fileName = $cat->c_name . '.' . $extension;
-                $file->storeAs('/public/category-images', $fileName);
-                $cat->c_image = $fileName;
-                $cat->save();
+                $category->c_name = $request->c_name ?? $category->c_name;
+                $file = $request->file('c_image');
+
+                if ($request->hasFile('c_image')) {
+                    $extension = $file->extension();
+                    $fileName = $category->c_name . '.' . $extension;
+                    $file->storeAs('/public/category-images', $fileName);
+                    $category->c_image = $fileName;
+                } else {
+                    $category->c_image = $category->c_image;
+                }
+
+                $category->save();
             }
 
-            return json_encode($cat);
+            return redirect('/category');
 
         } catch (\Exception $e) {
             return json_encode(["Error" => $e->getMessage()]);
@@ -130,15 +142,15 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $cat = Category::find($id);
+        $category = Category::find($id);
 
         try {
-            if (is_null($cat)) {
+            if (is_null($category)) {
                 throw new \Exception("Category not found for Deletion.");
             } else {
-                $cat->delete();
+                $category->delete();
             }
-            return json_encode(['message' => 'Category deleted successfully.']);
+            return redirect('/category');
         } catch (\Exception $e) {
             return json_encode(["Error" => $e->getMessage()]);
         }

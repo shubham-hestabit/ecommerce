@@ -5,7 +5,7 @@
         <p>Home</p>
     </a>
 
-    <a href="{{ url('/category') }}" class="nav-link {{ Request::is('category') ? 'active' : '' }}">
+    <a href="{{ url('category') }}" class="nav-link {{ Request::is('category') ? 'active' : '' }}">
         <i class="nav-icon fa fa-list"></i>
         <p>Category</p>
     </a>

@@ -7,7 +7,7 @@ body {
 }
 </style>
 
-<div class="container-fluid">
+<div class="container-fluid py-2">
     <div class="small-box bg-info col-sm-4">
         <div class="inner">
             <h3>{{ $cat_count }}</h3>

@@ -4,7 +4,7 @@
 
 <div class="d-flex justify-content-around">
     <div class="btn btn-dark mt-2 ml-5">
-        <a href="{{ url('/sub-category-list/{cat_id}') }}">
+        <a href="{{ url('/sub-category/'. $id) }}">
             <i class="fa fa-arrow-left fa-2x text-light">&nbsp;Back</i>
         </a>
     </div>
@@ -12,7 +12,7 @@
     <h1 class="font-weight-bolder">Products</h1>
 
     <div class="btn btn-success mt-2 ml-5">
-        <a href="{{ url('/product/create/'. $product_id) }}"><i class="fa fa-plus fa-2x text-light">&nbsp;Add</i></a>
+        <a href="{{ url('/product/create/'. $id) }}"><i class="fa fa-plus fa-2x text-light">&nbsp;Add</i></a>
     </div>
 </div>
 
@@ -29,22 +29,22 @@
         </tr>
     </thead>
     <tbody class="text-center">
-        @foreach ($product_all as $products)
+        @foreach ($products as $product)
         <tr>
-            <td>{{ $products->p_id }}</td>
-            <td>{{ $products->p_name }}</td>
+            <td>{{ $product->p_id }}</td>
+            <td>{{ $product->p_name }}</td>
             <td>
-                <img src="{{ '/storage/product-images/' . $products->p_image }}" alt="Products-image" height="70">
+                <img src="{{ '/storage/product-images/' . $product->p_image }}" alt="Products-image" height="70">
             </td>
-            <td>{{ $products->p_details }}</td>
-            <td>{{ $products->p_price }}</td>
+            <td>{{ $product->p_details }}</td>
+            <td>{{ $product->p_price }}</td>
             <td>
-                <a href="{{ url('/product-edit/'. $products->p_id) }}">
+                <a href="{{ url('/product/'. $product->p_id .'/edit/') }}">
                     <i class="fa fa-edit fa-2x text-dark ml-1"></i>
                 </a>
             </td>
             <td>
-                <form method="post" action="{{ url('/product-delete/'. $products->p_id) }}">
+                <form method="post" action="{{ url('/product/'. $product->p_id) }}">
                     @csrf
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" style="border:none; background:transparent;">

@@ -12,11 +12,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($product_id)
+    public function index()
     {
-        $product_all = Product::where('sc_id', $product_id)->get();
+        $products = Product::all();
 
-        return view('layouts.ecommerce.product.product_crud', compact('product_all', 'product_id'));
+        return view('layouts.ecommerce.product.product_crud', compact('products'));
     }
 
     /**
@@ -40,27 +40,30 @@ class ProductController extends Controller
         $request->validate([
             'p_name' => 'required|regex:/^[0-9a-zA-ZÑñ\s]+$/',
             'p_details' => 'required|regex:/^[0-9a-zA-ZÑñ\s]+$/',
+            'p_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'p_price' => 'required|numeric',
             'sc_id' => 'required|numeric',
         ]);
 
-        $product = new Product();
-        $product->p_name = $request->p_name;
-        $product->p_details = $request->p_details;
-        $product->p_price = $request->p_price;
+        $products = new Product();
+        $products->p_name = $request->p_name;
+        $products->p_details = $request->p_details;
+        $products->p_price = $request->p_price;
         $file = $request->file('p_image');
+
         if ($request->hasFile('p_image')) {
             $extension = $file->extension();
-            $fileName = $product->p_name . '.' . $extension;
+            $fileName = $products->p_name . '.' . $extension;
             $file->storeAs('/public/product-images', $fileName);
-            $product->p_image = $fileName;
+            $products->p_image = $fileName;
         } else {
-            $product->p_image = "Null";
+            $products->p_image = "Image Not Inserted";
         }
-        $product->sc_id = $request->sc_id;
-        $product->save();
 
-        return redirect('/sub-category');
+        $products->sc_id = $request->sc_id;
+        $products->save();
+
+        return redirect('/product/'. $products->sc_id);
     }
 
     /**
@@ -71,14 +74,13 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::where('sc_id', $id)->get();
+        $products = Product::where('sc_id', $id)->get();
 
         try {
-            if (is_null($product)) {
+            if (is_null($products)) {
                 throw new \Exception("Product not found.");
             } else {
-                // return view('layouts.ecommerce.product.product_crud', compact('product'));
-                return Response()->json($product);
+                return view('layouts.ecommerce.product.product_crud', compact('products', 'id'));
             }
         } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
@@ -108,30 +110,32 @@ class ProductController extends Controller
         $request->validate([
             'p_name' => 'regex:/^[0-9a-zA-ZÑñ\s]+$/',
             'p_details' => 'regex:/^[0-9a-zA-ZÑñ\s]+$/',
+            'p_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'p_price' => 'numeric',
         ]);
 
-        $product = Product::find($id);
+        $products = Product::find($id);
 
         try {
-            if (is_null($product)) {
+            if (is_null($products)) {
                 throw new \Exception("Product not found for Updation.");
             } else {
-                $product->p_name = $request->p_name ?? $product->p_name;
-                $product->p_details = $request->p_details ?? $product->p_details;
-                $product->p_price = $request->p_price ?? $product->p_price;
+                $products->p_name = $request->p_name ?? $products->p_name;
+                $products->p_details = $request->p_details ?? $products->p_details;
+                $products->p_price = $request->p_price ?? $products->p_price;
                 $file = $request->file('p_image');
+                
                 if ($request->hasFile('p_image')) {
                     $extension = $file->extension();
-                    $fileName = $product->p_name . '.' . $extension;
+                    $fileName = $products->p_name . '.' . $extension;
                     $file->storeAs('/public/product-images', $fileName);
-                    $product->p_image = $fileName;
+                    $products->p_image = $fileName;
                 } else {
-                    $product->p_image = $product->p_image;
+                    $products->p_image = $products->p_image;
                 }
-                $product->save();
+                $products->save();
             }
-            return response()->json($product);
+            return redirect('/product/'. $products->sc_id);
         } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
@@ -145,15 +149,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
+        $products = Product::find($id);
 
         try {
-            if (is_null($product)) {
+            if (is_null($products)) {
                 throw new \Exception("Product not found for Deletion.");
             } else {
-                $product->delete();
+                $products->delete();
             }
-            return response()->json(['message' => 'Product deleted successfully.']);
+            return redirect('/product/'. $products->sc_id);
         } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }

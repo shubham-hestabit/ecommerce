@@ -12,11 +12,11 @@ class SubCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($cat_id)
+    public function index()
     {
-        $sub_category = SubCategory::where('c_id', $cat_id)->get();
+        $sub_category = SubCategory::all();
 
-        return view('layouts.ecommerce.sub-category.sub_category_crud', compact('sub_category', 'cat_id'));
+        return view('layouts.ecommerce.sub-category.sub_category_crud', compact('sub_category'));
     }
 
     /**
@@ -46,18 +46,20 @@ class SubCategoryController extends Controller
         $sub_category = new SubCategory();
         $sub_category->sc_name = $request->sc_name;
         $file = $request->file('sc_image');
+
         if ($request->hasFile('sc_image')) {
             $extension = $file->extension();
             $fileName = $sub_category->sc_name . '.' . $extension;
             $file->storeAs('/public/sub-category-images', $fileName);
             $sub_category->sc_image = $fileName;
         } else {
-            $sub_category->sc_image = "Null";
+            $sub_category->sc_image = "Image Not Inserted";
         }
+
         $sub_category->c_id = $request->c_id;
         $sub_category->save();
 
-        return redirect('/sub-category');
+        return redirect('/sub-category/'. $sub_category->c_id);
     }
 
     /**
@@ -74,8 +76,7 @@ class SubCategoryController extends Controller
             if (is_null($sub_category)) {
                 throw new \Exception("Sub Category not found.");
             } else {
-                return $id;
-                // return view('layouts.ecommerce.sub-category.sub_category_crud',compact('sub_cat','id'));
+                return view('layouts.ecommerce.sub-category.sub_category_crud',compact('sub_category', 'id'));
             }
         } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
@@ -115,6 +116,7 @@ class SubCategoryController extends Controller
             } else {
                 $sub_category->sc_name = $request->sc_name ?? $sub_category->sc_name;
                 $file = $request->file('sc_image');
+                
                 if ($request->hasFile('sc_image')) {
                     $extension = $file->extension();
                     $fileName = $sub_category->sc_name . '.' . $extension;
@@ -126,7 +128,7 @@ class SubCategoryController extends Controller
 
                 $sub_category->save();
             }
-            return response()->json($sub_category);
+            return redirect('/sub-category/'. $sub_category->c_id);
         } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }
@@ -148,7 +150,7 @@ class SubCategoryController extends Controller
             } else {
                 $sub_category->delete();
             }
-            return response()->json(['message' => 'Sub Category deleted successfully.']);
+            return redirect('/sub-category/'. $sub_category->c_id);
         } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);
         }

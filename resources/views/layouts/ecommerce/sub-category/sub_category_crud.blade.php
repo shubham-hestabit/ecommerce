@@ -8,9 +8,9 @@
     </div>
 
     <h1 class="font-weight-bolder">Sub Categories</h1>
-    
+
     <div class="btn btn-success mt-2 ml-5">
-        <a href="{{ Route('sc-create', $cat_id ) }}"><i class="fa fa-plus fa-2x text-light">&nbsp;Add</i></a>
+        <a href="{{ url('/sub-category/create/'. $id) }}"><i class="fa fa-plus fa-2x text-light">&nbsp;Add</i></a>
     </div>
 </div>
 
@@ -35,12 +35,12 @@
                     height="70">
             </td>
             <td>
-                <a href="{{ url('/sub-category-edit/'. $sub_category->sc_id) }}">
+                <a href="{{ url('/sub-category/'. $sub_category->sc_id .'/edit') }}">
                     <i class="fa fa-edit fa-2x text-dark ml-1"></i>
                 </a>
             </td>
             <td>
-                <form method="post" action="{{ url('/sub-category-delete/'. $sub_category->sc_id) }}">
+                <form method="post" action="{{ url('/sub-category/'. $sub_category->sc_id) }}">
                     @csrf
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" style="border:none; background:transparent;">
