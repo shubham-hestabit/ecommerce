@@ -14,7 +14,6 @@
         <a href="#" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
 
-
     <div class="small-box bg-success col-sm-4">
         <div class="inner">
             <h3>{{ $sub_cat_count }}</h3>
@@ -25,7 +24,6 @@
         </div>
         <a href="#" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a>
     </div>
-
 
     <div class="small-box bg-danger col-sm-4">
         <div class="inner">
