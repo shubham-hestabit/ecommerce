@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use App\Models\SubCategory;
+use App\Models\Category;
 
 class SubCategoryController extends Controller
 {
@@ -71,12 +72,13 @@ class SubCategoryController extends Controller
     public function show($id)
     {
         $sub_category = SubCategory::where('c_id', $id)->get();
+        $category_name = Category::where('c_id', $id)->get();
 
         try {
             if (is_null($sub_category)) {
                 throw new \Exception("Sub Category not found.");
             } else {
-                return view('layouts.ecommerce.sub-category.sub_category_crud',compact('sub_category', 'id'));
+                return view('layouts.ecommerce.sub-category.sub_category_crud',compact('sub_category', 'id', 'category_name'));
             }
         } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);

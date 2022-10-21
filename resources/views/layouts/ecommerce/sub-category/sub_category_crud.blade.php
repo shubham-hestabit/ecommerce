@@ -20,6 +20,7 @@
             <th>Sub Category ID</th>
             <th>Sub Category Name</th>
             <th>Sub Category Image</th>
+            <th>Main Category Name</td>
             <th>Update</th>
             <th>Delete</th>
             <th>View Products</th>
@@ -34,6 +35,11 @@
                 <img src="{{ '/storage/sub-category-images/' . $sub_cat->sc_image }}" alt="SubCategory-image"
                     height="70">
             </td>
+
+            @foreach ($category_name as $cat)
+            <td>{{ $cat->c_name }}</td>
+            @endforeach
+
             <td>
                 <a href="{{ url('/sub-category/'. $sub_cat->sc_id .'/edit') }}">
                     <i class="fa fa-edit fa-2x text-dark ml-1"></i>

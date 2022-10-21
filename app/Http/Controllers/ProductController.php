@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\SubCategory;
 
 class ProductController extends Controller
 {
@@ -75,12 +76,13 @@ class ProductController extends Controller
     public function show($id)
     {
         $products = Product::where('sc_id', $id)->get();
+        $sub_category_name = SubCategory::where('sc_id', $id)->get();
 
         try {
             if (is_null($products)) {
                 throw new \Exception("Product not found.");
             } else {
-                return view('layouts.ecommerce.product.product_crud', compact('products', 'id'));
+                return view('layouts.ecommerce.product.product_crud', compact('products', 'id', 'sub_category_name'));
             }
         } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);

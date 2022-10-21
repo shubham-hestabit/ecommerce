@@ -24,6 +24,7 @@
             <th>Product Image</th>
             <th>Product Details</th>
             <th>Product Price</th>
+            <th>Sub Category Name</th>
             <th>Update</th>
             <th>Delete</th>
         </tr>
@@ -38,6 +39,11 @@
             </td>
             <td>{{ $product->p_details }}</td>
             <td>{{ $product->p_price }}</td>
+
+            @foreach ($sub_category_name as $sub_cat)
+            <td>{{ $sub_cat->sc_name }}</td>
+            @endforeach
+
             <td>
                 <a href="{{ url('/product/'. $product->p_id .'/edit/') }}">
                     <i class="fa fa-edit fa-2x text-dark ml-1"></i>
