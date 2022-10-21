@@ -11,7 +11,7 @@
 </div>
 
 <table class="table table-sm-2 text-center mt-3">
-    <thead>
+    <thead class="thead-dark">
         <tr>
             <th>Category ID</th>
             <th>Category Name</th>
@@ -25,7 +25,7 @@
         @foreach ($category as $cat)
 
         <tr>
-            <td>{{ $cat->c_id }}</td>
+            <th>{{ $cat->c_id }}</th>
             <td>{{ $cat->c_name }}</td>
             <td>
                 <img src="{{ '/storage/category-images/' . $cat->c_image }}" alt="category-image" height="70">

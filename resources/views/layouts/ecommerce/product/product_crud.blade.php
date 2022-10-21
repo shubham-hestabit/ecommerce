@@ -17,7 +17,7 @@
 </div>
 
 <table class="table table-sm-2 text-center mt-3">
-    <thead>
+    <thead class="thead-dark">
         <tr>
             <th>Product ID</th>
             <th>Product Name</th>
@@ -31,7 +31,7 @@
     <tbody class="text-center">
         @foreach ($products as $product)
         <tr>
-            <td>{{ $product->p_id }}</td>
+            <th>{{ $product->p_id }}</th>
             <td>{{ $product->p_name }}</td>
             <td>
                 <img src="{{ '/storage/product-images/' . $product->p_image }}" alt="Products-image" height="70">
