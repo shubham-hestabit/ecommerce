@@ -51,9 +51,10 @@
             </td>
             <td>{{ $product->p_details }}</td>
             <td>{{ $product->p_price }}</td>
+            <td>{{ $product->sc_id }}</td>
 
             @foreach ($sub_category as $sub_cat)
-            <td>{{ $sub_cat->sc_name }}</td>
+            <td>{{ $sub_cat->sc_id }}</td>
             @endforeach
 
             <td>

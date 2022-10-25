@@ -22,7 +22,7 @@ class Product extends Model
     /**
      * @method for relationship between models
      */
-    public function product(){
+    public function subcategory(){
         
         return $this->belongsTo('App\Models\SubCategory');
     }
