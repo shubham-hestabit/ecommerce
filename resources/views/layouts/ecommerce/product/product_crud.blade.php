@@ -28,7 +28,7 @@
 
 </div>
 
-<table class="table table-bordered table-sm-2 text-center mt-3">
+<table class="table table-hover table-bordered table-sm-2 text-center mt-3">
     <thead class="thead-dark">
         <tr>
             <th>Product ID</th>
@@ -51,7 +51,7 @@
             </td>
             <td>{{ $product->p_details }}</td>
             <td>{{ $product->p_price }}</td>
-            <td>{{ $product->sc_id }}</td>
+            <!-- <td>{{ $product->sc_id }}</td> -->
 
             @foreach ($sub_category as $sub_cat)
             <td>{{ $sub_cat->sc_id }}</td>
