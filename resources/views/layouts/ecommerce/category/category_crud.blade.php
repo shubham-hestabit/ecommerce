@@ -3,8 +3,10 @@
 @section('content')
 
 <div class="d-flex justify-content-center">
-    <h1 class="font-weight-bolder">Categories</h1>
+    <h1 class="font-weight-bolder py-2">Categories</h1>
+</div>
 
+<div class="d-flex justify-content-left" style="margin-top: -70px">
     <div class="btn btn-success mt-2 ml-5">
         <a href="category/create"><i class="fa fa-plus fa-2x text-light">&nbsp;Add</i></a>
     </div>

@@ -16,8 +16,9 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
+        $sub_category = SubCategory::all();
 
-        return view('layouts.ecommerce.product.product_crud', compact('products'));
+        return view('layouts.ecommerce.product.product_crud', compact('products', 'sub_category'));
     }
 
     /**
@@ -76,13 +77,13 @@ class ProductController extends Controller
     public function show($id)
     {
         $products = Product::where('sc_id', $id)->get();
-        $sub_category_name = SubCategory::where('sc_id', $id)->get();
+        $sub_category = SubCategory::where('sc_id', $id)->get();
 
         try {
             if (is_null($products)) {
                 throw new \Exception("Product not found.");
             } else {
-                return view('layouts.ecommerce.product.product_crud', compact('products', 'id', 'sub_category_name'));
+                return view('layouts.ecommerce.product.product_crud', compact('products', 'id', 'sub_category'));
             }
         } catch (\Exception $e) {
             return response()->json(["Error" => $e->getMessage()]);

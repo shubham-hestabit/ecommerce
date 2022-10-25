@@ -10,4 +10,9 @@
         <p>Category</p>
     </a>
 
+    <a href="{{ url('product') }}" class="nav-link {{ Request::is('product') ? 'active' : '' }}">
+        <i class="nav-icon fa fa-product-hunt"></i>
+        <p>Products</p>
+    </a>
+
 </li>
