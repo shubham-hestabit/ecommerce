@@ -16,9 +16,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        $sub_category = SubCategory::all();
 
-        return view('layouts.ecommerce.product.product_crud', compact('products', 'sub_category'));
+        return view('layouts.ecommerce.product.product_frontend', compact('products'));
     }
 
     /**

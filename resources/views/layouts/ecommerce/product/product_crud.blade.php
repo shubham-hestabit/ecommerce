@@ -2,33 +2,19 @@
 
 @section('content')
 
-<div class="d-flex justify-content-center">
-    <h1 class="font-weight-bolder py-2">Products</h1>
-</div>
-
-<div class="d-flex justify-content-left" style="margin-top: -70px">
+<div class="d-flex justify-content-around">
     <div class="btn btn-dark mt-2 ml-5">
-        <a href="{{ url()->previous() }}">
-            <i class="fa fa-arrow-left fa-2x text-light">&nbsp;Back</i>
-        </a>
+        <a href="{{ url()->previous() }}"><i class="fa fa-arrow-left fa-2x text-light">&nbsp;Back</i></a>
     </div>
 
-    @if ( url()->current() == 'http://127.0.0.1:8000/product')
-    @php
-    $link = "/product";
-    @endphp
-    @elseif ( url()->current() == 'http://127.0.0.1:8000/product/'.$id)
-    @php
-    $link = '/product/create/'.$id
-    @endphp
+    <h1 class="font-weight-bolder">Products</h1>
+
     <div class="btn btn-success mt-2 ml-5">
-        <a href="{{ $link }}"><i class="fa fa-plus fa-2x text-light">&nbsp;Add</i></a>
+        <a href="{{ url('/product/create/'.$id) }}"><i class="fa fa-plus fa-2x text-light">&nbsp;Add</i></a>
     </div>
-    @endif
-
 </div>
 
-<table class="table table-hover table-bordered table-sm-2 text-center mt-3">
+<table class="table table-bordered table-sm-2 text-center mt-3">
     <thead class="thead-dark">
         <tr>
             <th>Product ID</th>
@@ -51,10 +37,9 @@
             </td>
             <td>{{ $product->p_details }}</td>
             <td>{{ $product->p_price }}</td>
-            <!-- <td>{{ $product->sc_id }}</td> -->
 
             @foreach ($sub_category as $sub_cat)
-            <td>{{ $sub_cat->sc_id }}</td>
+            <td>{{ $sub_cat->sc_name }}</td>
             @endforeach
 
             <td>
