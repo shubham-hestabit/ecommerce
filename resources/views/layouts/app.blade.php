@@ -35,9 +35,9 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ url('/category') }}" class="nav-link">Category</a>
                 </li>
-                <!-- <li class="nav-item d-none d-sm-inline-block">
+                <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ url('/product') }}" class="nav-link">Products</a>
-                </li> -->
+                </li>
             </ul>
 
             <!-- SEARCH FORM -->

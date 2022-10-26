@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<table class="table table-bordered table-sm-2 text-center mt-3">
+<table class="table table-hover table-bordered table-sm-2 text-center mt-3">
     <thead class="thead-dark">
         <tr>
             <th>Product ID</th>
