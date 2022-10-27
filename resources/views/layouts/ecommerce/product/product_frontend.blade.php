@@ -13,29 +13,18 @@
         </a>
     </div>
 </div>
+<hr>
 
-<table class="table table-hover table-bordered table-sm-2 text-center mt-3">
-    <thead class="thead-dark">
-        <tr>
-            <th>Product ID</th>
-            <th>Product Name</th>
-            <th>Product Image</th>
-            <th>Product Details</th>
-            <th>Product Price</th>
-    </thead>
-    <tbody class="text-center">
-        @foreach ($products as $product)
-        <tr>
-            <th>{{ $product->p_id }}</th>
-            <td>{{ $product->p_name }}</td>
-            <td>
-                <img src="{{ '/storage/product-images/' . $product->p_image }}" alt="Products-image" height="70">
-            </td>
-            <td>{{ $product->p_details }}</td>
-            <td>{{ $product->p_price }}</td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+@foreach ($products as $product)
+<div class="container py-2 w-25 float-left">
+    <div class="card card-body bg-secondary">
+        <img src="{{ '/storage/product-images/' . $product->p_image }}" alt="Products-image" height="250">
+        <h5 class="card-text text-center my-2">{{ $product->p_name }}</h5>
+        <p class="card-text text-center">{{ $product->p_details }}</p>
+        <p class="card-text text-center">Price:&nbsp;&nbsp;<i class="fa fa-rupee">{{ $product->p_price }}</i></p>
+        <a href="{{ url('/cart') }}" class="btn btn-primary">Add to Cart</a>
+    </div>
+</div>
+@endforeach
 
 @endsection

@@ -44,3 +44,6 @@ Route::get('/sub-category/create/{id}', [SubCategoryController::class, 'create']
 Route::resource('/product', ProductController::class);
 
 Route::get('/product/create/{id}', [ProductController::class, 'create'])->name('product-create');
+
+///
+Route::view('/cart', 'layouts.add_to_cart');
