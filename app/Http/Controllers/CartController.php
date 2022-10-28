@@ -3,44 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 
 class CartController extends Controller
 {
     public function cartList()
     {
-        $cartItems = \Cart::getContent();
-        // dd($cartItems);
+        $cartItems = \Cart::session(Auth::user()->id)->getContent();
         return view('layouts.add_to_cart', compact('cartItems'));
     }
 
     public function addToCart(Request $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'p_name' => 'required|regex:/^[0-9a-zA-ZÑñ\s]+$/',
-            'p_details' => 'required|regex:/^[0-9a-zA-ZÑñ\s]+$/',
-            'p_price' => 'required|numeric',
-            'p_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-        
-        \Cart::add([
-            'p_id' => $request->p_id,
-            'p_name' => $request->p_name,
-            'p_details' => $request->p_details,
-            'p_price' => $request->p_price,
+        $product = Product::findOrFail($request->p_id);
+        $id = md5($product->id);
+        \Cart::session(Auth::user()->id)->add([
+            'id' => $id,
+            'name' => $request->p_name,
+            'price' => $request->p_price,
+            'details' => $request->p_details,
             'quantity' => $request->quantity,
             'attributes' => array(
-                'p_image' => $request->p_image,
-            )
+                'image' => $request->p_image,
+            ),
+            'AssociatedModel' => $product,
         ]);
         session()->flash('success', 'Product is Added to Cart Successfully !');
 
         return redirect()->route('cart.list');
+
     }
 
     public function updateCart(Request $request)
     {
-        \Cart::update(
+        \Cart::session(Auth::user()->id)->update(
             $request->id,
             [
                 'quantity' => [
@@ -57,7 +54,7 @@ class CartController extends Controller
 
     public function removeCart(Request $request)
     {
-        \Cart::remove($request->id);
+        \Cart::session(Auth::user()->id)->remove($request->id);
         session()->flash('success', 'Item Cart Remove Successfully !');
 
         return redirect()->route('cart.list');
