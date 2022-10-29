@@ -9,12 +9,11 @@
     <h1 class="font-weight-bolder">Products</h1>
 
     <div class="btn btn-info mt-2 ml-5">
-        <a href="{{ url('/cart') }}"><i class="fa fa-shopping-cart fa-2x text-light"> View Cart&nbsp;</i><span
-                class="badge badge-pill badge-danger">{{ Cart::getTotalQuantity() }}</span></a>
+        <a href="{{ url('/cart') }}"><i class="fas fa-cart-arrow-down fa-2x text-light"> View Cart&nbsp;</i><span
+                class="badge badge-pill badge-danger">{{ $cartItems->count() }}</span></a>
     </div>
 </div>
 <hr>
-
 
 @foreach ($products as $product)
 <div class="container py-2 w-25 float-left">
@@ -34,11 +33,20 @@
                 <input type="hidden" value="{{ $product->p_price }}" name="p_price">
                 <input type="hidden" value="{{ $product->p_image }}" name="p_image">
                 <input type="hidden" value="1" name="quantity">
-                <button class="btn btn-primary w-50">Add To Cart</button>
+                <button class="btn btn-primary w-50" id="cart">
+                    <i class='fas fa-cart-arrow-down'></i> Add To Cart
+                </button>
             </form>
         </div>
     </div>
 </div>
 @endforeach
+
+<script>
+    var cartButton = document.getElementById('cart');
+    if (cartButton.innerHTML == "Add To Cart"){
+        cartButton.innerHTML = "jhd";   
+    }
+</script>
 
 @endsection

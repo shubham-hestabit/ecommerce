@@ -11,13 +11,13 @@ class CartController extends Controller
     public function cartList()
     {
         $cartItems = \Cart::session(Auth::user()->id)->getContent();
-        return view('layouts.add_to_cart', compact('cartItems'));
+        return view('layouts.ecommerce.add_to_cart', compact('cartItems'));
     }
 
     public function addToCart(Request $request)
     {
         $product = Product::findOrFail($request->p_id);
-        $id = md5($product->id);
+        $id = md5($product->p_id);
         \Cart::session(Auth::user()->id)->add([
             'id' => $id,
             'name' => $request->p_name,
@@ -55,6 +55,7 @@ class CartController extends Controller
     public function removeCart(Request $request)
     {
         \Cart::session(Auth::user()->id)->remove($request->id);
+
         session()->flash('success', 'Item Cart Remove Successfully !');
 
         return redirect()->route('cart.list');
