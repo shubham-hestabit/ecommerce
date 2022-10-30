@@ -42,11 +42,4 @@
 </div>
 @endforeach
 
-<script>
-    var cartButton = document.getElementById('cart');
-    if (cartButton.innerHTML == "Add To Cart"){
-        cartButton.innerHTML = "jhd";   
-    }
-</script>
-
 @endsection

@@ -47,10 +47,17 @@
                                 <div class="d-flex">
                                     <form action="{{ route('cart.update') }}" method="POST">
                                         @csrf
+                                        <button class="btn btn-link px-2"
+                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
                                         <input type="hidden" value="{{ $item->id }}" name="id">
-                                        <input type="number" class="form-control text-center"
+                                        <input type="number" class="form-control form-control-sm text-center"
                                             value="{{ $item->quantity }}" name="quantity" min="1" max="999">
-                                        <button class="px-2 ml-1 mt-2 text-white bg-blue" type="submit">Update</button>
+                                        <button class="btn btn-link px-2"
+                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </td>
