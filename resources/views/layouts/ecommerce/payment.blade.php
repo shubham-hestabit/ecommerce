@@ -52,7 +52,7 @@
                                 <div class="d-flex justify-content-around pt-3">
                                     <a href="{{ url('/cart')}}" class="btn btn-dark btn-lg mr-5"><i
                                             class="fa fa-arrow-left"></i> Back to Cart</a>
-                                    <button type="submit" class="btn btn-primary btn-lg ml-5" onclick="order()"
+                                    <button type="button" class="btn btn-primary btn-lg ml-5" onclick="order()"
                                         id="confirm">Confirm Order</button>
                                 </div>
                             </div>
@@ -128,6 +128,7 @@
 
 <script>
 function order() {
+
     var fname = document.orderForm.fname.value;
     var lname = document.orderForm.lname.value;
     var email = document.orderForm.email.value;
@@ -137,6 +138,7 @@ function order() {
     var address = document.orderForm.address.value;
     var order = document.getElementById('confirm');
     var payemnt = document.getElementById('payment');
+
     if (fname == "" || lname == "" || email == "" || state == "" || city == "" || zipcode == "" || address == "") {
         alert("All fields are required.");
         return false;

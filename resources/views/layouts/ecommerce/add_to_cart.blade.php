@@ -62,7 +62,7 @@
                                 </div>
                             </td>
                             <td class="text-center align-middle p-4"><i class="fa fa-rupee"></i>
-                                {{ Cart::getSubTotal() }}
+                                {{ $item->quantity * $item->price }}
                             </td>
                             <td class="text-center align-middle">
                                 <form action="{{ url('/remove') }}" method="POST">
