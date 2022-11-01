@@ -5,8 +5,9 @@
 <div class="container px-3 py-5 clearfix">
     <div class="card">
         @if ($message = Session::get('success'))
-        <div class="p-4 rounded">
-            <p class="alert alert-info">{{ $message }}</p>
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">X</button>
+            <strong>{{ $message }}</strong>
         </div>
         @endif
         <div class="card-header text-center">
@@ -86,8 +87,9 @@
 
             <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
                 <div class="mt-4">
-                    <label class="text-muted font-weight-bold">Promocode</label>
-                    <input type="text" placeholder="X387HW" class="form-control w-75">
+                    <!-- <label class="text-muted font-weight-bold">Promocode</label>
+                    <input type="text" name="promocode" placeholder="X38HW5" class="form-control w-75"
+                        style="text-transform:uppercase" minlength="6" maxlength="6" required pattern="[a-zA-Z0-9]+"> -->
                 </div>
                 <div class="d-flex">
                     <div class="text-right mt-4 mr-5">
