@@ -15,7 +15,6 @@
         <strong>{{ $message }}</strong>
     </div>
     @endif
-
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col">
             <div class="card my-2 shadow-3  border border-secondary">
@@ -99,9 +98,9 @@
                                     </div>
                                     <div class="form-outline form-white mb-4">
                                         <label class="form-label">Card Number</label>
-                                        <input type="text" name="cardNumber"
+                                        <input type="text" name="cardNumber" id="cardNumber"
                                             class="form-control form-control-lg card-number"
-                                            placeholder="1234 5678 9012 3457" maxlength="16" required />
+                                            placeholder="1234 5678 9012 3457" maxlength="19" required />
                                     </div>
                                     <div class="row mb-4">
                                         <div class="col-md-6">
@@ -109,7 +108,7 @@
                                                 <label class="form-label">Expiration Month</label>
                                                 <input type="text" name="exp"
                                                     class="form-control form-control-lg card-expiry-month"
-                                                    placeholder="MM" minlength="2" maxlength="2" required />
+                                                    placeholder="MM" minlength="1" maxlength="2" required />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -246,6 +245,13 @@ function order() {
         payment.style.display = "block";
     }
 }
+
+document.getElementById('cardNumber').addEventListener("keyup", function(){
+   txt=this.value;
+   if (txt.length==4 || txt.length==9 || txt.length==14)
+    this.value=this.value+" ";
+  
+});
 </script>
 
 @endsection
