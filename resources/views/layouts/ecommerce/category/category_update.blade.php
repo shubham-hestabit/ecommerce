@@ -15,7 +15,7 @@
                         <input type="text" name="c_name" class="form-control form-control-lg text-dark"
                             value="{{old ('c_name') }}">
                         @error('c_name')
-                        <span class="text-danger">{{ $message }}</span>
+                        <span class="text-light">{{ $message }}</span>
                         @enderror
                     </div>
 
@@ -23,7 +23,7 @@
                         <label class="text-lg">Enter Category Image</label>
                         <input type="file" name="c_image" class="form-control form-control-lg text-dark">
                         @error('c_image')
-                        <span class="text-danger">{{ "Please insert image." }}</span>
+                        <span class="text-light">{{ "Please insert image." }}</span>
                         @enderror
                     </div>
 
