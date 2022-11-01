@@ -95,11 +95,12 @@
                         $discount = (Cart::getTotal() * 5)/100;
                         @endphp
                         <label class="text-muted font-weight-bold m-0">Discount</label>
-                        <h5 class="text-large"><b><i class="fa fa-rupee"></i> {{$discount}}</b></h5>
+                        <h5 class="text-large"><b><i class="fa fa-rupee"></i> {{ number_format($discount, 2) }}</b></h5>
                     </div>
                     <div class="text-right mt-4">
                         <label class="text-muted font-weight-bold m-0">Total Price</label>
-                        <h4 class="text-large"><b><i class="fa fa-rupee"></i> {{ Cart::getTotal() }}</b></h4>
+                        <h4 class="text-large"><b><i class="fa fa-rupee"></i>
+                                {{ number_format(Cart::getTotal(),2) }}</b></h4>
                     </div>
                 </div>
             </div>

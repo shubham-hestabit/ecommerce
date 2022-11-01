@@ -22,31 +22,41 @@ class PaymentController extends Controller
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         
         $customer = Customer::create(array(
-          'name' => $request->name,
+          'name' => $request->fname . " " . $request->lname,
           'description' => 'Customer Info',
           'email' => $request->email,
           'source' => $request->stripeToken,
-           "address" => [
-            "state" => $request->state,
-            "city" => $request->city,
-            "country" => "US", 
-            "line1" => $request->address, 
-            "postal_code" => $request->zipcode, 
+           'address' => [
+            'state' => $request->state,
+            'city' => $request->city,
+            'country' => 'US', 
+            'line1' => $request->address, 
+            'postal_code' => $request->zipcode, 
             ]
         ));
 
         try {
-            Charge::create ( array (
-                "amount" => $request->total * 100,
-                "currency" => "usd",
-                "customer" =>  $customer["id"],
-                "description" => "Payment Recieved."
-            ) );
-            session()->flash('success', 'Payment done Successfully !');
+            Charge::create (array (
+                'amount' => $request->total * 100,
+                'currency' => 'usd',
+                'customer' =>  $customer['id'],
+                'description' => 'Payment Recieved.',
+                'shipping' => [
+                    'name' => $request->fname . " " . $request->lname,
+                    'address' => [
+                        'state' => $request->state,
+                        'city' => $request->city,
+                        'country' => 'US', 
+                        'line1' => $request->address, 
+                        'postal_code' => $request->zipcode, 
+                    ],
+                ]
+            ));
+            session()->flash('success', 'Payment Done Successfully !');
             return back();
-
-        } catch (\Exception $e ) {
-            session()->flash('fail', 'sjcsjds');
+        } 
+        catch(\Exception $e){
+            session()->flash('error', $e->getMessage());
             return back();
         }
     }

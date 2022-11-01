@@ -3,19 +3,19 @@
 @section('content')
 
 <div class="container py-4">
-    <div class='col-md-12 error form-group hide'>
-        <div class='alert-warning alert'></div>
-    </div>
     @if ($message = Session::get('success'))
-    <div class="p-4 error rounded">
-        <p class="alert alert-success">{{ $message }}</p>
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">X</button>
+        <strong>{{ $message }}</strong>
     </div>
     @endif
-    @if ($message = Session::get('fail'))
-    <div class="p-4 error rounded">
-        <p class="alert alert-danger">{{ $message }}</p>
+    @if ($message = Session::get('error'))
+    <div class="alert alert-danger alert-block">
+        <button type="button" class="close" data-dismiss="alert">X</button>
+        <strong>{{ $message }}</strong>
     </div>
     @endif
+
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col">
             <div class="card my-2 shadow-3  border border-secondary">
@@ -81,12 +81,16 @@
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <h2 class="mb-0">Card details</h2>
                                     </div>
-
                                     <p class="medium mb-1 font-weight-bold">Card type</p>
-                                    <i class="fa fa-cc-mastercard fa-3x"></i>
-                                    <i class="fa fa-cc-visa fa-3x"></i>
-                                    <i class="fa fa-cc-amex fa-3x"></i>
-                                    <i class="fa fa-cc-paypal fa-3x"></i>
+                                    <img class="me-2" width="45px"
+                                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+                                        alt="Visa" />
+                                    <img class="me-2" width="45px"
+                                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+                                        alt="American Express" />
+                                    <img class="me-2" width="45px"
+                                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+                                        alt="Mastercard" />
 
                                     <div class="form-outline form-white mt-2 required">
                                         <label class="form-label">Cardholder's Name</label>
@@ -130,21 +134,22 @@
 
                                     <div class="d-flex justify-content-between font-weight-bold">
                                         <p class="mb-2">Subtotal</p>
-                                        <h1 class="fa fa-dollar mb-2 font-weight-bold"> {{ Cart::getTotal() }}.00</p>
+                                        <h1 class="fa fa-dollar mb-2 font-weight-bold">
+                                            {{ number_format(Cart::getTotal(), 2) }}</p>
                                     </div>
                                     <div class="d-flex justify-content-between font-weight-bold">
                                         <p class="mb-2">Shipping</p>
-                                        @php $shipping = 50.00; @endphp
-                                        <p class="fa fa-dollar mb-2 font-weight-bold"> {{ $shipping }}.00</p>
+                                        @if(Cart::getTotal() <= "500" ) @php $shipping=0; @endphp @else @php
+                                            $shipping=80; @endphp @endif <p class="fa fa-dollar mb-2 font-weight-bold">
+                                            {{ number_format($shipping, 2) }}
+                                            </p>
                                     </div>
                                     <hr class="my-2 bg-dark">
                                     <div class="d-flex justify-content-between mb-4 font-weight-bold">
                                         <p class="mb-2">Total(Incl. taxes)</p>
                                         <p class="fa fa-dollar mb-2 font-weight-bold">
-                                            {{($shipping + Cart::getTotal())}}
-                                            .00</p>
-                                        <input type="hidden" name="total"
-                                            value="{{ ($shipping + Cart::getTotal()) }}.00">
+                                            {{ number_format(($shipping + Cart::getTotal()), 2) }}</p>
+                                        <input type="hidden" name="total" value="{{ ($shipping + Cart::getTotal()) }}">
                                     </div>
                                     <div class="d-flex justify-content-center">
                                         <button type="submit" class="btn btn-primary btn-block btn-lg" id="payment"
