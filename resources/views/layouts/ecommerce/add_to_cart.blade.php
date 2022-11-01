@@ -22,7 +22,12 @@
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Sub Total</th>
-                            <th>Delete</th>
+                            <th>
+                                <form action="{{ route('clear-cart') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger font-weight-bold">Clear Cart</button>
+                                </form>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,7 +50,7 @@
                             <td class="text-center align-middle p-4"><i class="fa fa-rupee"></i> {{ $item->price }}</td>
                             <td class="text-center align-middle p-4" width="110">
                                 <div class="d-flex">
-                                    <form action="{{ route('cart.update') }}" method="POST">
+                                    <form action="{{ route('update-cart') }}" method="POST">
                                         @csrf
                                         <button class="btn btn-link px-2"
                                             onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
@@ -65,20 +70,19 @@
                                 {{ $item->quantity * $item->price }}
                             </td>
                             <td class="text-center align-middle">
-                                <form action="{{ url('/remove') }}" method="POST">
+                                <form action="{{ route('remove-cart') }}" method="POST">
                                     @csrf
                                     <input type="hidden" value="{{ $item->id }}" name="id">
                                     <button type="submit" style="border:none; background:transparent;">
                                         <i class="fa fa-trash fa-2x text-danger ml-1"></i>
                                     </button>
-                                </form></a>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            <!-- / Shopping cart table -->
 
             <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
                 <div class="mt-4">

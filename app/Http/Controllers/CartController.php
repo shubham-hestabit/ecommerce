@@ -29,7 +29,7 @@ class CartController extends Controller
             ),
             'AssociatedModel' => $product,
         ]);
-        session()->flash('success', 'Product is Added to Cart Successfully !');
+        session()->flash('success', 'Product Added to Cart Successfully !');
 
         return redirect('/product');
 
@@ -47,26 +47,26 @@ class CartController extends Controller
             ]
         );
 
-        session()->flash('success', 'Item Cart is Updated Successfully !');
+        session()->flash('success', 'Cart Item Updated Successfully !');
 
-        return redirect()->route('cart.list');
+        return redirect()->route('cart-list');
     }
 
     public function removeCart(Request $request)
     {
         \Cart::session(Auth::user()->id)->remove($request->id);
 
-        session()->flash('success', 'Item Cart Remove Successfully !');
+        session()->flash('success', 'Cart Item Removed Successfully !');
 
-        return redirect()->route('cart.list');
+        return redirect()->route('cart-list');
     }
 
     public function clearAllCart()
     {
-        \Cart::clear();
+        \Cart::session(Auth::user()->id)->clear();
 
-        session()->flash('success', 'All Item Cart Clear Successfully !');
+        session()->flash('success', 'All Cart Items Clear Successfully !');
 
-        return redirect()->route('cart.list');
+        return redirect()->route('cart-list');
     }
 }

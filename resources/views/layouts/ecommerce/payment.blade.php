@@ -3,10 +3,27 @@
 @section('content')
 
 <div class="container py-4">
+    <div class='col-md-12 error form-group hide'>
+        <div class='alert-warning alert'></div>
+    </div>
+    @if ($message = Session::get('success'))
+    <div class="p-4 error rounded">
+        <p class="alert alert-success">{{ $message }}</p>
+    </div>
+    @endif
+    @if ($message = Session::get('fail'))
+    <div class="p-4 error rounded">
+        <p class="alert alert-danger">{{ $message }}</p>
+    </div>
+    @endif
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col">
-            <div class="card my-2 shadow-3">
-                <form name="orderForm" action="/cart">
+            <div class="card my-2 shadow-3  border border-secondary">
+                <script src='https://js.stripe.com/v2/' type='text/javascript'></script>
+                <form name="paymentForm" role="form" action="{{ route('make-payment') }}" method="post"
+                    class="require-validation" data-cc-on-file="false"
+                    data-stripe-publishable-key="{{ env('STRIPE_PUBLISHED_KEY') }}" id="payment-form">
+                    @csrf
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="card-body p-md-5 text-black">
@@ -59,61 +76,78 @@
                         </div>
 
                         <div class="col-lg-5 mt-4 ml-4">
-                            <div class="card bg-primary text-white rounded-3">
+                            <div class="card bg-light text-white rounded-3">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <h2 class="mb-0">Card details</h2>
                                     </div>
 
-                                    <p class="medium mb-2">Card type</p>
+                                    <p class="medium mb-1 font-weight-bold">Card type</p>
                                     <i class="fa fa-cc-mastercard fa-3x"></i>
                                     <i class="fa fa-cc-visa fa-3x"></i>
                                     <i class="fa fa-cc-amex fa-3x"></i>
                                     <i class="fa fa-cc-paypal fa-3x"></i>
 
-                                    <div class="form-outline form-white mb-4">
+                                    <div class="form-outline form-white mt-2 required">
                                         <label class="form-label">Cardholder's Name</label>
                                         <input type="text" name="cardName" class="form-control form-control-lg"
                                             placeholder="Cardholder's Name" required />
                                     </div>
                                     <div class="form-outline form-white mb-4">
                                         <label class="form-label">Card Number</label>
-                                        <input type="text" name="cardNumber" class="form-control form-control-lg"
-                                            placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" required />
+                                        <input type="text" name="cardNumber"
+                                            class="form-control form-control-lg card-number"
+                                            placeholder="1234 5678 9012 3457" maxlength="16" required />
                                     </div>
                                     <div class="row mb-4">
                                         <div class="col-md-6">
-                                            <div class="form-outline form-white">
-                                                <label class="form-label">Expiration Date</label>
-                                                <input type="text" name="exp" class="form-control form-control-lg"
-                                                    placeholder="MM/YYYY" minlength="7" maxlength="7" required />
+                                            <div class="form-outline form-white expiration required">
+                                                <label class="form-label">Expiration Month</label>
+                                                <input type="text" name="exp"
+                                                    class="form-control form-control-lg card-expiry-month"
+                                                    placeholder="MM" minlength="2" maxlength="2" required />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-outline form-white">
+                                            <div class="form-outline form-white expiration required">
+                                                <label class="form-label">Expiration Year</label>
+                                                <input type="text" name="exp"
+                                                    class="form-control form-control-lg card-exp-year"
+                                                    placeholder="YYYY" minlength="4" maxlength="4" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mt-2">
+                                            <div class="form-outline form-white cvc required">
                                                 <label class="form-label">CVV</label>
-                                                <input type="password" name="cvv" class="form-control form-control-lg"
-                                                    placeholder="***" minlength="3" maxlength="3" required />
+                                                <input type="password" name="cvv"
+                                                    class="form-control form-control-lg card-cvc" placeholder="***"
+                                                    minlength="3" maxlength="3" required />
                                             </div>
                                         </div>
                                     </div>
 
                                     <hr class="my-2">
 
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex justify-content-between font-weight-bold">
                                         <p class="mb-2">Subtotal</p>
-                                        <p class="mb-2"><i class="fa fa-rupee"></i> {{ Cart::getSubTotal() }}</p>
+                                        <h1 class="fa fa-dollar mb-2 font-weight-bold"> {{ Cart::getTotal() }}.00</p>
                                     </div>
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex justify-content-between font-weight-bold">
                                         <p class="mb-2">Shipping</p>
-                                        <p class="mb-2"><i class="fa fa-rupee"></i> 50.00</p>
+                                        @php $shipping = 50.00; @endphp
+                                        <p class="fa fa-dollar mb-2 font-weight-bold"> {{ $shipping }}.00</p>
                                     </div>
-                                    <div class="d-flex justify-content-between mb-4">
+                                    <hr class="my-2 bg-dark">
+                                    <div class="d-flex justify-content-between mb-4 font-weight-bold">
                                         <p class="mb-2">Total(Incl. taxes)</p>
-                                        <p class="mb-2"><i class="fa fa-rupee"></i> {{ Cart::getTotal() }}</p>
+                                        <p class="fa fa-dollar mb-2 font-weight-bold">
+                                            {{($shipping + Cart::getTotal())}}
+                                            .00</p>
+                                        <input type="hidden" name="total"
+                                            value="{{ ($shipping + Cart::getTotal()) }}.00">
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-info btn-block btn-lg" id="payment"
+                                        <button type="submit" class="btn btn-primary btn-block btn-lg" id="payment"
                                             onclick="order()" style="display:none;">Make Payment</button>
                                     </div>
                                 </div>
@@ -126,16 +160,75 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"
+    integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+
 <script>
+$(function() {
+    $('form.require-validation').bind('submit', function(e) {
+        var $form = $(e.target).closest('form'),
+            inputSelector = ['input[type=email]', 'input[type=password]',
+                'input[type=text]', 'input[type=file]',
+                'textarea'
+            ].join(', '),
+            $inputs = $form.find('.required').find(inputSelector),
+            $errorMessage = $form.find('div.error'),
+            valid = true;
+
+        $errorMessage.addClass('hide');
+        $('.has-error').removeClass('has-error');
+        $inputs.each(function(i, el) {
+            var $input = $(el);
+            if ($input.val() === '') {
+                $input.parent().addClass('has-error');
+                $errorMessage.removeClass('hide');
+                e.preventDefault();
+            }
+        });
+    });
+});
+
+$(function() {
+    var $form = $("#payment-form");
+
+    $form.on('submit', function(e) {
+        if (!$form.data('cc-on-file')) {
+            e.preventDefault();
+            Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+            Stripe.createToken({
+                number: $('.card-number').val(),
+                cvc: $('.card-cvc').val(),
+                exp_month: $('.card-expiry-month').val(),
+                exp_year: $('.card-exp-year').val()
+            }, stripeResponseHandler);
+        }
+    });
+
+    function stripeResponseHandler(status, response) {
+        if (response.error) {
+            $('.error')
+                .removeClass('hide')
+                .find('.alert')
+                .text(response.error.message);
+        } else {
+            var token = response['id'];
+            $form.find('input[type=text]').empty();
+            $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+            console.log(token);
+            $form.get(0).submit();
+        }
+    }
+})
+
 function order() {
 
-    var fname = document.orderForm.fname.value;
-    var lname = document.orderForm.lname.value;
-    var email = document.orderForm.email.value;
-    var state = document.orderForm.state.value;
-    var city = document.orderForm.city.value;
-    var zipcode = document.orderForm.zipcode.value;
-    var address = document.orderForm.address.value;
+    var fname = document.paymentForm.fname.value;
+    var lname = document.paymentForm.lname.value;
+    var email = document.paymentForm.email.value;
+    var state = document.paymentForm.state.value;
+    var city = document.paymentForm.city.value;
+    var zipcode = document.paymentForm.zipcode.value;
+    var address = document.paymentForm.address.value;
     var order = document.getElementById('confirm');
     var payemnt = document.getElementById('payment');
 

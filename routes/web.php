@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,12 +50,14 @@ Route::get('/product/create/{id}', [ProductController::class, 'create'])->name('
 /**
  * CRUD Route for Shopping Cart Items
  */ 
-Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');
-Route::post('cart-save', [CartController::class, 'addToCart'])->name('cart.store');
-Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
-Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove');
-Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
+Route::get('cart', [CartController::class, 'cartList'])->name('cart-list');
+Route::post('save-cart', [CartController::class, 'addToCart'])->name('save-cart');
+Route::post('update-cart', [CartController::class, 'updateCart'])->name('update-cart');
+Route::post('remove', [CartController::class, 'removeCart'])->name('remove-cart');
+Route::post('clear', [CartController::class, 'clearAllCart'])->name('clear-cart');
 
-
-////
-Route::view('payment', 'layouts.ecommerce.payment');
+/**
+ * Route for Payment of Cart Items
+ */
+Route::get('payment', [PaymentController::class, 'index'])->name('payment');
+Route::post('payment', [PaymentController::class, 'payment'])->name('make-payment');

@@ -25,7 +25,7 @@
         <h5 class="card-text text-center">Price: <i class="fa fa-rupee"> <b>{{ $product->p_price }}</b></i>
         </h5>
         <div class="text-center">
-            <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('save-cart') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" value="{{ $product->p_id }}" name="p_id">
                 <input type="hidden" value="{{ $product->p_name }}" name="p_name">
