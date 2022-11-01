@@ -17,6 +17,9 @@
     @endif
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col">
+            <div class='error form-group hide'>
+                <div class='alert alert-danger' style="display:none;" id='cardError'></div>
+            </div>
             <div class="card my-2 shadow-3  border border-secondary">
                 <script src='https://js.stripe.com/v2/' type='text/javascript'></script>
                 <form name="paymentForm" role="form" action="{{ route('make-payment') }}" method="post"
@@ -27,25 +30,17 @@
                         <div class="col-xl-6">
                             <div class="card-body p-md-5 text-black">
                                 <h3 class="mb-4 text-uppercase">Delivery Info</h3>
-                                <div class="row">
-                                    <div class="col-md-6 mb-4">
-                                        <div class="form-outline">
-                                            <label class="form-label">First name</label>
-                                            <input type="text" name="fname" class="form-control form-control-lg"
-                                                required />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-4">
-                                        <div class="form-outline">
-                                            <label class="form-label">Last name</label>
-                                            <input type="text" name="lname" class="form-control form-control-lg"
-                                                required />
-                                        </div>
-                                    </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" name="name" class="form-control form-control-lg" required />
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label">Email</label>
                                     <input type="email" name="email" class="form-control form-control-lg" required />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Address</label>
+                                    <input type="text" name="address" class="form-control form-control-lg" required />
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
@@ -61,15 +56,11 @@
                                     <label class="form-label">Zip Code</label>
                                     <input type="text" name="zipcode" class="form-control form-control-lg" required />
                                 </div>
-                                <div class="form-outline mb-4">
-                                    <label class="form-label">Address</label>
-                                    <input type="text" name="address" class="form-control form-control-lg" required />
-                                </div>
                                 <div class="d-flex justify-content-around pt-3">
                                     <a href="{{ url('/cart')}}" class="btn btn-dark btn-lg mr-5"><i
                                             class="fa fa-arrow-left"></i> Back to Cart</a>
                                     <button type="button" class="btn btn-primary btn-lg ml-5" onclick="order()"
-                                        id="confirm">Confirm Order</button>
+                                        id="confirmOrder">Confirm Order</button>
                                 </div>
                             </div>
                         </div>
@@ -181,8 +172,8 @@ $(function() {
 
         $errorMessage.addClass('hide');
         $('.has-error').removeClass('has-error');
-        $inputs.each(function(i, el) {
-            var $input = $(el);
+        $inputs.each(function(i, err) {
+            var $input = $(err);
             if ($input.val() === '') {
                 $input.parent().addClass('has-error');
                 $errorMessage.removeClass('hide');
@@ -226,31 +217,32 @@ $(function() {
 
 function order() {
 
-    var fname = document.paymentForm.fname.value;
-    var lname = document.paymentForm.lname.value;
+    var name = document.paymentForm.name.value;
     var email = document.paymentForm.email.value;
+    var address = document.paymentForm.address.value;
     var state = document.paymentForm.state.value;
     var city = document.paymentForm.city.value;
     var zipcode = document.paymentForm.zipcode.value;
-    var address = document.paymentForm.address.value;
-    var order = document.getElementById('confirm');
+    var orderConfirm = document.getElementById('confirmOrder');
     var payemnt = document.getElementById('payment');
+    var card_error = document.getElementById('cardError');
 
-    if (fname == "" || lname == "" || email == "" || state == "" || city == "" || zipcode == "" || address == "") {
+    if (name == "" || email == "" || address == "" || state == "" || city == "" || zipcode == "") {
         alert("All fields are required.");
         return false;
-    } else if (order.innerHTML === "Confirm Order") {
-        order.innerHTML = "Confirmed!";
-        order.style.backgroundColor = "green";
+    } else if (orderConfirm.innerHTML === "Confirm Order") {
+        orderConfirm.innerHTML = "Confirmed!";
+        orderConfirm.style.backgroundColor = "green";
         payment.style.display = "block";
+        card_error.style.display = "block";
     }
 }
 
-document.getElementById('cardNumber').addEventListener("keyup", function(){
-   txt=this.value;
-   if (txt.length==4 || txt.length==9 || txt.length==14)
-    this.value=this.value+" ";
-  
+document.getElementById('cardNumber').addEventListener("keyup", function() {
+    txt = this.value;
+    if (txt.length == 4 || txt.length == 9 || txt.length == 14)
+        this.value = this.value + " ";
+
 });
 </script>
 

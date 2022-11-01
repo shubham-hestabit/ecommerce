@@ -22,7 +22,7 @@ class PaymentController extends Controller
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         
         $customer = Customer::create(array(
-          'name' => $request->fname . " " . $request->lname,
+          'name' => $request->name,
           'description' => 'Customer Info',
           'email' => $request->email,
           'source' => $request->stripeToken,
@@ -42,7 +42,7 @@ class PaymentController extends Controller
                 'customer' =>  $customer['id'],
                 'description' => 'Payment Recieved.',
                 'shipping' => [
-                    'name' => $request->fname . " " . $request->lname,
+                    'name' => $request->name,
                     'address' => [
                         'state' => $request->state,
                         'city' => $request->city,
