@@ -4,17 +4,22 @@
 
 <div class="container py-4">
     @if ($message = Session::get('success'))
-    <div class="alert alert-success alert-block">
+    <div class="alert alert-success alert-block" id="msg">
         <button type="button" class="close" data-dismiss="alert">X</button>
         <strong>{{ $message }}</strong>
     </div>
     @endif
     @if ($message = Session::get('error'))
-    <div class="alert alert-danger alert-block">
+    <div class="alert alert-danger alert-block" id="msg">
         <button type="button" class="close" data-dismiss="alert">X</button>
         <strong>{{ $message }}</strong>
     </div>
     @endif
+    <script>
+    setTimeout(function() {
+        $("#msg").hide();
+    }, 7000);
+    </script>
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col">
             <div class='error form-group d-none'>
@@ -65,6 +70,12 @@
                             </div>
                         </div>
 
+                        @foreach ($cartItems as $item)
+                        <input type="hidden" name="p_name" value="{{ $item->name }}">
+                        <input type="hidden" name="p_details" value="{{ $item->details }}">
+                        <input type="hidden" name="p_price" value="{{ $item->price }}">
+                        @endforeach
+
                         <div class="col-lg-5 mt-4 ml-4">
                             <div class="card bg-light text-white rounded-3">
                                 <div class="card-body">
@@ -101,7 +112,7 @@
                                         <div class="col-md-6">
                                             <div class="form-outline form-white expiration required">
                                                 <label class="form-label">Expiration Month</label>
-                                                <input type="text" name="exp"
+                                                <input type="text" name="exp_month"
                                                     class="form-control form-control-lg card-expiry-month"
                                                     placeholder="MM" minlength="1" maxlength="2" required />
                                             </div>
@@ -109,7 +120,7 @@
                                         <div class="col-md-6">
                                             <div class="form-outline form-white expiration required">
                                                 <label class="form-label">Expiration Year</label>
-                                                <input type="text" name="exp"
+                                                <input type="text" name="exp_year"
                                                     class="form-control form-control-lg card-exp-year"
                                                     placeholder="YYYY" minlength="4" maxlength="4" required />
                                             </div>
@@ -130,6 +141,8 @@
                                         <p class="mb-2">Subtotal</p>
                                         <h1 class="fa fa-dollar mb-2 font-weight-bold">
                                             {{ number_format(Cart::getTotal(), 2) }}</p>
+                                            <input type="hidden" name="subTotal"
+                                                value="{{ number_format(Cart::getTotal(), 2) }}">
                                     </div>
                                     <div class="d-flex justify-content-between font-weight-bold">
                                         <p class="mb-2">Shipping</p>
@@ -137,13 +150,16 @@
                                             $shipping=80; @endphp @endif <p class="fa fa-dollar mb-2 font-weight-bold">
                                             {{ number_format($shipping, 2) }}
                                             </p>
+                                            <input type="hidden" name="shipping"
+                                                value="{{ number_format($shipping, 2) }}">
                                     </div>
                                     <hr class="my-2 bg-dark">
                                     <div class="d-flex justify-content-between mb-4 font-weight-bold">
                                         <p class="mb-2">Total(Incl. taxes)</p>
                                         <p class="fa fa-dollar mb-2 font-weight-bold">
                                             {{ number_format(($shipping + Cart::getTotal()), 2) }}</p>
-                                        <input type="hidden" name="total" value="{{ ($shipping + Cart::getTotal()) }}">
+                                        <input type="hidden" name="total"
+                                            value="{{ number_format(($shipping + Cart::getTotal()), 2) }}">
                                     </div>
                                     <div class="d-flex justify-content-center">
                                         <button type="submit" class="btn btn-primary btn-block btn-lg" id="payment"

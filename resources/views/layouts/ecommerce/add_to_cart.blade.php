@@ -48,9 +48,7 @@
                                 <div class="media align-middle p-4">
                                     <div class="media-body">
                                         <a href="#" class="d-block text-dark">{{ $item->name }}</a>
-                                        <small>
-                                            <span class="text-muted">{{ $item->details }}</span> india
-                                        </small>
+                                        <small>{{ $item->details }}</small>
                                     </div>
                                 </div>
                             </td>
