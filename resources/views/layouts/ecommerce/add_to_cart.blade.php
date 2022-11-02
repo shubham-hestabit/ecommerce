@@ -32,7 +32,7 @@
                                 <form action="{{ route('clear-cart') }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-danger font-weight-bold"
-                                        onclick="confirm('Are You want to Clear All Cart Items');">Clear Cart</button>
+                                        onclick="confirm('Are you really want to Clear Cart');">Clear Cart</button>
                                 </form>
                             </th>
                         </tr>
