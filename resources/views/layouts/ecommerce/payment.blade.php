@@ -72,15 +72,19 @@
                                         <h2 class="mb-0">Card details</h2>
                                     </div>
                                     <p class="medium mb-1 font-weight-bold">Card type</p>
-                                    <img class="me-2" width="45px"
-                                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
-                                        alt="Visa" />
-                                    <img class="me-2" width="45px"
-                                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
-                                        alt="American Express" />
-                                    <img class="me-2" width="45px"
-                                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
-                                        alt="Mastercard" />
+                                    <img class="ml-2" width="45px"
+                                        src="https://cdn-icons-png.flaticon.com/512/349/349221.png" alt="Visa" />
+                                    <img class="ml-2" width="45px"
+                                        src="https://cdn-icons-png.flaticon.com/512/349/349228.png"
+                                        alt="AmericanExpress" />
+                                    <img class="ml-2" width="45px"
+                                        src="https://cdn-icons-png.flaticon.com/128/825/825464.png" alt="Mastercard" />
+                                    <img class="ml-2" width="45px"
+                                        src="https://cdn-icons-png.flaticon.com/128/1440/1440517.png" alt="PayPal" />
+                                    <!-- <img class="ml-2" width="45px"
+                                        src="https://cdn-icons-png.flaticon.com/128/349/349230.png" alt="Discovery" />
+                                    <img class="ml-2" width="45px"
+                                        src="https://cdn-icons-png.flaticon.com/128/5968/5968382.png" alt="Stripe" /> -->
 
                                     <div class="form-outline form-white mt-2 required">
                                         <label class="form-label">Cardholder's Name</label>
@@ -164,7 +168,8 @@ $(function() {
         var $form = $(e.target).closest('form'),
             inputSelector = ['input[type=email]', 'input[type=password]',
                 'input[type=text]', 'input[type=file]',
-                'textarea'].join(', '),
+                'textarea'
+            ].join(', '),
             $inputs = $form.find('.required').find(inputSelector),
             $errorMessage = $form.find('div.error'),
             valid = true;
@@ -195,7 +200,9 @@ $(function() {
                 exp_month: $('.card-expiry-month').val(),
                 exp_year: $('.card-exp-year').val()
             }, stripeResponseHandler);
-            setTimeout(function(){ $("#cardError").hide(); }, 8000); 
+            setTimeout(function() {
+                $("#cardError").hide();
+            }, 8000);
         }
     });
 
