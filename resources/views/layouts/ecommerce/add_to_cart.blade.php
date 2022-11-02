@@ -5,9 +5,14 @@
 <div class="container px-3 py-5 clearfix">
     <div class="card">
         @if ($message = Session::get('success'))
-        <div class="alert alert-info">
+        <div class="alert alert-info" id="msg">
             <button type="button" class="close" data-dismiss="alert">X</button>
             <strong>{{ $message }}</strong>
+            <script>
+            setTimeout(function() {
+                $("#msg").hide();
+            }, 7000);
+            </script>
         </div>
         @endif
         <div class="card-header text-center">
@@ -26,7 +31,8 @@
                             <th>
                                 <form action="{{ route('clear-cart') }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-danger font-weight-bold">Clear Cart</button>
+                                    <button type="submit" class="btn btn-danger font-weight-bold"
+                                        onclick="confirm('Are You want to Clear All Cart Items');">Clear Cart</button>
                                 </form>
                             </th>
                         </tr>
@@ -34,7 +40,7 @@
                     <tbody>
                         @foreach ($cartItems as $item)
                         <tr>
-                            <td width="160">
+                            <td width=" 160">
                                 <img src="{{ '/storage/product-images/' . $item->attributes->image }}"
                                     class="d-block border border-secondary" alt="" height=100 />
                             </td>
