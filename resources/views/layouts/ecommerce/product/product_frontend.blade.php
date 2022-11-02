@@ -33,7 +33,7 @@
                 <input type="hidden" value="{{ $product->p_price }}" name="p_price">
                 <input type="hidden" value="{{ $product->p_image }}" name="p_image">
                 <input type="hidden" value="1" name="quantity">
-                <button class="btn btn-primary w-50" id="cart">
+                <button class="btn btn-primary w-50" id="cart" onclick="alert('Product Added to Cart Successfully!');">
                     <i class='fas fa-cart-arrow-down'></i> Add To Cart
                 </button>
             </form>
