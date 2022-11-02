@@ -17,8 +17,8 @@
     @endif
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col">
-            <div class='error form-group hide'>
-                <div class='alert alert-danger' style="display:none;" id='cardError'></div>
+            <div class='error form-group d-none'>
+                <div class='alert alert-danger' id='cardError'></div>
             </div>
             <div class="card my-2 shadow-3  border border-secondary">
                 <script src='https://js.stripe.com/v2/' type='text/javascript'></script>
@@ -164,19 +164,18 @@ $(function() {
         var $form = $(e.target).closest('form'),
             inputSelector = ['input[type=email]', 'input[type=password]',
                 'input[type=text]', 'input[type=file]',
-                'textarea'
-            ].join(', '),
+                'textarea'].join(', '),
             $inputs = $form.find('.required').find(inputSelector),
             $errorMessage = $form.find('div.error'),
             valid = true;
 
-        $errorMessage.addClass('hide');
+        $errorMessage.addClass('d-none');
         $('.has-error').removeClass('has-error');
         $inputs.each(function(i, err) {
             var $input = $(err);
             if ($input.val() === '') {
                 $input.parent().addClass('has-error');
-                $errorMessage.removeClass('hide');
+                $errorMessage.removeClass('d-none');
                 e.preventDefault();
             }
         });
@@ -196,13 +195,14 @@ $(function() {
                 exp_month: $('.card-expiry-month').val(),
                 exp_year: $('.card-exp-year').val()
             }, stripeResponseHandler);
+            setTimeout(function(){ $("#cardError").hide(); }, 8000); 
         }
     });
 
     function stripeResponseHandler(status, response) {
         if (response.error) {
             $('.error')
-                .removeClass('hide')
+                .removeClass('d-none')
                 .find('.alert')
                 .text(response.error.message);
         } else {
@@ -225,7 +225,6 @@ function order() {
     var zipcode = document.paymentForm.zipcode.value;
     var orderConfirm = document.getElementById('confirmOrder');
     var payemnt = document.getElementById('payment');
-    var card_error = document.getElementById('cardError');
 
     if (name == "" || email == "" || address == "" || state == "" || city == "" || zipcode == "") {
         alert("All fields are required.");
@@ -234,7 +233,6 @@ function order() {
         orderConfirm.innerHTML = "Confirmed!";
         orderConfirm.style.backgroundColor = "green";
         payment.style.display = "block";
-        card_error.style.display = "block";
     }
 }
 
@@ -242,7 +240,6 @@ document.getElementById('cardNumber').addEventListener("keyup", function() {
     txt = this.value;
     if (txt.length == 4 || txt.length == 9 || txt.length == 14)
         this.value = this.value + " ";
-
 });
 </script>
 
