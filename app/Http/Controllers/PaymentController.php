@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Stripe\StripeClient;
 use Stripe\Stripe;
-use Stripe\Error\Card;
 use Stripe\Customer;
 use Stripe\Charge;
 
