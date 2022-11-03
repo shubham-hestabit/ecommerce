@@ -70,12 +70,6 @@
                             </div>
                         </div>
 
-                        @foreach ($cartItems as $item)
-                        <input type="hidden" name="p_name" value="{{ $item->name }}">
-                        <input type="hidden" name="p_details" value="{{ $item->details }}">
-                        <input type="hidden" name="p_price" value="{{ $item->price }}">
-                        @endforeach
-
                         <div class="col-lg-5 mt-4 ml-4">
                             <div class="card bg-light text-white rounded-3">
                                 <div class="card-body">
