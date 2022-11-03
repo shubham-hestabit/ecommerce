@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('p_name');
             $table->string('p_details');
             $table->string('p_price');
-            $table->string('p_image')->nullable();;
+            $table->string('p_image')->nullable();
             $table->unsignedBigInteger('sc_id');
             $table->foreign('sc_id')->references('sc_id')->on('sub_categories')->onDelete('cascade');
             $table->timestamps();
