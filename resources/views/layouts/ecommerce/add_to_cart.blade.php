@@ -6,7 +6,7 @@
     <div class="card">
         @if ($message = Session::get('success'))
         <div class="alert alert-info" id="msg">
-            <button type="button" class="close" data-dismiss="alert">X</button>
+            <button type="button" class="close" data-dismiss="alert">x</button>
             <strong>{{ $message }}</strong>
             <script>
             setTimeout(function() {

@@ -12,6 +12,7 @@ use PDF;
 class PaymentController extends Controller
 {
     public function index(){
+
         $cartItems = \Cart::session(Auth::user()->id)->getContent();
 
         return view('layouts.ecommerce.payment', compact('cartItems'));
@@ -64,15 +65,11 @@ class PaymentController extends Controller
 
     public function paymentInvoice($request)
     {
-        // dd($request->all());
+        $cartItems = \Cart::session(Auth::user()->id)->getContent();
+
         $data = [
-            'foreach' => $request->s_for,
+            'cart' => $cartItems,
             'date' => date('d-M-Y'),
-            'product' => [
-                'product_name' => $request->p_name,
-                'product_details' => $request->product_details,
-                'product_price' => $request->p_price, 
-            ],
             'billing_address' => [
                 'name' => $request->name,
                 'line1' => $request->address, 
@@ -99,9 +96,7 @@ class PaymentController extends Controller
         ];
           
         $pdf = PDF::loadView('invoices', $data);
-        
-        return $pdf->stream('invoice.pdf');
-        
-        // return $pdf->download('invoice.pdf');
+        $pdfName = $request->name . 'pdf';
+        return $pdf->stream($pdfName);
     }
 }

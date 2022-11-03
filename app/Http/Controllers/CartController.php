@@ -11,6 +11,7 @@ class CartController extends Controller
     public function cartList()
     {
         $cartItems = \Cart::session(Auth::user()->id)->getContent();
+        
         return view('layouts.ecommerce.add_to_cart', compact('cartItems'));
     }
 
@@ -22,10 +23,10 @@ class CartController extends Controller
             'id' => $id,
             'name' => $request->p_name,
             'price' => $request->p_price,
-            'details' => $request->p_details,
             'quantity' => $request->quantity,
             'attributes' => array(
                 'image' => $request->p_image,
+                'details' => $request->p_details,
             ),
             'AssociatedModel' => $product,
         ]);
