@@ -81,19 +81,14 @@ class PaymentController extends Controller
         $order = Order::findOrFail($id);
         $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
         $charge = $stripeClient->charges->retrieve( $order['charge_id'] )->toArray();
-
+        $billing = $charge['shipping'];
+        
         $data = [
             'orderNum' => $order->order_id,
             'cartItems' => json_decode($order->product_details),
             'date' => date('d-M-Y'),
             'time' => date('h:i:s a'),
-            'billing_address' => [
-                'name' => $request->name,
-                'line1' => $request->address, 
-                'city' => $request->city,
-                'country' => $request->country, 
-                'postal_code' => $request->zipcode, 
-            ],
+            'billing_address' => $billing,
             'shipping_address' => $charge['shipping'],
             'payment_details' => $charge['payment_method_details'],
             'sub_total' => $request->subTotal,
