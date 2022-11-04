@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Http;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Product;
-use Auth;
 
 class HomeController extends Controller
 {
