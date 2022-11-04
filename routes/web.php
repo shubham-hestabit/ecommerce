@@ -7,6 +7,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\WebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,6 @@ Route::get('/', function () {
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Auth::routes();
 
-
 /**
  * CRUD Route for Category Resource
  */ 
@@ -37,14 +37,12 @@ Route::resource('category', CategoryController::class);
  * CRUD Route for Sub Category Resource
  */ 
 Route::resource('sub-category', SubCategoryController::class);
-
 Route::get('/sub-category/create/{id}', [SubCategoryController::class, 'create'])->name('sc-create');
 
 /**
  * CRUD Route for Products Resource
  */ 
 Route::resource('/product', ProductController::class);
-
 Route::get('/product/create/{id}', [ProductController::class, 'create'])->name('product-create');
 
 /**
@@ -61,3 +59,6 @@ Route::post('clear', [CartController::class, 'clearAllCart'])->name('clear-cart'
  */
 Route::get('payment', [PaymentController::class, 'index'])->name('payment');
 Route::post('payment', [PaymentController::class, 'payment'])->name('make-payment');
+
+
+Route::any('webhook',[WebhookController::class, 'handle']);

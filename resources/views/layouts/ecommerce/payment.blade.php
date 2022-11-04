@@ -49,12 +49,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
-                                        <label class="form-label">State</label>
-                                        <input type="text" name="state" class="form-control form-control-lg" required />
-                                    </div>
-                                    <div class="col-md-6 mb-4">
                                         <label class="form-label">City</label>
                                         <input type="text" name="city" class="form-control form-control-lg" required />
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label">Country</label>
+                                        <input type="text" name="country" class="form-control form-control-lg"
+                                            required />
                                     </div>
                                 </div>
                                 <div class="form-outline mb-4">
@@ -83,13 +84,13 @@
                                         src="https://cdn-icons-png.flaticon.com/512/349/349228.png"
                                         alt="AmericanExpress" />
                                     <img class="ml-2" width="45px"
-                                        src="https://cdn-icons-png.flaticon.com/128/825/825464.png" alt="Mastercard" />
+                                        src="https://cdn-icons-png.flaticon.com/128/5968/5968382.png" alt="Stripe" />
+                                    <!-- <img class="ml-2" width="45px"
+                                        src="https://cdn-icons-png.flaticon.com/128/825/825464.png" alt="Mastercard" /> -->
                                     <img class="ml-2" width="45px"
                                         src="https://cdn-icons-png.flaticon.com/128/1440/1440517.png" alt="PayPal" />
                                     <!-- <img class="ml-2" width="45px"
-                                        src="https://cdn-icons-png.flaticon.com/128/349/349230.png" alt="Discovery" />
-                                    <img class="ml-2" width="45px"
-                                        src="https://cdn-icons-png.flaticon.com/128/5968/5968382.png" alt="Stripe" /> -->
+                                        src="https://cdn-icons-png.flaticon.com/128/349/349230.png" alt="Discovery" />-->
 
                                     <div class="form-outline form-white mt-2 required">
                                         <label class="form-label">Cardholder's Name</label>
@@ -140,12 +141,11 @@
                                     </div>
                                     <div class="d-flex justify-content-between font-weight-bold">
                                         <p class="mb-2">Shipping</p>
-                                        @if(Cart::getTotal() <= "500" ) @php $shipping=0; @endphp @else @php
-                                            $shipping=80; @endphp @endif <p class="fa fa-dollar mb-2 font-weight-bold">
+                                        @if(Cart::getTotal() >= "500" ) @php $shipping=0; @endphp @else @php
+                                        $shipping=80; @endphp @endif <p class="fa fa-dollar mb-2 font-weight-bold">
                                             {{ number_format($shipping, 2) }}
-                                            </p>
-                                            <input type="hidden" name="shipping"
-                                                value="{{ number_format($shipping, 2) }}">
+                                        </p>
+                                        <input type="hidden" name="shipping" value="{{ number_format($shipping, 2) }}">
                                     </div>
                                     <hr class="my-2 bg-dark">
                                     <div class="d-flex justify-content-between mb-4 font-weight-bold">
@@ -238,13 +238,13 @@ function order() {
     var name = document.paymentForm.name.value;
     var email = document.paymentForm.email.value;
     var address = document.paymentForm.address.value;
-    var state = document.paymentForm.state.value;
+    var country = document.paymentForm.country.value;
     var city = document.paymentForm.city.value;
     var zipcode = document.paymentForm.zipcode.value;
     var orderConfirm = document.getElementById('confirmOrder');
     var payemnt = document.getElementById('payment');
 
-    if (name == "" || email == "" || address == "" || state == "" || city == "" || zipcode == "") {
+    if (name == "" || email == "" || address == "" || city == "" || country == "" || zipcode == "") {
         alert("All fields are required.");
         return false;
     } else if (orderConfirm.innerHTML === "Confirm Order") {

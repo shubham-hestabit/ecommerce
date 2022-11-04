@@ -56,9 +56,7 @@
     <div class='container'>
         <div class="invoice-title">
             <h2>Invoice</h2>
-            @php
-            $orderNum = rand(11111,99999)
-            @endphp
+            
             <h3 class="pull-right">Order# {{ $orderNum }}</h3>
         </div>
         <hr>
@@ -68,33 +66,29 @@
                 {{ $billing_address['name'] }}<br>
                 {{ $billing_address['line1'] }}<br>
                 {{ $billing_address['city'] }}<br>
-                {{ $billing_address['state'] }}<br>
                 {{ $billing_address['country'] }},{{ $billing_address['postal_code'] }}<br>
             </address>
         </div>
-        <div class="text-right shipping">
+        <div class="shipping">
             <address>
                 <strong>Shipped To:</strong><br>
                 {{ $shipping_address['name'] }}<br>
-                {{ $shipping_address['line1'] }}<br>
-                {{ $shipping_address['city'] }}<br>
-                {{ $shipping_address['state'] }}<br>
-                {{ $shipping_address['country'] }},{{ $shipping_address['postal_code'] }}<br>
+                {{ $shipping_address['address']['line1'] }}<br>
+                {{ $shipping_address['address']['city'] }}<br>
+                {{ $shipping_address['address']['country'] }},{{ $shipping_address['address']['postal_code'] }}<br>
             </address>
         </div>
         <div class="payment">
             <address>
                 <strong>Payment Method:</strong><br>
-                @php
-                $cardtype = substr($payment_details['card_num'], 14);
-                @endphp
-                Visa ending **** {{ $cardtype }}<br>
-                {{ $payment_details['email'] }}
+                {{ $payment_details['card']['brand'] }} ending xxxx{{ $payment_details['card']['last4'] }}<br>
+                pay through: {{ $payment_details['type'] }}<br>
             </address>
         </div>
-        <div class="text-right date">
+        <div class="date">
             <address>
-                <strong>Order Date:</strong><br>{{ $date}}<br><br>
+                <strong>Order Date:</strong><br>{{ $date }}<br>{{ $time }}<br>
+                
             </address>
         </div>
     </div>
@@ -102,7 +96,7 @@
     <hr>
 
     <div class="container">
-        <h3 class="panel-title"><strong>Order summary</strong></h3>
+        <h3 class="panel-title"><strong>Order Summary</strong></h3>
         <table style="width:100%">
             <thead style="font-size:20px">
                 <tr>
@@ -113,12 +107,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($cart as $item)
+                @foreach ($cartItems as $item)
                 <tr>
-                    <td>{{ $item['name'] }}</td>
-                    <td>{{ $item['attributes']['details'] }}</td>
-                    <td>{{ $item['quantity'] }}</td>
-                    <td>${{ $item['price'] }}</td>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->attributes->details }}</td>
+                    <td>{{ $item->quantity }}</td>
+                    <td>${{ $item->price }}</td>
                 </tr>
                 @endforeach
                 <tr>

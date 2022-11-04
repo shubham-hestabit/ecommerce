@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Order;
 use Stripe\Stripe;
+use Stripe\StripeClient;
 use Stripe\Customer;
 use Stripe\Charge;
 use PDF;
@@ -20,6 +22,8 @@ class PaymentController extends Controller
 
     public function payment(Request $request) {
 
+        $cartItems = \Cart::session(Auth::user()->id)->getContent();
+
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         
         $customer = Customer::create(array(
@@ -28,16 +32,15 @@ class PaymentController extends Controller
             'email' => $request->email,
             'source' => $request->stripeToken,
             'address' => [
-                'state' => $request->state,
                 'city' => $request->city,
-                'country' => 'US', 
+                'country' => $request->country,
                 'line1' => $request->address, 
                 'postal_code' => $request->zipcode, 
                 ]
             ));
             
             try {
-                Charge::create (array (
+                $charge = Charge::create (array (
                     'amount' => $request->total * 100,
                     'currency' => 'usd',
                     'customer' =>  $customer['id'],
@@ -45,54 +48,57 @@ class PaymentController extends Controller
                     'shipping' => [
                         'name' => $request->name,
                         'address' => [
-                            'state' => $request->state,
                             'city' => $request->city,
-                            'country' => 'US', 
+                            'country' => $request->country,
                             'line1' => $request->address, 
                             'postal_code' => $request->zipcode, 
                         ],
                     ]
                 ));
+
+                $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
+                $data = $stripeClient->charges->retrieve( $charge->id );
+                
+                $order = new Order();
+                $order->product_details = json_encode($cartItems);
+                $order->charge_id = $charge->id;
+                $order->user_id = Auth::user()->id;
+                $order->save();
+        
                 session()->flash('success', 'Payment Done Successfully !');
+                return $this->paymentInvoice($request, $order->order_id);
                 // return back();
-                return $this->paymentInvoice($request);
 
             } catch(\Exception $e){
+                dd($e->getMessage());
                 session()->flash('error', $e->getMessage());
                 return back();
             }
         }
 
-    public function paymentInvoice($request)
+    public function paymentInvoice($request, $id)
     {
-        $cartItems = \Cart::session(Auth::user()->id)->getContent();
+        $order = Order::findOrFail($id);
+        $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
+        $charge = $stripeClient->charges->retrieve( $order['charge_id'] )->toArray();
 
         $data = [
-            'cart' => $cartItems,
+            'orderNum' => $order->order_id,
+            'cartItems' => json_decode($order->product_details),
             'date' => date('d-M-Y'),
+            'time' => date('h:i:s a'),
             'billing_address' => [
                 'name' => $request->name,
                 'line1' => $request->address, 
                 'city' => $request->city,
-                'state' => $request->state,
-                'country' => 'US', 
+                'country' => $request->country, 
                 'postal_code' => $request->zipcode, 
             ],
-            'shipping_address' => [
-                'name' => $request->name,
-                'line1' => $request->address, 
-                'city' => $request->city,
-                'state' => $request->state,
-                'country' => 'US', 
-                'postal_code' => $request->zipcode, 
-            ],
-            'payment_details' => [
-                'card_num' => $request->cardNumber,
-                'email' => $request->email,
-            ],
+            'shipping_address' => $charge['shipping'],
+            'payment_details' => $charge['payment_method_details'],
             'sub_total' => $request->subTotal,
             'shipping' => $request->shipping,
-            'total_amount' => $request->total,
+            'total_amount' => number_format(($charge['amount']/100), 2),
         ];
           
         $pdf = PDF::loadView('invoices', $data);
