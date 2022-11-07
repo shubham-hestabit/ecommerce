@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\WebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,10 +55,9 @@ Route::post('remove', [CartController::class, 'removeCart'])->name('remove-cart'
 Route::post('clear', [CartController::class, 'clearAllCart'])->name('clear-cart');
 
 /**
- * Route for Payment of Cart Items
+ * Route for Payment of Cart Items and genrate Invoice
  */
 Route::get('payment', [PaymentController::class, 'index'])->name('payment');
-Route::post('payment', [PaymentController::class, 'payment'])->name('make-payment');
+Route::post('make-payment', [PaymentController::class, 'payment'])->name('make-payment');
+Route::get('invoice/{id}', [PaymentController::class, 'paymentInvoice'])->name('payment-invoice');
 
-
-Route::any('webhook',[WebhookController::class, 'handle']);

@@ -56,7 +56,7 @@
     <div class='container'>
         <div class="invoice-title">
             <h2>Invoice</h2>
-            
+
             <h3 class="pull-right">Order# {{ $orderNum }}</h3>
         </div>
         <hr>
@@ -64,9 +64,9 @@
             <address>
                 <strong>Billed To:</strong><br>
                 {{ $billing_address['name'] }}<br>
-                {{ $billing_address['line1'] }}<br>
-                {{ $billing_address['city'] }}<br>
-                {{ $billing_address['country'] }},{{ $billing_address['postal_code'] }}<br>
+                {{ $billing_address['address']['line1'] }}<br>
+                {{ $billing_address['address']['city'] }}<br>
+                {{ $billing_address['address']['country'] }},{{ $billing_address['address']['postal_code'] }}<br>
             </address>
         </div>
         <div class="shipping">
@@ -88,7 +88,7 @@
         <div class="date">
             <address>
                 <strong>Order Date:</strong><br>{{ $date }}<br>{{ $time }}<br>
-                
+
             </address>
         </div>
     </div>
@@ -112,20 +112,20 @@
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->attributes->details }}</td>
                     <td>{{ $item->quantity }}</td>
-                    <td>${{ $item->price }}</td>
+                    <td>${{ number_format($item->price, 2) }}</td>
                 </tr>
                 @endforeach
                 <tr>
                     <td colspan="3" style="text-align:right;"><strong>Subtotal</strong>&nbsp;&nbsp;</td>
-                    <td><strong>${{ $sub_total }}</strong></td>
+                    <td><strong>${{ number_format($sub_total, 2) }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align:right;"><strong>Shipping</strong>&nbsp;&nbsp;</td>
-                    <td><strong>${{ $shipping }}</strong></td>
+                    <td><strong>${{ number_format($shipping_charge, 2) }}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align:right;"><strong>Total</strong>&nbsp;&nbsp;</td>
-                    <td><strong>${{ $total_amount }}</strong></td>
+                    <td><strong>${{ number_format($total_amount, 2) }}</strong></td>
                 </tr>
             </tbody>
         </table>

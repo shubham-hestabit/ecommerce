@@ -68,8 +68,8 @@ class PaymentController extends Controller
             $order->save();
 
             session()->flash('success', 'Payment Done Successfully !');
-            return $this->paymentInvoice($request, $order->order_id);
-            // return back();
+            $order_id = $order->order_id;
+            return view('thankyou', compact('order_id'));
 
         } catch (\Exception $e) {
             dd($e->getMessage());
@@ -78,12 +78,17 @@ class PaymentController extends Controller
         }
     }
 
-    public function paymentInvoice($request, $id)
+    public function paymentInvoice($id)
     {
         $order = Order::findOrFail($id);
         $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
         $charge = $stripeClient->charges->retrieve($order['charge_id'])->toArray();
         $billing = $charge['shipping'];
+
+        $subTotal = 0;
+        foreach (json_decode($order['product_details']) as $items){
+            $subTotal += $items->quantity * $items->price;
+        }
 
         $data = [
             'orderNum' => $order->order_id,
@@ -93,13 +98,13 @@ class PaymentController extends Controller
             'billing_address' => $billing,
             'shipping_address' => $charge['shipping'],
             'payment_details' => $charge['payment_method_details'],
-            'sub_total' => $request->subTotal,
-            'shipping' => $request->shipping,
-            'total_amount' => number_format(($charge['amount'] / 100), 2),
+            'sub_total' => $subTotal,
+            'shipping_charge' =>  ((($charge['amount'] / 100) < 500) ? $shipping_charge=50 : $shipping_charge=0),
+            'total_amount' => (($charge['amount'] / 100)),
         ];
 
         $pdf = PDF::loadView('invoices', $data);
-        $pdfName = $request->name . 'pdf';
+        $pdfName = Auth::user()->name . '.pdf';
         return $pdf->stream($pdfName);
     }
 }

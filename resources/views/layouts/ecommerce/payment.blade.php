@@ -141,19 +141,19 @@
                                     </div>
                                     <div class="d-flex justify-content-between font-weight-bold">
                                         <p class="mb-2">Shipping</p>
-                                        @if(Cart::getTotal() >= "500" ) @php $shipping=0; @endphp @else @php
-                                        $shipping=80; @endphp @endif <p class="fa fa-dollar mb-2 font-weight-bold">
-                                            {{ number_format($shipping, 2) }}
+                                        <p class="fa fa-dollar mb-2 font-weight-bold">
+                                            {{ (Cart::getTotal() >= "500" ) ? $shipping_charge=0 : $shipping_charge=50 }}
                                         </p>
-                                        <input type="hidden" name="shipping" value="{{ number_format($shipping, 2) }}">
+                                        <input type="hidden" name="shipping"
+                                            value="{{ number_format($shipping_charge, 2) }}">
                                     </div>
                                     <hr class="my-2 bg-dark">
                                     <div class="d-flex justify-content-between mb-4 font-weight-bold">
                                         <p class="mb-2">Total(Incl. taxes)</p>
                                         <p class="fa fa-dollar mb-2 font-weight-bold">
-                                            {{ number_format(($shipping + Cart::getTotal()), 2) }}</p>
+                                            {{ number_format(($shipping_charge + Cart::getTotal()), 2) }}</p>
                                         <input type="hidden" name="total"
-                                            value="{{ number_format(($shipping + Cart::getTotal()), 2) }}">
+                                            value="{{ number_format(($shipping_charge + Cart::getTotal()), 2) }}">
                                     </div>
                                     <div class="d-flex justify-content-center">
                                         <button type="submit" class="btn btn-primary btn-block btn-lg" id="payment"
