@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Payment Invoice</title>
+    <title>Order Invoice</title>
     <style>
     body {
         font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !important;
@@ -54,9 +54,9 @@
 
 <body>
     <div class='container'>
-        <div class="invoice-title">
+        {{--<!-- <div class="invoice-title">
             <h2>Invoice</h2>
-            <h3 class="pull-right">Order# {{ $orderNum }}</h3>
+            <h3 class="pull-right">Order# {{ 5 }}</h3>
         </div>
         <hr>
         <div class="billing">
@@ -88,7 +88,7 @@
             <address>
                 <strong>Order Date:</strong><br>{{ $date }}<br>{{ $time }}<br>
             </address>
-        </div>
+        </div> -->--}}
     </div>
 
     <hr>

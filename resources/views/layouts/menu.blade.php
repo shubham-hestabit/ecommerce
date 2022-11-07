@@ -15,4 +15,9 @@
         <p>Products</p>
     </a>
 
+    <a href="{{ url('orders') }}" class="nav-link {{ Request::is('orders') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-shopping-bag"></i>
+        <p>Your Orders</p>
+    </a>
+
 </li>

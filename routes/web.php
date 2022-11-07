@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 
 /*
@@ -58,6 +59,10 @@ Route::post('clear', [CartController::class, 'clearAllCart'])->name('clear-cart'
  * Route for Payment of Cart Items and genrate Invoice
  */
 Route::get('payment', [PaymentController::class, 'index'])->name('payment');
-Route::post('make-payment', [PaymentController::class, 'payment'])->name('make-payment');
-Route::get('invoice/{id}', [PaymentController::class, 'paymentInvoice'])->name('payment-invoice');
+Route::post('make-payment', [PaymentController::class, 'paymentDone'])->name('make-payment');
+Route::get('refund-payment/{id}', [PaymentController::class, 'paymentRefund'])->name('refund-payment');
+Route::get('payment-invoice/{id}', [PaymentController::class, 'paymentInvoice'])->name('payment-invoice');
 
+Route::get('orders', [OrderController::class, 'orders']);
+Route::post('save-items', [OrderController::class, 'saveItems']);
+// Route::view('order-invoice', 'order_invoice');

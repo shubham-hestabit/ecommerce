@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
+use App\Models\Item;
 use Stripe\Stripe;
 use Stripe\StripeClient;
 use Stripe\Customer;
@@ -15,15 +16,13 @@ class PaymentController extends Controller
 {
     public function index()
     {
-
         $cartItems = \Cart::session(Auth::user()->id)->getContent();
 
         return view('layouts.ecommerce.payment', compact('cartItems'));
     }
 
-    public function payment(Request $request)
+    public function paymentDone(Request $request)
     {
-
         $cartItems = \Cart::session(Auth::user()->id)->getContent();
 
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
@@ -62,15 +61,25 @@ class PaymentController extends Controller
             $stripeClient->charges->retrieve($charge->id);
 
             $order = new Order();
-            $order->product_details = json_encode($cartItems);
             $order->charge_id = $charge->id;
             $order->user_id = Auth::user()->id;
             $order->save();
 
+            // dd($order->order_id);
+            foreach ($cartItems as $item) {
+                Item::create([
+                    'name' => $item->name,
+                    'image' => $item->attributes->image ?? 'NOT AVAILABLE',
+                    'details' => $item->attributes->details,
+                    'quantity' => $item->quantity,
+                    'order_id' => $order->order_id,
+                    'price' => $item->price,
+                ]);
+            }
+
             session()->flash('success', 'Payment Done Successfully !');
             $order_id = $order->order_id;
             return view('thankyou', compact('order_id'));
-
         } catch (\Exception $e) {
             dd($e->getMessage());
             session()->flash('error', $e->getMessage());
@@ -78,28 +87,44 @@ class PaymentController extends Controller
         }
     }
 
+    public function paymentRefund($id)
+    {
+        try{
+            $order = Order::findOrFail($id);
+            $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
+            $refund = $stripeClient->refunds->create(['charge' => $order['charge_id']]);
+            return redirect('orders')->with($refund);
+        }
+        catch(\Exception $e){
+            session()->flash('error', $e->getMessage());
+            return back();
+        }
+    }
+
+
     public function paymentInvoice($id)
     {
         $order = Order::findOrFail($id);
         $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
         $charge = $stripeClient->charges->retrieve($order['charge_id'])->toArray();
+
+        // $subTotal = 0;
+        // foreach (json_decode($order['product_details']) as $items) {
+        //     $subTotal += $items->quantity * $items->price;
+        // }
+        $items = Item::where('order_id', $order->order_id)->get(); 
+
         $billing = $charge['shipping'];
-
-        $subTotal = 0;
-        foreach (json_decode($order['product_details']) as $items){
-            $subTotal += $items->quantity * $items->price;
-        }
-
         $data = [
             'orderNum' => $order->order_id,
-            'cartItems' => json_decode($order->product_details),
+            'cartItems' => $items,
             'date' => date('d-M-Y'),
             'time' => date('h:i:s a'),
-            'billing_address' => $billing,
+            'billing_address' => $billing, // $charge['billing_details'],
             'shipping_address' => $charge['shipping'],
             'payment_details' => $charge['payment_method_details'],
-            'sub_total' => $subTotal,
-            'shipping_charge' =>  ((($charge['amount'] / 100) < 500) ? $shipping_charge=50 : $shipping_charge=0),
+            'sub_total' => 50,
+            'shipping_charge' => ((($charge['amount'] / 100) < 500) ? $shipping_charge = 50 : $shipping_charge = 0),
             'total_amount' => (($charge['amount'] / 100)),
         ];
 

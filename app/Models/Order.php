@@ -26,4 +26,13 @@ class Order extends Model
         
         return $this->belongsTo('App\Models\User');
     }
+
+    /**
+     * @method for relationship between models
+     */
+    public function items(){
+
+        return $this->hasMany('App\Models\Items');
+
+    }
 }
