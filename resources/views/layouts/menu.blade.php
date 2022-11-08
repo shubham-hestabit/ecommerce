@@ -20,4 +20,9 @@
         <p>Your Orders</p>
     </a>
 
+    <a href="{{ url('subscription') }}" class="nav-link {{ Request::is('subscription') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-shopping-bag"></i>
+        <p>Subscription</p>
+    </a>
+
 </li>

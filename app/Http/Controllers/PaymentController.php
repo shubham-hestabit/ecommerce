@@ -65,19 +65,22 @@ class PaymentController extends Controller
             $order->user_id = Auth::user()->id;
             $order->save();
 
-            // dd($order->order_id);
             foreach ($cartItems as $item) {
                 Item::create([
+                    'order_id' => $order->order_id,
                     'name' => $item->name,
                     'image' => $item->attributes->image ?? 'NOT AVAILABLE',
                     'details' => $item->attributes->details,
                     'quantity' => $item->quantity,
-                    'order_id' => $order->order_id,
                     'price' => $item->price,
                 ]);
             }
-
-            session()->flash('success', 'Payment Done Successfully !');
+            // session()->flash('success', 'Payment Done Successfully!!');
+            // if ($charge->status == "succeeded") {
+            //     \Cart::session(Auth::user()->id)->clear();
+            // } else if ($charge->status == "failed") {
+            //     session()->flash('error', "Payment failed!!");
+            // }
             $order_id = $order->order_id;
             return view('thankyou', compact('order_id'));
         } catch (\Exception $e) {
@@ -89,18 +92,22 @@ class PaymentController extends Controller
 
     public function paymentRefund($id)
     {
-        try{
-            $order = Order::findOrFail($id);
+        try {
+            $item = Item::with('orders')->findOrFail($id);
+            $item->update([
+                'is_returned' => true,
+            ]);
+            $charge_id = $item->orders->charge_id;
+
             $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
-            $refund = $stripeClient->refunds->create(['charge' => $order['charge_id']]);
-            return redirect('orders')->with($refund);
-        }
-        catch(\Exception $e){
+            $stripeClient->refunds->create(['charge' => $charge_id]);
+
+            return redirect('orders');
+        } catch (\Exception $e) {
             session()->flash('error', $e->getMessage());
             return back();
         }
     }
-
 
     public function paymentInvoice($id)
     {
@@ -108,11 +115,12 @@ class PaymentController extends Controller
         $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
         $charge = $stripeClient->charges->retrieve($order['charge_id'])->toArray();
 
-        // $subTotal = 0;
-        // foreach (json_decode($order['product_details']) as $items) {
-        //     $subTotal += $items->quantity * $items->price;
-        // }
-        $items = Item::where('order_id', $order->order_id)->get(); 
+        $items = Item::where('order_id', $order->order_id)->get();
+
+        $subTotal = 0;
+        foreach ($items as $item) {
+            $subTotal += $item->quantity * $item->price;
+        }
 
         $billing = $charge['shipping'];
         $data = [
@@ -123,7 +131,7 @@ class PaymentController extends Controller
             'billing_address' => $billing, // $charge['billing_details'],
             'shipping_address' => $charge['shipping'],
             'payment_details' => $charge['payment_method_details'],
-            'sub_total' => 50,
+            'sub_total' => $subTotal,
             'shipping_charge' => ((($charge['amount'] / 100) < 500) ? $shipping_charge = 50 : $shipping_charge = 0),
             'total_amount' => (($charge['amount'] / 100)),
         ];

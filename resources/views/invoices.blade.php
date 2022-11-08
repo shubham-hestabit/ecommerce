@@ -108,7 +108,7 @@
                 @foreach ($cartItems as $item)
                 <tr>
                     <td>{{ $item->name }}</td>
-                    <td>{{ $item->attributes->details }}</td>
+                    <td>{{ $item->details }}</td>
                     <td>{{ $item->quantity }}</td>
                     <td>${{ number_format($item->price, 2) }}</td>
                 </tr>

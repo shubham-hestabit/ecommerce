@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,13 @@ Route::post('make-payment', [PaymentController::class, 'paymentDone'])->name('ma
 Route::get('refund-payment/{id}', [PaymentController::class, 'paymentRefund'])->name('refund-payment');
 Route::get('payment-invoice/{id}', [PaymentController::class, 'paymentInvoice'])->name('payment-invoice');
 
+/**
+ * Route for display Ordered items 
+ */
 Route::get('orders', [OrderController::class, 'orders']);
-Route::post('save-items', [OrderController::class, 'saveItems']);
-// Route::view('order-invoice', 'order_invoice');
+
+/**
+ * Route for Subscription
+ */
+Route::get('subscription', [SubscriptionController::class, 'index']);
+Route::get('subscribed', [SubscriptionController::class, 'subscription'])->name('subscribed');

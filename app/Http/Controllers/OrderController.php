@@ -13,7 +13,7 @@ class OrderController extends Controller
     {
         $order = Order::latest()->first();
         $items = Item::where('order_id', $order->order_id)->get();
-        return view('orders', compact('items'));
+        return view('orders', compact('items', 'order'));
     }
 
 }
