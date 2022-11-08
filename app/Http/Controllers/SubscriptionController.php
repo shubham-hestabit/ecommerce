@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Order;
 use Stripe\StripeClient;
-use Stripe\Subscription;
 
 class SubscriptionController extends Controller
 {
@@ -16,7 +15,7 @@ class SubscriptionController extends Controller
         return view('subscription');
     }
 
-    public function subscription()
+    public function addSubscription()
     {
         $user_id = Auth::user()->id;
         $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
@@ -52,7 +51,7 @@ class SubscriptionController extends Controller
     public function cancelSubscription()
     {
         $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
-        $subscribe = $stripeClient->subscriptions->id;
+
         $stripeClient->subscriptions->cancel('sub_1M1rXE2eZvKYlo2C0raBIAbM', []);
     }
 }

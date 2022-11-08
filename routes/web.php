@@ -73,4 +73,5 @@ Route::get('orders', [OrderController::class, 'orders']);
  * Route for Subscription
  */
 Route::get('subscription', [SubscriptionController::class, 'index']);
-Route::get('subscribed', [SubscriptionController::class, 'subscription'])->name('subscribed');
+Route::get('subscribed', [SubscriptionController::class, 'addSubscription'])->name('subscribed');
+Route::get('unsubscribed', [SubscriptionController::class, 'cancelSubscription'])->name('unsubscribed');
