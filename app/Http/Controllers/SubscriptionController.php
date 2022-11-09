@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Item;
-use App\Models\Order;
 use App\Models\User;
 use Stripe\Stripe;
 use Stripe\Customer;
@@ -17,7 +15,7 @@ class SubscriptionController extends Controller
     {
         $amount = 50;
         session()->put('amount', $amount);
-        $date = date("d-m-y h:i a", strtotime('30 days'));
+        $date = date('d-m-y h:i a', strtotime('30 days'));
         return view('subscription', compact('amount', 'date'));
     }
 
@@ -43,19 +41,17 @@ class SubscriptionController extends Controller
             'product' => $product->id,
         ]);
 
-        $customer = Customer::create(array(
+        $customer = Customer::create([
             'name' => Auth::user()->name,
             'email' => Auth::user()->email,
-        ));
+        ]);
 
         $subscribe = $stripeClient->subscriptions->create([
             'customer' => $customer->id,
-            'items' => [
-                ['price' => $price->id]
-            ],
+            'items' => [['price' => $price->id]],
         ]);
 
-        if (!$subscribe->status == "active") {
+        if (!$subscribe->status == 'active') {
             session()->flash('error', 'Subscription failed!!');
         }
         $user->update([
