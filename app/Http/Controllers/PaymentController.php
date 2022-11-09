@@ -40,6 +40,7 @@ class PaymentController extends Controller
             ]
         ));
 
+        // dd($customer);
         try {
             $charge = Charge::create(array(
                 'amount' => $request->total * 100,
@@ -75,12 +76,12 @@ class PaymentController extends Controller
                     'price' => $item->price,
                 ]);
             }
-            // session()->flash('success', 'Payment Done Successfully!!');
-            // if ($charge->status == "succeeded") {
-            //     \Cart::session(Auth::user()->id)->clear();
-            // } else if ($charge->status == "failed") {
-            //     session()->flash('error', "Payment failed!!");
-            // }
+            session()->flash('success', 'Payment Done Successfully!!');
+            if ($charge->status == "succeeded") {
+                \Cart::session(Auth::user()->id)->clear();
+            } else if ($charge->status == "failed") {
+                session()->flash('error', "Payment failed!!");
+            }
             $order_id = $order->order_id;
             return view('thankyou', compact('order_id'));
         } catch (\Exception $e) {
@@ -101,7 +102,6 @@ class PaymentController extends Controller
 
             $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
             $stripeClient->refunds->create(['charge' => $charge_id]);
-
             return redirect('orders');
         } catch (\Exception $e) {
             session()->flash('error', $e->getMessage());

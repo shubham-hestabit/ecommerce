@@ -11,9 +11,16 @@ class OrderController extends Controller
 {
     public function orders()
     {
-        $order = Order::latest()->first();
-        $items = Item::where('order_id', $order->order_id)->get();
-        return view('orders', compact('items', 'order'));
+        // try{
+            $user_id = Auth::user()->id;
+            $order = Order::where('user_id', $user_id)->find($user_id);
+            $items = Item::get();
+            return view('orders', compact('items', 'order'));
+        // }
+        // catch(\Exception $e){
+        //     session()->flash('error', $e->getMessage());
+        //     return view('orders');
+        // }
     }
 
 }

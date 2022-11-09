@@ -28,7 +28,6 @@
             <div class="card-header text-center">
                 <h1 class="font-weight-bold">Your Orders</h1>
             </div>
-            <p>{{ $order->is_returned }}</p>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered m-0">

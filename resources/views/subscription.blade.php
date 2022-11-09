@@ -79,7 +79,7 @@
             color: #FF3A39;
         }
 
-        .pricingTable .price-value {
+        .pricingTable .price-value button {
             color: var(--main-color);
             font-size: 27px;
             font-weight: 500;
@@ -89,7 +89,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
         }
 
-        .pricingTable a {
+        .pricingTable button {
             color: var(--main-color);
             background: #fff;
             font-size: 25px;
@@ -99,7 +99,7 @@
             transition: all 0.3s ease;
         }
 
-        .pricingTable a:hover {
+        .pricingTable button:hover {
             text-shadow: 0 5px 5px #aaa;
         }
 
@@ -110,13 +110,13 @@
 
     <div class="container">
         @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-block" id="msg">
+            <div class="alert alert-success alert-block mt-3" id="msg">
                 <button type="button" class="close" data-dismiss="alert">x</button>
                 <strong>{{ $message }}</strong>
             </div>
         @endif
         @if ($message = Session::get('error'))
-            <div class="alert alert-danger alert-block" id="msg">
+            <div class="alert alert-danger alert-block mt-3" id="msg">
                 <button type="button" class="close" data-dismiss="alert">x</button>
                 <strong>{{ $message }}</strong>
             </div>
@@ -138,9 +138,7 @@
                         <li class="disable">Return Available</li>
                     </ul>
                     <div class="price-value">
-                        <a href="">
-                            <span>$0/Month</span>
-                        </a>
+                        <button type="button" style="border: none">$0/Month</button>
                     </div>
                 </div>
             </div>
@@ -155,21 +153,24 @@
                         <li>Return Available</li>
                     </ul>
                     <div class="price-value">
-                        <a href="{{ route('subscribed') }}" onclick="cancel();">
-                            <span id="subscribe">$50/Month</span>
-                        </a>
+                        @if (!Auth::user()->is_subscribed)
+                            <form action="{{ route('subscription-payment') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="sub_price" value="{{ $amount }}">
+                                <button type="submit" style="border:none">${{ $amount }}/Month</button>
+                            </form>
+                        @else
+                            <small style="font-size: 15px; color:black;">Valid till:&ensp;{{ $date }}</small>
+                            <button style="border:none; color:white; background:red;  border:1px solid black;"
+                                onclick="alert('Subscription is already active.');">
+                                <b>Subscribed</b><br>
+                            </button><br>
+                            <a href="{{ route('unsubscribed') }}" onclick="alert('Subscription deactivated.');">
+                                Cancel Subscription</a>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        function cancel() {
-            // var cancel = document.getElementById('subscribe');
-            // if (cancel.innerHTML == '$50/Month'){
-            //     cancel.innerHTML = "Subscribed";
-            //     cancel.color = "green";
-            // }
-        }
-    </script>
 @endsection

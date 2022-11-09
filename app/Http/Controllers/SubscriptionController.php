@@ -6,52 +6,81 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\User;
+use Stripe\Stripe;
+use Stripe\Customer;
 use Stripe\StripeClient;
 
 class SubscriptionController extends Controller
 {
     public function index()
     {
-        return view('subscription');
+        $amount = 50;
+        session()->put('amount', $amount);
+        $date = date("d-m-y h:i a", strtotime('30 days'));
+        return view('subscription', compact('amount', 'date'));
+    }
+
+    public function subPayment()
+    {
+        $amount = session()->get('amount');
+        return view('subscription_payment', compact('amount'));
     }
 
     public function addSubscription()
     {
-        $user_id = Auth::user()->id;
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        $user = User::findOrFail(Auth::user()->id);
         $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
 
-        $orders = Order::where('user_id', $user_id)->get();
-        foreach ($orders as $order) {
-            $charge = $stripeClient->charges->retrieve($order['charge_id']);
-        }
+        $product = $stripeClient->products->create(['name' => 'Premium']);
 
-        $items = Item::where('order_id', $order['order_id'])->get();
-        foreach ($items as $item) {
-            $product = $stripeClient->products->create(['name' => $item->name]);
-            $price = $stripeClient->prices->create([
-                'unit_amount' => $item->price * 100,
-                'currency' => 'usd',
-                'recurring' => ['interval' => 'month'],
-                'product' => $product->id,
-            ]);
-        }
+        $price = $stripeClient->plans->create([
+            'amount' => 30,
+            'currency' => 'usd',
+            'interval' => 'month',
+            'product' => $product->id,
+        ]);
 
-        $stripeClient->subscriptions->create([
-            'customer' => $charge->customer,
+        $customer = Customer::create(array(
+            'name' => Auth::user()->name,
+            'email' => Auth::user()->email,
+        ));
+
+        $subscribe = $stripeClient->subscriptions->create([
+            'customer' => $customer->id,
             'items' => [
                 ['price' => $price->id]
             ],
         ]);
 
+        if (!$subscribe->status == "active") {
+            session()->flash('error', 'Subscription failed!!');
+        }
+        $user->update([
+            'is_subscribed' => true,
+            'subscription_id' => $subscribe->id,
+        ]);
+
         session()->flash('success', 'Subscription Done Successfully!!');
-        
-        return view('subscription');
+
+        return redirect('subscription');
     }
 
     public function cancelSubscription()
     {
+        $user = User::findOrFail(Auth::user()->id);
+
         $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
 
-        $stripeClient->subscriptions->cancel('sub_1M1rXE2eZvKYlo2C0raBIAbM', []);
+        $stripeClient->subscriptions->cancel($user->subscription_id, []);
+
+        $user->update([
+            'is_subscribed' => false,
+            'subscription_id' => null,
+        ]);
+
+        return back();
     }
 }

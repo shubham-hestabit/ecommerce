@@ -11,7 +11,7 @@
     </a>
 
     <a href="{{ url('product') }}" class="nav-link {{ Request::is('product') ? 'active' : '' }}">
-        <i class="nav-icon fa fa-product-hunt"></i>
+        <i class="nav-icon fas fa-shopping-cart"></i>
         <p>Products</p>
     </a>
 
@@ -21,7 +21,7 @@
     </a>
 
     <a href="{{ url('subscription') }}" class="nav-link {{ Request::is('subscription') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-shopping-bag"></i>
+        <i class="nav-icon fa fa-bell"></i>
         <p>Subscription</p>
     </a>
 
