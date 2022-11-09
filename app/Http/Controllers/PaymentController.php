@@ -40,7 +40,6 @@ class PaymentController extends Controller
             ]
         ));
 
-        // dd($customer);
         try {
             $charge = Charge::create(array(
                 'amount' => $request->total * 100,
