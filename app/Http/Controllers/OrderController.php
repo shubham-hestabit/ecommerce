@@ -31,7 +31,7 @@ class OrderController extends Controller
             'orderedItems' => $item,
             'date' => $item->created_at->format('d-M-Y'),
             'time' => $item->created_at->format('h:i:s a'),
-            'billing_address' => $charge['shipping'], // $charge['billing_details'],
+            'billing_address' => $charge['billing_details'] ?? $charge['shipping'],
             'shipping_address' => $charge['shipping'],
             'total_amount' => $item->quantity * $item->price,
         ];

@@ -127,7 +127,7 @@ class PaymentController extends Controller
             'cartItems' => $items,
             'date' => $item->created_at->format('d-M-Y'),
             'time' => $item->created_at->format('h:i:s a'),
-            'billing_address' => $charge['shipping'], // $charge['billing_details'],
+            'billing_address' => $charge['billing_details'] ?? $charge['shipping'],
             'shipping_address' => $charge['shipping'],
             'payment_details' => $charge['payment_method_details'],
             'sub_total' => $subTotal,
