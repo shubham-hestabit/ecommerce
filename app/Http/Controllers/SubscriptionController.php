@@ -16,13 +16,13 @@ class SubscriptionController extends Controller
         $amount = 50;
         session()->put('amount', $amount);
         $date = date('d-m-y h:i a', strtotime('30 days'));
-        return view('subscription', compact('amount', 'date'));
+        return view('layouts.ecommerce.subscription.subscription', compact('amount', 'date'));
     }
 
     public function subPayment()
     {
         $amount = session()->get('amount');
-        return view('subscription_payment', compact('amount'));
+        return view('layouts.ecommerce.subscription.subscription_payment', compact('amount'));
     }
 
     public function addSubscription()
@@ -48,7 +48,7 @@ class SubscriptionController extends Controller
 
         $subscribe = $stripeClient->subscriptions->create([
             'customer' => $customer->id,
-            'items' => [['price' => $price->id]],
+            'items' => ['price' => $price->id],
         ]);
 
         if (!$subscribe->status == 'active') {

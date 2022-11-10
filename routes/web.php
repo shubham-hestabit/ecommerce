@@ -67,7 +67,7 @@ Route::get('payment-invoice/{id}', [PaymentController::class, 'paymentInvoice'])
 /**
  * Route for display Ordered items 
  */
-Route::get('orders', [OrderController::class, 'orders']);
+Route::get('orders', [OrderController::class, 'orders'])->name('orders');
 Route::get('item-invoice/{id}', [OrderController::class, 'orderInvoice'])->name('item-invoice');
 
 /**

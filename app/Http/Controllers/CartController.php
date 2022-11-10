@@ -12,7 +12,7 @@ class CartController extends Controller
     {
         $cartItems = \Cart::session(Auth::user()->id)->getContent();
         
-        return view('layouts.ecommerce.add_to_cart', compact('cartItems'));
+        return view('layouts.ecommerce.payment.add_to_cart', compact('cartItems'));
     }
 
     public function addToCart(Request $request)

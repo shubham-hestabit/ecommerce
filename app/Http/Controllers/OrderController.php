@@ -13,10 +13,10 @@ class OrderController extends Controller
     {
         try {
             $orders = Order::with('items')->where('user_id', Auth::user()->id)->get();
-            return view('orders', compact('orders'));
+            return view('layouts.ecommerce.invoice.orders', compact('orders'));
         } catch (\Exception $e) {
             session()->flash('error', $e->getMessage());
-            return view('orders');
+            return view('layouts.ecommerce.invoice.orders');
         }
     }
 
@@ -30,12 +30,12 @@ class OrderController extends Controller
             'orderedItems' => $item,
             'date' => $item->created_at->format('d-M-Y'),
             'time' => $item->created_at->format('h:i:s a'),
-            'billing_address' => $charge['billing_details'] ?? $charge['shipping'],
+            'billing_address' => $charge['shipping'], //$charge['billing_details'],
             'shipping_address' => $charge['shipping'],
             'total_amount' => $item->quantity * $item->price,
         ];
 
-        $pdf = PDF::loadView('item_invoice', $data);
+        $pdf = PDF::loadView('layouts.ecommerce.invoice.item_invoice', $data);
         $pdfName = $item->name . '.pdf';
         return $pdf->stream($pdfName);
     }

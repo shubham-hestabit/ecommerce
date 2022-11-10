@@ -18,7 +18,7 @@ class PaymentController extends Controller
     {
         $cartItems = \Cart::session(Auth::user()->id)->getContent();
 
-        return view('layouts.ecommerce.payment', compact('cartItems'));
+        return view('layouts.ecommerce.payment.payment', compact('cartItems'));
     }
 
     public function paymentDone(Request $request)
@@ -82,7 +82,7 @@ class PaymentController extends Controller
                 session()->flash('error', "Payment failed!!");
             }
             $order_id = $order->order_id;
-            return view('thankyou', compact('order_id'));
+            return view('layouts.ecommerce.payment.thankyou', compact('order_id'));
         } catch (\Exception $e) {
             dd($e->getMessage());
             session()->flash('error', $e->getMessage());
@@ -121,13 +121,13 @@ class PaymentController extends Controller
         foreach ($items as $item) {
             $subTotal += $item->quantity * $item->price;
         }
-
+        
         $data = [
             'orderNum' => $order->order_id,
             'cartItems' => $items,
-            'date' => $item->created_at->format('d-M-Y'),
-            'time' => $item->created_at->format('h:i:s a'),
-            'billing_address' => $charge['billing_details'] ?? $charge['shipping'],
+            'date' => $order->created_at->format('d-M-Y'),
+            'time' => $order->created_at->format('h:i:s a'),
+            'billing_address' => $charge['shipping'], //$charge['billing_details'],
             'shipping_address' => $charge['shipping'],
             'payment_details' => $charge['payment_method_details'],
             'sub_total' => $subTotal,
@@ -135,7 +135,7 @@ class PaymentController extends Controller
             'total_amount' => (($charge['amount'] / 100)),
         ];
 
-        $pdf = PDF::loadView('billing_invoice', $data);
+        $pdf = PDF::loadView('layouts.ecommerce.invoice.billing_invoice', $data);
         $pdfName = Auth::user()->name . '.pdf';
         return $pdf->stream($pdfName);
     }

@@ -1,5 +1,4 @@
 <li class="nav-item">
-
     <a href="{{ route('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Home</p>
@@ -24,5 +23,4 @@
         <i class="nav-icon fa fa-bell"></i>
         <p>Subscription</p>
     </a>
-
 </li>

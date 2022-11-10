@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- <title>{{ config('app.name') }}</title> -->
+    {{-- <title>{{ config('app.name') }}</title> --}}
     <title>Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
@@ -27,16 +27,17 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('home') }}" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('/category') }}" class="nav-link">Category</a>
+                    <a href="{{ url('category') }}" class="nav-link">Category</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('/product') }}" class="nav-link">Products</a>
+                    <a href="{{ url('product') }}" class="nav-link">Products</a>
                 </li>
             </ul>
 
@@ -68,8 +69,8 @@
                             <p>
                                 {{ Auth::user()->name }}
                                 @php
-                                $view_date = Auth::user()->created_at;
-                                $date = date('d-m-Y', strtotime($view_date));
+                                    $view_date = Auth::user()->created_at;
+                                    $date = date('d-m-Y', strtotime($view_date));
                                 @endphp
                                 <small>Member since {{ $date }}</small>
                             </p>

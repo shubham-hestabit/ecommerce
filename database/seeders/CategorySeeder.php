@@ -15,48 +15,59 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
+        DB::table('roles')->insert([
+            'role_id' => '1',
+            'role' => 'Admin',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        DB::table('roles')->insert([
+            'role_id' => '2',
+            'role' => 'User',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+
         DB::table('categories')->insert([
             'c_id' => '1',
             'c_name' => 'Milk',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s')
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('categories')->insert([
             'c_id' => '2',
             'c_name' => 'Mobile',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s')
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('categories')->insert([
             'c_id' => '3',
             'c_name' => 'Laptop',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s')
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-
 
         DB::table('sub_categories')->insert([
             'sc_id' => '1',
             'sc_name' => 'Amul',
             'c_id' => '1',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s')
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('sub_categories')->insert([
             'sc_id' => '2',
             'sc_name' => 'Oppo',
             'c_id' => '1',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s')
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('sub_categories')->insert([
             'sc_id' => '3',
             'sc_name' => 'Dell',
             'c_id' => '3',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s')
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
-
 
         DB::table('products')->insert([
             'p_id' => '1',
@@ -64,8 +75,8 @@ class CategorySeeder extends Seeder
             'p_details' => 'red',
             'p_price' => '10',
             'sc_id' => '1',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s')
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('products')->insert([
             'p_id' => '2',
@@ -73,8 +84,8 @@ class CategorySeeder extends Seeder
             'p_details' => 'yellow',
             'p_price' => '50',
             'sc_id' => '1',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s')
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('products')->insert([
             'p_id' => '3',
@@ -82,8 +93,8 @@ class CategorySeeder extends Seeder
             'p_details' => 'green',
             'p_price' => '100',
             'sc_id' => '2',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s')
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
     }
 }
