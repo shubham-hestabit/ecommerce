@@ -64,7 +64,6 @@
                         </div>
 
                         <hr class="my-4 bg-dark">
-                        <input type="hidden" name="sub_price" value="{{ $amount }}">
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary btn-block btn-lg w-75" id="payment">
                                 <b>Make Payment<span> (${{ $amount }})</span></b></button>

@@ -156,7 +156,6 @@
                         @if (!Auth::user()->is_subscribed)
                             <form action="{{ route('subscription-payment') }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="sub_price" value="{{ $amount }}">
                                 <button type="submit" style="border:none">${{ $amount }}/Month</button>
                             </form>
                         @else
