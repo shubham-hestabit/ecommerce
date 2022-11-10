@@ -53,7 +53,7 @@
                                     <tr>
                                         <td width="160">
                                             <img src="{{ '/storage/product-images/' . $item->image }}"
-                                                class="d-block border border-secondary" alt="" height=100 />
+                                                class="d-block border border-secondary" alt="Item_image" height=100 />
                                         </td>
                                         <td class="align-middle">{{ $item->name }}</td>
                                         <td class="align-middle">{{ $item->details }}</td>
@@ -64,7 +64,7 @@
                                                 class="btn btn-primary font-weight-bold">Invoice</a>
                                         </td>
                                         <td class="align-middle">
-                                            @if (!$order->is_returned)
+                                            @if (!$item->is_returned)
                                                 <a class="btn btn-warning font-weight-bold"
                                                     href="{{ route('refund-payment', $item->item_id) }}"
                                                     onclick="returnButton();">Return
