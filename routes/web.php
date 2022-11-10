@@ -68,6 +68,7 @@ Route::get('payment-invoice/{id}', [PaymentController::class, 'paymentInvoice'])
  * Route for display Ordered items 
  */
 Route::get('orders', [OrderController::class, 'orders']);
+Route::get('item-invoice/{id}', [OrderController::class, 'orderInvoice'])->name('item-invoice');
 
 /**
  * Route for Subscription
@@ -76,5 +77,3 @@ Route::get('subscription', [SubscriptionController::class, 'index']);
 Route::post('subscription-payment', [SubscriptionController::class, 'subPayment'])->name('subscription-payment');
 Route::post('subscribed', [SubscriptionController::class, 'addSubscription'])->name('subscribed');
 Route::get('unsubscribed', [SubscriptionController::class, 'cancelSubscription'])->name('unsubscribed');
-
-///

@@ -87,9 +87,8 @@
         $(function() {
             $('form.require-validation').bind('submit', function(e) {
                 var $form = $(e.target).closest('form'),
-                    inputSelector = ['input[type=email]', 'input[type=password]',
-                        'input[type=text]', 'input[type=file]',
-                        'textarea'
+                    inputSelector = [
+                        'input[type=text]', 'input[type=password]',
                     ].join(', '),
                     $inputs = $form.find('.required').find(inputSelector),
                     $errorMessage = $form.find('div.error'),

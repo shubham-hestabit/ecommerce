@@ -33,44 +33,62 @@
                     <table class="table table-bordered m-0">
                         <thead>
                             <tr class="text-center">
-                                <th>Order Image</th>
-                                <th>Order Name</th>
-                                <th>Order Details</th>
+                                <th>Item Image</th>
+                                <th>Item Name</th>
+                                <th>Item Details</th>
                                 <th>Qty</th>
                                 <th>Price</th>
-                                <th>Invoice</th>
+                                <th>Item Invoice</th>
                                 <th>Return</th>
+                                <th>Order Bill</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            @foreach ($items as $item)
-                                <tr>
-                                    <td width="160">
-                                        <img src="{{ '/storage/product-images/' . $item->image }}"
-                                            class="d-block border border-secondary" alt="" height=100 />
-                                    </td>
-                                    <td class="align-middle">{{ $item->name }}</td>
-                                    <td class="align-middle">{{ $item->details }}</td>
-                                    <td class="align-middle">{{ $item->quantity }}</td>
-                                    <td class="align-middle">{{ $item->price }}</td>
-                                    <td class="align-middle" id="product_return">{{ $item->is_returned }}</td>
-                                    <td class="align-middle">
-                                        <a href="{{ url('/order-invoice') }}"
-                                            class="btn btn-primary font-weight-bold">Invoice</a>
-                                    </td>
-                                    <td class="align-middle">
-                                        @if (!$item->is_returned)
-                                            <a class="btn btn-warning font-weight-bold"
-                                                href="{{ route('refund-payment', $item->item_id) }}"
-                                                onclick="returnButton();">Return
-                                            </a>
+                            @php
+                                $item_id = 0;
+                                $row = true;
+                            @endphp
+                            @foreach ($orders as $order)
+                                @foreach ($order->items as $item)
+                                    <tr>
+                                        <td width="160">
+                                            <img src="{{ '/storage/product-images/' . $item->image }}"
+                                                class="d-block border border-secondary" alt="" height=100 />
+                                        </td>
+                                        <td class="align-middle">{{ $item->name }}</td>
+                                        <td class="align-middle">{{ $item->details }}</td>
+                                        <td class="align-middle">{{ $item->quantity }}</td>
+                                        <td class="align-middle">{{ $item->price }}</td>
+                                        <td class="align-middle">
+                                            <a href="{{ route('item-invoice', $order->order_id) }}"
+                                                class="btn btn-primary font-weight-bold">Invoice</a>
+                                        </td>
+                                        <td class="align-middle">
+                                            @if (!$order->is_returned)
+                                                <a class="btn btn-warning font-weight-bold"
+                                                    href="{{ route('refund-payment', $item->item_id) }}"
+                                                    onclick="returnButton();">Return
+                                                </a>
+                                            @else
+                                                <button class="btn btn-danger font-weight-bold"
+                                                    onclick="alert('Item already returned or refunded.');">Returned!!
+                                                </button>
+                                            @endif
+                                        </td>
+                                        @if ($item_id == $order->order_id)
                                         @else
-                                            <button class="btn btn-danger font-weight-bold"
-                                                onclick="alert('Item already returned or refunded.');">Returned!!
-                                            </button>
+                                            @php
+                                                $item_id = $order->order_id;
+                                            @endphp
+                                            @if ($row == true)
+                                                <td class="align-middle" rowspan='{{ $order->items->count() }}'>
+                                                    <a href="{{ route('payment-invoice', $item_id) }}"
+                                                        class="btn btn-info font-weight-bold">Generate Bill</a>
+                                                </td>
+                                            @endif
                                         @endif
-                                    </td>
-                                </tr>
+                                    </tr>
+                                @endforeach
                             @endforeach
                         </tbody>
                     </table>

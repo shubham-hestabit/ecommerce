@@ -32,7 +32,7 @@ class Order extends Model
      */
     public function items(){
 
-        return $this->hasMany('App\Models\Items');
+        return $this->hasMany('App\Models\Item', 'order_id');
 
     }
 }

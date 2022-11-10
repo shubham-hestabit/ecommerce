@@ -114,6 +114,7 @@ class PaymentController extends Controller
         $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
         $charge = $stripeClient->charges->retrieve($order['charge_id'])->toArray();
 
+        session()->put('charge', $charge);
         $items = Item::where('order_id', $order->order_id)->get();
 
         $subTotal = 0;
@@ -121,13 +122,12 @@ class PaymentController extends Controller
             $subTotal += $item->quantity * $item->price;
         }
 
-        $billing = $charge['shipping'];
         $data = [
             'orderNum' => $order->order_id,
             'cartItems' => $items,
             'date' => date('d-M-Y'),
             'time' => date('h:i:s a'),
-            'billing_address' => $billing, // $charge['billing_details'],
+            'billing_address' => $charge['shipping'], // $charge['billing_details'],
             'shipping_address' => $charge['shipping'],
             'payment_details' => $charge['payment_method_details'],
             'sub_total' => $subTotal,
@@ -135,7 +135,7 @@ class PaymentController extends Controller
             'total_amount' => (($charge['amount'] / 100)),
         ];
 
-        $pdf = PDF::loadView('invoices', $data);
+        $pdf = PDF::loadView('billing_invoice', $data);
         $pdfName = Auth::user()->name . '.pdf';
         return $pdf->stream($pdfName);
     }

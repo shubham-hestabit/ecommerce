@@ -23,7 +23,7 @@ class Category extends Model
      * @method for relationship between models
      */
     public function subCategory(){
-        return $this->hasMany('App\Models\SubCategory');
+        return $this->hasMany('App\Models\SubCategory', 'c_id');
     }
 
 }

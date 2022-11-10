@@ -55,7 +55,7 @@
 <body>
     <div class='container'>
         <div class="invoice-title">
-            <h2>Invoice</h2>
+            <h2>Billing Invoice</h2>
             <h3 class="pull-right">Order# {{ $orderNum }}</h3>
         </div>
         <hr>

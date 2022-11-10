@@ -7,56 +7,56 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Order Invoice</title>
     <style>
-    body {
-        font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !important;
-        letter-spacing: -0.3px;
-    }
+        body {
+            font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !important;
+            letter-spacing: -0.3px;
+        }
 
-    .invoice-title h2 {
-        font-size: 30px;
-        text-align: center;
-    }
+        .invoice-title h2 {
+            font-size: 30px;
+            text-align: center;
+        }
 
-    .invoice-title h3 {
-        text-align: center;
-    }
+        .invoice-title h3 {
+            text-align: center;
+        }
 
-    .shipping {
-        margin-top: -100px;
-        text-align: right;
-    }
+        .shipping {
+            margin-top: -100px;
+            text-align: right;
+        }
 
-    .payment {
-        margin-top: 30px;
-    }
+        .date {
+            text-align: right;
+        }
 
-    .date {
-        margin-top: -50px;
-        text-align: right;
-    }
+        .panel-title {
+            margin-top: 20px;
+            font-size: 23px;
+            text-align: center;
+        }
 
-    .panel-title {
-        margin-top: 20px;
-        font-size: 23px;
-        text-align: center;
-    }
-
-    table,
-    th,
-    td {
-        border: 2px solid black;
-        border-collapse: collapse;
-        text-align: center;
-        height: 30px;
-    }
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            height: 30px;
+        }
     </style>
 </head>
 
 <body>
     <div class='container'>
-        {{--<!-- <div class="invoice-title">
-            <h2>Invoice</h2>
-            <h3 class="pull-right">Order# {{ 5 }}</h3>
+        <div class="date">
+            <address>
+                <strong>Order Date:</strong><br>{{ $date }}<br>{{ $time }}<br>
+            </address>
+        </div>
+        <div class="invoice-title">
+            <h2>Item Invoice</h2>
+            <h3 class="pull-right">Item Number - {{ $itemId }}</h3>
         </div>
         <hr>
         <div class="billing">
@@ -77,22 +77,8 @@
                 {{ $shipping_address['address']['country'] }},{{ $shipping_address['address']['postal_code'] }}<br>
             </address>
         </div>
-        <div class="payment">
-            <address>
-                <strong>Payment Method:</strong><br>
-                {{ $payment_details['card']['brand'] }} ending xxxx{{ $payment_details['card']['last4'] }}<br>
-                pay through: {{ $payment_details['type'] }}<br>
-            </address>
-        </div>
-        <div class="date">
-            <address>
-                <strong>Order Date:</strong><br>{{ $date }}<br>{{ $time }}<br>
-            </address>
-        </div> -->--}}
     </div>
-
     <hr>
-
     <div class="container">
         <h3 class="panel-title"><strong>Order Summary</strong></h3>
         <table style="width:100%">
@@ -105,21 +91,11 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($cartItems as $item)
                 <tr>
-                    <td>{{ $item->name }}</td>
-                    <td>{{ $item->attributes->details }}</td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>${{ number_format($item->price, 2) }}</td>
-                </tr>
-                @endforeach
-                <tr>
-                    <td colspan="3" style="text-align:right;"><strong>Subtotal</strong>&nbsp;&nbsp;</td>
-                    <td><strong>${{ number_format($sub_total, 2) }}</strong></td>
-                </tr>
-                <tr>
-                    <td colspan="3" style="text-align:right;"><strong>Shipping</strong>&nbsp;&nbsp;</td>
-                    <td><strong>${{ number_format($shipping_charge, 2) }}</strong></td>
+                    <td>{{ $orderedItems->name }}</td>
+                    <td>{{ $orderedItems->details }}</td>
+                    <td>{{ $orderedItems->quantity }}</td>
+                    <td>${{ number_format($orderedItems->price, 2) }}</td>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align:right;"><strong>Total</strong>&nbsp;&nbsp;</td>

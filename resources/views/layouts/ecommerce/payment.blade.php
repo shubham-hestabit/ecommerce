@@ -90,11 +90,11 @@
                                         <img class="ml-2" width="45px"
                                             src="https://cdn-icons-png.flaticon.com/128/5968/5968382.png" alt="Stripe" />
                                         <!-- <img class="ml-2" width="45px"
-                                            src="https://cdn-icons-png.flaticon.com/128/825/825464.png" alt="Mastercard" /> -->
+                                                            src="https://cdn-icons-png.flaticon.com/128/825/825464.png" alt="Mastercard" /> -->
                                         <img class="ml-2" width="45px"
                                             src="https://cdn-icons-png.flaticon.com/128/1440/1440517.png" alt="PayPal" />
                                         <!-- <img class="ml-2" width="45px"
-                                            src="https://cdn-icons-png.flaticon.com/128/349/349230.png" alt="Discovery" />-->
+                                                            src="https://cdn-icons-png.flaticon.com/128/349/349230.png" alt="Discovery" />-->
 
                                         <div class="form-outline form-white mt-2 required">
                                             <label class="form-label">Cardholder's Name</label>
@@ -181,9 +181,9 @@
         $(function() {
             $('form.require-validation').bind('submit', function(e) {
                 var $form = $(e.target).closest('form'),
-                    inputSelector = ['input[type=email]', 'input[type=password]',
-                        'input[type=text]', 'input[type=file]',
-                        'textarea'
+                    inputSelector = [
+                        'input[type=email]', 'input[type=password]',
+                        'input[type=text]', 'input[type=file]', 'textarea'
                     ].join(', '),
                     $inputs = $form.find('.required').find(inputSelector),
                     $errorMessage = $form.find('div.error'),

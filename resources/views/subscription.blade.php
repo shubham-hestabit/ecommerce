@@ -127,7 +127,7 @@
             }, 7000);
         </script>
         <div class="row ml-5">
-            <div class="col-md-4 col-sm-6 mt-5 ml-5">
+            <div class="col-md-4 mt-5 ml-5">
                 <div class="pricingTable mt-5">
                     <div class="pricingTable-header">
                         <h3 class="title">General</h3>
@@ -138,11 +138,17 @@
                         <li class="disable">Return Available</li>
                     </ul>
                     <div class="price-value">
-                        <button type="button" style="border: none">$0/Month</button>
+                        @if (!Auth::user()->is_subscribed)
+                            <button type="button" style="border: none"
+                                onclick="alert('This plan is already ative.');">$0/Month</button>
+                        @else
+                            <button type="button" style="border: none"
+                                onclick="alert('You already subscribed our premium plan.');">$0/Month</button>
+                        @endif
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6 mt-5 ml-5">
+            <div class="col-md-4 mt-5 ml-5">
                 <div class="pricingTable purple mt-5">
                     <div class="pricingTable-header">
                         <h3 class="title">Premium</h3>
