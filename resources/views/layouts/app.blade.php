@@ -30,15 +30,28 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button">
                         <i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('home') }}" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('category') }}" class="nav-link">Category</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('product') }}" class="nav-link">Products</a>
-                </li>
+
+                @if (auth()->user()->role_id == 1)
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="{{ route('home') }}" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="{{ url('category') }}" class="nav-link">Category</a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="{{ url('product') }}" class="nav-link">Products</a>
+                    </li>
+                @else
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="{{ url('product') }}" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="{{ route('orders') }}" class="nav-link">Your Orders</a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="{{ url('subscription') }}" class="nav-link">Subscription</a>
+                    </li>
+                @endif
             </ul>
 
             <!-- SEARCH FORM -->
@@ -77,7 +90,7 @@
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            <a href="{{ route('user-profile') }}" class="btn btn-default btn-flat">Profile</a>
                             <a href="#" class="btn btn-default btn-flat float-right"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Sign out

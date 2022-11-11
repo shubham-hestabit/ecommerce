@@ -20,8 +20,9 @@ return new class extends Migration
             $table->boolean('is_subscribed')->default(0);
             $table->string('subscription_id')->nullable();
             $table->unsignedBigInteger('role_id')->default(2);
-            $table->foreign('role_id')->references('role_id')->on('roles');
+            $table->foreign('role_id')->references('role_id')->on('roles')->onDelete('cascade');
             $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

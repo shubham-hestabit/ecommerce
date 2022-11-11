@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Models\User;
 
 class RegisterController extends Controller
 {
@@ -67,7 +69,24 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'role_id' => $data['radioBtn'],
             'password' => Hash::make($data['password']),
+        ]);
+    }
+
+    protected function update(Request $request)
+    {
+        $userData = User::findOrFail(Auth::user()->id);
+        return $userData->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => [
+                'street' => $request->street,
+                'city' => $request->city,
+                'state' => $request->state,
+                'zipCode' => $request->zipCode,
+            ],
         ]);
     }
 }
