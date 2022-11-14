@@ -70,23 +70,30 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
-                            class="user-image img-circle elevation-2" alt="User Image">
+                        @if (Auth::user()->profile_pic == null)
+                            <img src="{{ 'storage/user.png' }}" class="user-image img-circle elevation-2"
+                                alt="User Image">
+                        @else
+                            <img src="{{ '/storage/user-images/' . auth()->user()->profile_pic }}"
+                                class="user-image img-circle elevation-2" alt="User Image">
+                        @endif
                         <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- User image -->
                         <li class="user-header bg-primary">
-                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
-                                class="user-image img-circle elevation-2" alt="User Image">
-                            <p>
-                                {{ Auth::user()->name }}
-                                @php
-                                    $view_date = Auth::user()->created_at;
-                                    $date = date('d-m-Y', strtotime($view_date));
-                                @endphp
-                                <small>Member since {{ $date }}</small>
-                            </p>
+                            @if (Auth::user()->profile_pic == null)
+                                <img src="{{ 'storage/user.png' }}" class="user-image img-circle elevation-2"
+                                    alt="User Image">
+                            @else
+                                <img src="{{ '/storage/user-images/' . auth()->user()->profile_pic }}"
+                                    class="user-image img-circle elevation-2" alt="User Image">
+                            @endif
+                            @php
+                                $view_date = Auth::user()->created_at;
+                                $date = date('d-M-y h:i:s A', strtotime($view_date));
+                            @endphp
+                            <p>{{ Auth::user()->name }}<small>Member since: {{ $date }}</small></p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">

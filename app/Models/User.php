@@ -21,12 +21,8 @@ class User extends Authenticatable
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'is_subscribed',
-        'subscription_id',
-        'role_id', 
+        'name', 'email', 'phone', 'profile_pic', 'password', 
+         'is_subscribed', 'subscription_id', 'role_id'
     ];
 
     /**
@@ -51,9 +47,9 @@ class User extends Authenticatable
     /**
      * @method for relationship between models
      */
-    public function order(){
+    public function order()
+    {
 
         return $this->hasMany('App\Models\Order', 'user_id');
-
     }
 }

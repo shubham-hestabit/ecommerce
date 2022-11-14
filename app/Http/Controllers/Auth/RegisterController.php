@@ -54,6 +54,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'numeric', 'digits:10'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -69,24 +70,9 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'role_id' => $data['radioBtn'],
             'password' => Hash::make($data['password']),
-        ]);
-    }
-
-    protected function update(Request $request)
-    {
-        $userData = User::findOrFail(Auth::user()->id);
-        return $userData->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'address' => [
-                'street' => $request->street,
-                'city' => $request->city,
-                'state' => $request->state,
-                'zipCode' => $request->zipCode,
-            ],
         ]);
     }
 }

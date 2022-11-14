@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone');
+            $table->string('profile_pic')->nullable();
+            $table->longText('address')->nullable();
             $table->boolean('is_subscribed')->default(0);
             $table->string('subscription_id')->nullable();
             $table->unsignedBigInteger('role_id')->default(2);

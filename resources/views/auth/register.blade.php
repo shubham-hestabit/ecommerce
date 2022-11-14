@@ -56,6 +56,19 @@
                         @enderror
                     </div>
 
+                    <div class="input-group mb-3">
+                        <input type="text" name="phone" value="{{ old('phone') }}" maxlength="10"
+                            class="form-control @error('phone') is-invalid @enderror" placeholder="Phone">
+                        <div class="input-group-append">
+                            <div class="input-group-text"><span class="fas fa-phone-alt"></span></div>
+                        </div>
+                        @error('phone')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
                     <div class="input-group mb-3 justify-content-around">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="radioBtn" value="1"

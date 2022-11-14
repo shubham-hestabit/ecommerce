@@ -5,7 +5,7 @@
 <div class="container-fluid py-2">
     <div class="small-box bg-info col-sm-4">
         <div class="inner">
-            <h3>{{ $cat_count }}</h3>
+            <h3>{{ $category_count }}</h3>
             <p>Total Categories</p>
         </div>
         <div class="icon">
@@ -16,7 +16,7 @@
 
     <div class="small-box bg-success col-sm-4">
         <div class="inner">
-            <h3>{{ $sub_cat_count }}</h3>
+            <h3>{{ $sub_category_count }}</h3>
             <p>Total Sub Categories</p>
         </div>
         <div class="icon">

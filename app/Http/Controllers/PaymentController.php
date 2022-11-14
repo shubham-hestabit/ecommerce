@@ -84,7 +84,6 @@ class PaymentController extends Controller
             $order_id = $order->order_id;
             return view('layouts.ecommerce.payment.thankyou', compact('order_id'));
         } catch (\Exception $e) {
-            dd($e->getMessage());
             session()->flash('error', $e->getMessage());
             return back();
         }

@@ -31,8 +31,9 @@ Route::get('/', function () {
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Auth::routes();
 
-// Profile update Route
-Route::view('user-profile', 'auth.user_profile')->name('user-profile');
+// User Profile update Route
+Route::get('user-profile', [HomeController::class, 'userProfile'])->name('user-profile');
+Route::post('user-profile-update', [HomeController::class, 'updateUserProfile'])->name('update-user-profile');
 
 /**
  * CRUD Route for Category Resource

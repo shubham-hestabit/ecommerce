@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Product;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -27,12 +28,55 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $cat_count = Category::count();
+        $category_count = Category::count();
 
-        $sub_cat_count = SubCategory::count();
-        
+        $sub_category_count = SubCategory::count();
+
         $product_count = Product::count();
-        
-        return view('home')->with(compact('cat_count', 'sub_cat_count', 'product_count'));
+
+        return view('home')->with(compact('category_count', 'sub_category_count', 'product_count'));
+    }
+
+    public function userProfile(Request $request)
+    {
+        $id = auth()->user()->id;
+        $user = User::findOrFail(auth()->user()->id);
+        $userAddress = json_decode($user->address);
+        return view('auth.user_profile', compact('user', 'userAddress'));
+    }
+
+    public function updateUserProfile(Request $request)
+    {
+        try {
+            $id = auth()->user()->id;
+            $userData = User::findOrFail($id);
+            
+            $userData->name = $request->name ?? $userData->name;
+            $userData->email = $request->email ?? $userData->email;
+            $userData->phone = $request->phone ?? $userData->phone;
+            $file = $request->file('user_img');
+            
+            if ($request->hasFile('user_img')) {
+                $extension = $file->extension();
+                $fileName =  $userData->name . '.' . $extension;
+                $file->storeAs('/public/user-images', $fileName);
+                $userData->profile_pic = $fileName;
+            } else {
+                $userData->profile_pic = $userData->profile_pic;
+            }
+            $userData->address = json_encode([
+                'street' => $request->street ?? '',
+                'city' => $request->city ?? '',
+                'state' => $request->state ?? '',
+                'zipcode' => $request->zipCode ?? '',
+            ]);
+            $userData->save();
+            session()->flash('success', "User Data Updated Successfully.");
+            return back();
+        } catch (\Exception $e) {
+            // dd($e->getMessage());
+            session()->flash('error', $e->getMessage());
+            return back();
+        }
     }
 }
