@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use App\Models\Order;
 use App\Models\Item;
 use Stripe\Stripe;
@@ -27,7 +29,7 @@ class PaymentController extends Controller
 
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
-        $customer = Customer::create(array(
+        $customer = Customer::create([
             'name' => $request->name,
             'description' => 'Customer Info',
             'email' => $request->email,
@@ -37,14 +39,14 @@ class PaymentController extends Controller
                 'country' => $request->country,
                 'line1' => $request->address,
                 'postal_code' => $request->zipcode,
-            ]
-        ));
+            ],
+        ]);
 
         try {
-            $charge = Charge::create(array(
+            $charge = Charge::create([
                 'amount' => $request->total * 100,
                 'currency' => 'usd',
-                'customer' =>  $customer['id'],
+                'customer' => $customer['id'],
                 'description' => 'Payment Recieved.',
                 'shipping' => [
                     'name' => $request->name,
@@ -54,8 +56,8 @@ class PaymentController extends Controller
                         'line1' => $request->address,
                         'postal_code' => $request->zipcode,
                     ],
-                ]
-            ));
+                ],
+            ]);
 
             $stripeClient = new StripeClient(env('STRIPE_SECRET_KEY'));
             $stripeClient->charges->retrieve($charge->id);
@@ -75,11 +77,27 @@ class PaymentController extends Controller
                     'price' => $item->price,
                 ]);
             }
+
             session()->flash('success', 'Payment Done Successfully!!');
-            if ($charge->status == "succeeded") {
-                \Cart::session(Auth::user()->id)->clear();
-            } else if ($charge->status == "failed") {
-                session()->flash('error', "Payment failed!!");
+
+            Mail::send(
+                'layouts.ecommerce.payment.order_mail',
+                [
+                    'cartItems' => $cartItems, 'order_id' => $order->order_id,
+                    'shipping' => $charge['shipping'], 'total_amount' => (($charge['amount']) / 100),
+
+                ],
+                function ($message) use ($request) {
+                    $message->to($request->email);
+                    $message->from(env('MAIL_FROM_ADDRESS'), env('APP_NAME'));
+                    $message->subject('Order Confirmation');
+                }
+            );
+
+            if ($charge->status == 'succeeded') {
+                // \Cart::session(Auth::user()->id)->clear();
+            } elseif ($charge->status == 'failed') {
+                session()->flash('error', 'Payment failed!!');
             }
             $order_id = $order->order_id;
             return view('layouts.ecommerce.payment.thankyou', compact('order_id'));
@@ -120,7 +138,7 @@ class PaymentController extends Controller
         foreach ($items as $item) {
             $subTotal += $item->quantity * $item->price;
         }
-        
+
         $data = [
             'orderNum' => $order->order_id,
             'cartItems' => $items,
@@ -130,8 +148,8 @@ class PaymentController extends Controller
             'shipping_address' => $charge['shipping'],
             'payment_details' => $charge['payment_method_details'],
             'sub_total' => $subTotal,
-            'shipping_charge' => ((($charge['amount'] / 100) < 500) ? $shipping_charge = 50 : $shipping_charge = 0),
-            'total_amount' => (($charge['amount'] / 100)),
+            'shipping_charge' => $charge['amount'] / 100 < 500 ? ($shipping_charge = 50) : ($shipping_charge = 0),
+            'total_amount' => $charge['amount'] / 100,
         ];
 
         $pdf = PDF::loadView('layouts.ecommerce.invoice.billing_invoice', $data);

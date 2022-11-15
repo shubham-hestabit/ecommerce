@@ -57,7 +57,7 @@ class SendMail extends Mailable
     public function attachments()
     {
         return [
-            $this->subject('Email From Laravel.')->view('auth.reset_password_email.blade'),
+            $this->subject('Email From Laravel.')->view('auth.reset_password_email'),
         ];
     }
 }

@@ -89,3 +89,7 @@ Route::get('unsubscribed', [SubscriptionController::class, 'cancelSubscription']
 Route::post('forget-password', [ForgotPasswordController::class, 'ForgetPasswordStore'])->name('ForgetPasswordPost');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'ResetPassword'])->name('ResetPasswordGet');
 Route::post('reset-password', [ForgotPasswordController::class, 'ResetPasswordStore'])->name('ResetPasswordPost');
+
+
+//
+Route::view('order-mail', 'layouts.ecommerce.payment.order_mail');

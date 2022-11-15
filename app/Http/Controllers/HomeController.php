@@ -74,7 +74,6 @@ class HomeController extends Controller
             session()->flash('success', "User Data Updated Successfully.");
             return back();
         } catch (\Exception $e) {
-            // dd($e->getMessage());
             session()->flash('error', $e->getMessage());
             return back();
         }
